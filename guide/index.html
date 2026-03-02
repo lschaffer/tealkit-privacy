@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TealKit – User Guide</title>
+  <style>
+    :root {
+      --primary: #00B4D8;
+      --bg:      #0D1B2A;
+      --surface: #162032;
+      --border:  #1E3048;
+      --text:    #E0EAF4;
+      --muted:   #7A96B2;
+      --ok:      #2DD4A4;
+      --warn:    #F0A832;
+      --accent:  #7C6FCD;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      padding: 0 1rem 4rem;
+    }
+    header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    header .logo { font-size: 2.4rem; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+    header .logo span { color: var(--text); }
+    header p { color: var(--muted); margin-top: .4rem; font-size: .95rem; }
+    .lang-switch {
+      position: absolute; top: 1.2rem; right: 1.4rem;
+      display: flex; gap: .5rem;
+    }
+    .lang-switch a {
+      color: var(--muted); font-size: .85rem; text-decoration: none;
+      padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border);
+    }
+    .lang-switch a.active, .lang-switch a:hover { color: var(--primary); border-color: var(--primary); }
+    .container { max-width: 780px; margin: 0 auto; position: relative; }
+
+    nav {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem 1.6rem;
+      margin: 2rem 0;
+    }
+    nav h2 { font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .8rem; }
+    nav ol { padding-left: 1.4rem; }
+    nav ol li { margin-bottom: .3rem; }
+    nav a { color: var(--primary); text-decoration: none; font-size: .95rem; }
+    nav a:hover { text-decoration: underline; }
+
+    section {
+      margin-top: 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem 1.8rem;
+    }
+    section h2 {
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--primary); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .5rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    section h3 { font-size: 1rem; font-weight: 600; color: var(--text); margin: 1.2rem 0 .5rem; }
+    section p { color: var(--text); margin-bottom: .8rem; }
+    section p:last-child { margin-bottom: 0; }
+    section ul, section ol { padding-left: 1.4rem; margin-bottom: .8rem; }
+    section ul li, section ol li { margin-bottom: .35rem; }
+
+    .tip {
+      background: rgba(0,180,216,.08);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 8px 8px 0;
+      padding: .7rem 1rem;
+      margin: .8rem 0;
+      font-size: .93rem;
+      color: var(--text);
+    }
+    .tip strong { color: var(--primary); }
+
+    .step {
+      display: flex; gap: 1rem; align-items: flex-start;
+      margin-bottom: .8rem;
+    }
+    .step-num {
+      min-width: 28px; height: 28px; border-radius: 50%;
+      background: var(--primary); color: #000;
+      font-weight: 800; font-size: .85rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: .1rem;
+    }
+
+    code {
+      background: rgba(255,255,255,.07); border-radius: 4px;
+      padding: 1px 5px; font-size: .88em; font-family: monospace;
+    }
+
+    footer {
+      text-align: center; color: var(--muted); font-size: .85rem;
+      margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--primary); }
+  </style>
+</head>
+<body>
+<div style="position:relative">
+  <div class="lang-switch">
+    <a href="." class="active">EN</a>
+    <a href="de/">DE</a>
+  </div>
+</div>
+
+<header>
+  <div class="container">
+    <div class="logo">Teal<span>Kit</span></div>
+    <p>User Guide &nbsp;·&nbsp; Version 1.0</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <nav>
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#overview">What is TealKit?</a></li>
+      <li><a href="#setup">First-Time Setup</a></li>
+      <li><a href="#playground">Playground</a></li>
+      <li><a href="#tasks">Tasks</a></li>
+      <li><a href="#datasources">Data Sources</a></li>
+      <li><a href="#output">Output Files</a></li>
+      <li><a href="#settings">Settings</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <section id="overview">
+    <h2>1 &nbsp; What is TealKit?</h2>
+    <p>
+      TealKit is a mobile AI agent powered by the <strong>Model Context Protocol (MCP)</strong>.
+      You connect it to any compatible LLM (OpenAI, Anthropic Claude, Google Gemini, Mistral, Ollama …)
+      and your own data sources — documents, emails, websites, files — and let the AI work through
+      multi-step tasks automatically.
+    </p>
+    <p>Everything runs on your device. No data is sent to TealKit servers.</p>
+    <h3>Key concepts</h3>
+    <ul>
+      <li><strong>Playground</strong> — interactive chat with live tool use</li>
+      <li><strong>Tasks</strong> — saved, reusable automation workflows that run in the background</li>
+      <li><strong>MCP Tools</strong> — capabilities the AI can call (web search, email, document search, …)</li>
+      <li><strong>Data Sources</strong> — your personal data connected to the agent (email, files, websites)</li>
+    </ul>
+  </section>
+
+  <!-- 2 -->
+  <section id="setup">
+    <h2>2 &nbsp; First-Time Setup</h2>
+    <div class="step"><div class="step-num">1</div><div>
+      <strong>Open Settings</strong> (gear icon on the home screen or tap <em>First Step</em>
+      if shown). Navigate to <em>LLM Settings</em>.
+    </div></div>
+    <div class="step"><div class="step-num">2</div><div>
+      <strong>Choose your AI provider</strong> — OpenAI, Anthropic, Google Gemini, Mistral,
+      Azure OpenAI, or a local Ollama instance.
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div>
+      <strong>Enter your API key</strong>. Keys are stored in the secure keychain of your device
+      and never leave it.
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div>
+      <strong>Pick a model</strong>, e.g. <code>gpt-4o</code>, <code>claude-3-5-sonnet</code>,
+      or <code>gemini-2.0-flash</code>.
+    </div></div>
+    <div class="step"><div class="step-num">5</div><div>
+      Tap <strong>Save LLM Settings</strong>. The home-screen buttons activate automatically.
+    </div></div>
+    <div class="tip"><strong>Tip:</strong> Ollama users — enter <code>http://localhost:11434</code>
+      as the base URL and leave the API key blank.</div>
+  </section>
+
+  <!-- 3 -->
+  <section id="playground">
+    <h2>3 &nbsp; Playground</h2>
+    <p>
+      The Playground is an interactive chat where you can experiment with the AI and its tools
+      in real time.
+    </p>
+    <h3>Setting up a session</h3>
+    <ol>
+      <li>Write a <strong>system prompt</strong> that describes the AI's role (or tap ✨ to auto-generate one).</li>
+      <li>Select <strong>tools</strong> you want the AI to use (web search, email, documents, …).</li>
+      <li>If you selected <em>Website Search</em> or <em>Documents</em>, tap
+          <strong>Start Indexing</strong> to build the local index first.
+          A red <strong>Stop</strong> button appears during indexing so you can cancel anytime.</li>
+      <li>Optionally add an <strong>initial message</strong> — the first user message sent automatically when the session starts.</li>
+      <li>Tap <strong>Start Playground</strong>. The button is disabled while indexing is active.</li>
+    </ol>
+    <h3>During chat</h3>
+    <ul>
+      <li>Tool calls appear as collapsible cards — tap to expand and see inputs/outputs.</li>
+      <li>Use the attachment button to add images or files to your message.</li>
+      <li>Tap <strong>Reset Chat</strong> to start a new conversation with the same setup.</li>
+    </ul>
+  </section>
+
+  <!-- 4 -->
+  <section id="tasks">
+    <h2>4 &nbsp; Tasks</h2>
+    <p>
+      Tasks are saved automation workflows. Each task packages an LLM, a set of tools,
+      a system prompt, and an initial message — ready to run with a single tap.
+    </p>
+    <h3>Creating a task</h3>
+    <ol>
+      <li>Go to <strong>Tasks → + New Task</strong>.</li>
+      <li>Give it a name and description.</li>
+      <li>Configure the LLM (can differ from your global default).</li>
+      <li>Select tools and configure each one (e.g. website URLs to index, document folder).</li>
+      <li>Write the system prompt and the initial user message.</li>
+      <li>Tap <strong>Save</strong>.</li>
+    </ol>
+    <h3>Running a task</h3>
+    <ul>
+      <li><strong>▶ Run</strong> — runs the task with a progress dialog showing each step.</li>
+      <li><strong>Interactive</strong> — opens a chat conversation wired to this task's config.</li>
+    </ul>
+    <h3>Output files</h3>
+    <p>
+      After each run TealKit saves output files (markdown, HTML, execution log) to a
+      <code>{task-name}_{date-time}/</code> subfolder in your configured output directory.
+      Find them under <em>Output Files</em> on the task detail screen.
+    </p>
+    <div class="tip"><strong>Tip:</strong> Load an example task from the <em>Examples</em>
+      button to get started quickly.</div>
+  </section>
+
+  <!-- 5 -->
+  <section id="datasources">
+    <h2>5 &nbsp; Data Sources</h2>
+    <p>Configure data sources in <em>Settings → Data Sources</em>. Each source can be toggled
+      on/off per task independently.</p>
+    <h3>📧 Email (Gmail / IMAP)</h3>
+    <p>Connect Gmail via OAuth or configure any IMAP server. The AI can search, read, and
+      optionally send emails on your behalf.</p>
+    <h3>🔍 Web Search</h3>
+    <p>Choose from DuckDuckGo (free, no key needed), Serper.dev, or SerpAPI.
+       Enter your API key for premium providers.</p>
+    <h3>📄 Documents</h3>
+    <p>Point to a local folder. TealKit indexes all documents into a local DuckDB database
+      using hybrid semantic + keyword search. Re-index anytime with the index button.</p>
+    <h3>🌐 Website Search</h3>
+    <p>Add up to 3 seed URLs. TealKit crawls and indexes them locally. Index before starting
+      the Playground or Task — you can stop crawling at any time.</p>
+    <h3>📍 Location</h3>
+    <p>Optionally save your GPS coordinates. They are injected into every task so
+      queries like "weather at my location" resolve automatically.
+      Coordinates never leave your device.</p>
+    <h3>☁ Google Drive</h3>
+    <p>Connect with OAuth to search and read files from your Drive.</p>
+    <h3>🖥 SSH</h3>
+    <p>Connect to a remote SSH server. The AI can run shell commands on the remote host.</p>
+  </section>
+
+  <!-- 6 -->
+  <section id="output">
+    <h2>6 &nbsp; Output Files</h2>
+    <p>
+      TealKit saves three files per task run to a timestamped subfolder:
+    </p>
+    <ul>
+      <li><code>output_log.md</code> — the main result in Markdown</li>
+      <li><code>execution_log.md</code> — step-by-step tool call log</li>
+      <li><code>output.html</code> — rendered HTML version of the result</li>
+    </ul>
+    <h3>Configuring the output directory</h3>
+    <p>Go to <em>Settings → General</em> and tap <em>Output Directory</em> to choose a folder.
+      Defaults to an internal app folder if left blank.</p>
+    <h3>Automatic cleanup</h3>
+    <p>Use the <em>Keep files for (days)</em> setting (1–60 days, default 3) to automatically
+      delete old runs. Cleanup runs on app start and every hour.</p>
+  </section>
+
+  <!-- 7 -->
+  <section id="settings">
+    <h2>7 &nbsp; Settings</h2>
+    <ul>
+      <li><strong>LLM Settings</strong> — AI provider, model, API key, temperature</li>
+      <li><strong>Data Sources</strong> — email, search, documents, websites, location</li>
+      <li><strong>External MCP Servers</strong> — connect to Smithery or custom MCP servers</li>
+      <li><strong>General → Output Directory</strong> — where task output files are saved</li>
+      <li><strong>General → Keep files for (days)</strong> — output retention period</li>
+      <li><strong>Language</strong> — English or German</li>
+      <li><strong>Theme</strong> — System / Light / Dark</li>
+    </ul>
+  </section>
+
+  <!-- 8 -->
+  <section id="faq">
+    <h2>8 &nbsp; FAQ</h2>
+    <h3>Does TealKit store my API keys on a server?</h3>
+    <p>No. All API keys are stored exclusively in the device's OS secure keychain (iOS Keychain /
+      Android Keystore) and never leave your device.</p>
+    <h3>Can I use TealKit offline?</h3>
+    <p>Local Ollama models work fully offline. Cloud AI providers (OpenAI, Anthropic, etc.) and
+      web search require an internet connection.</p>
+    <h3>How do I delete all my data?</h3>
+    <p>Uninstall TealKit. All local databases, keys, and settings are removed automatically.</p>
+    <h3>The indexing button is stuck / slow</h3>
+    <p>Large document folders or websites with many pages take time. Tap the red
+      <strong>Stop</strong> button to cancel at any point.</p>
+    <h3>Where is the output folder on Android?</h3>
+    <p>By default, files go to the internal app storage. Set a custom path in
+      <em>Settings → General → Output Directory</em> to save to a visible folder (e.g. Downloads).</p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p>
+      <a href="https://lschaffer.github.io/tealkit-privacy/guide/de/">🇩🇪 Deutsche Version</a>
+      &nbsp;·&nbsp;
+      <a href="https://lschaffer.github.io/tealkit-privacy/">Privacy Policy</a>
+    </p>
+    <p style="margin-top:.5rem">&copy; 2026 TealKit</p>
+  </div>
+</footer>
+</body>
+</html>

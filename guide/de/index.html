@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TealKit – Benutzerhandbuch</title>
+  <style>
+    :root {
+      --primary: #00B4D8;
+      --bg:      #0D1B2A;
+      --surface: #162032;
+      --border:  #1E3048;
+      --text:    #E0EAF4;
+      --muted:   #7A96B2;
+      --ok:      #2DD4A4;
+      --warn:    #F0A832;
+      --accent:  #7C6FCD;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      padding: 0 1rem 4rem;
+    }
+    header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    header .logo { font-size: 2.4rem; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
+    header .logo span { color: var(--text); }
+    header p { color: var(--muted); margin-top: .4rem; font-size: .95rem; }
+    .lang-switch {
+      position: absolute; top: 1.2rem; right: 1.4rem;
+      display: flex; gap: .5rem;
+    }
+    .lang-switch a {
+      color: var(--muted); font-size: .85rem; text-decoration: none;
+      padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border);
+    }
+    .lang-switch a.active, .lang-switch a:hover { color: var(--primary); border-color: var(--primary); }
+    .container { max-width: 780px; margin: 0 auto; position: relative; }
+
+    nav {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem 1.6rem;
+      margin: 2rem 0;
+    }
+    nav h2 { font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .8rem; }
+    nav ol { padding-left: 1.4rem; }
+    nav ol li { margin-bottom: .3rem; }
+    nav a { color: var(--primary); text-decoration: none; font-size: .95rem; }
+    nav a:hover { text-decoration: underline; }
+
+    section {
+      margin-top: 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem 1.8rem;
+    }
+    section h2 {
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--primary); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: .5rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid var(--border);
+    }
+    section h3 { font-size: 1rem; font-weight: 600; color: var(--text); margin: 1.2rem 0 .5rem; }
+    section p { color: var(--text); margin-bottom: .8rem; }
+    section p:last-child { margin-bottom: 0; }
+    section ul, section ol { padding-left: 1.4rem; margin-bottom: .8rem; }
+    section ul li, section ol li { margin-bottom: .35rem; }
+
+    .tip {
+      background: rgba(0,180,216,.08);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 8px 8px 0;
+      padding: .7rem 1rem;
+      margin: .8rem 0;
+      font-size: .93rem;
+      color: var(--text);
+    }
+    .tip strong { color: var(--primary); }
+
+    .step {
+      display: flex; gap: 1rem; align-items: flex-start;
+      margin-bottom: .8rem;
+    }
+    .step-num {
+      min-width: 28px; height: 28px; border-radius: 50%;
+      background: var(--primary); color: #000;
+      font-weight: 800; font-size: .85rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: .1rem;
+    }
+
+    code {
+      background: rgba(255,255,255,.07); border-radius: 4px;
+      padding: 1px 5px; font-size: .88em; font-family: monospace;
+    }
+
+    footer {
+      text-align: center; color: var(--muted); font-size: .85rem;
+      margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--primary); }
+  </style>
+</head>
+<body>
+<div style="position:relative">
+  <div class="lang-switch">
+    <a href="../">EN</a>
+    <a href="." class="active">DE</a>
+  </div>
+</div>
+
+<header>
+  <div class="container">
+    <div class="logo">Teal<span>Kit</span></div>
+    <p>Benutzerhandbuch &nbsp;·&nbsp; Version 1.0</p>
+  </div>
+</header>
+
+<div class="container">
+
+  <nav>
+    <h2>Inhalt</h2>
+    <ol>
+      <li><a href="#overview">Was ist TealKit?</a></li>
+      <li><a href="#setup">Ersteinrichtung</a></li>
+      <li><a href="#playground">Playground</a></li>
+      <li><a href="#tasks">Aufgaben</a></li>
+      <li><a href="#datasources">Datenquellen</a></li>
+      <li><a href="#output">Ausgabedateien</a></li>
+      <li><a href="#settings">Einstellungen</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <section id="overview">
+    <h2>1 &nbsp; Was ist TealKit?</h2>
+    <p>
+      TealKit ist ein mobiler KI-Agent auf Basis des <strong>Model Context Protocol (MCP)</strong>.
+      Du verbindest ihn mit einem beliebigen kompatiblen Sprachmodell (OpenAI, Anthropic Claude,
+      Google Gemini, Mistral, Ollama …) und deinen eigenen Datenquellen –
+      Dokumente, E-Mails, Webseiten, Dateien – und lässt die KI mehrstufige Aufgaben
+      vollautomatisch abarbeiten.
+    </p>
+    <p>Alles läuft auf deinem Gerät. Es werden keine Daten an TealKit-Server gesendet.</p>
+    <h3>Schlüsselbegriffe</h3>
+    <ul>
+      <li><strong>Playground</strong> — interaktiver Chat mit Live-Werkzeugnutzung</li>
+      <li><strong>Aufgaben</strong> — gespeicherte, wiederverwendbare Automatisierungsabläufe</li>
+      <li><strong>MCP-Werkzeuge</strong> — Fähigkeiten, die die KI aufrufen kann (Websuche, E-Mail, Dokumentensuche, …)</li>
+      <li><strong>Datenquellen</strong> — deine persönlichen Daten, die dem Agenten zur Verfügung stehen</li>
+    </ul>
+  </section>
+
+  <!-- 2 -->
+  <section id="setup">
+    <h2>2 &nbsp; Ersteinrichtung</h2>
+    <div class="step"><div class="step-num">1</div><div>
+      <strong>Einstellungen öffnen</strong> (Zahnrad-Symbol auf dem Startbildschirm oder
+      auf <em>Erster Schritt</em> tippen, falls angezeigt). Zu <em>LLM-Einstellungen</em> navigieren.
+    </div></div>
+    <div class="step"><div class="step-num">2</div><div>
+      <strong>KI-Anbieter wählen</strong> — OpenAI, Anthropic, Google Gemini, Mistral,
+      Azure OpenAI oder eine lokale Ollama-Instanz.
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div>
+      <strong>API-Schlüssel eingeben</strong>. Schlüssel werden im sicheren Schlüsselbund des Geräts
+      gespeichert und verlassen es nie.
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div>
+      <strong>Modell auswählen</strong>, z.B. <code>gpt-4o</code>, <code>claude-3-5-sonnet</code>
+      oder <code>gemini-2.0-flash</code>.
+    </div></div>
+    <div class="step"><div class="step-num">5</div><div>
+      Auf <strong>LLM-Einstellungen speichern</strong> tippen. Die Startbildschirmschaltflächen
+      werden automatisch aktiv.
+    </div></div>
+    <div class="tip"><strong>Tipp:</strong> Ollama-Nutzer — <code>http://localhost:11434</code>
+      als Basis-URL eingeben und den API-Schlüssel leer lassen.</div>
+  </section>
+
+  <!-- 3 -->
+  <section id="playground">
+    <h2>3 &nbsp; Playground</h2>
+    <p>
+      Der Playground ist ein interaktiver Chat, in dem du die KI und ihre Werkzeuge
+      in Echtzeit ausprobieren kannst.
+    </p>
+    <h3>Eine Sitzung einrichten</h3>
+    <ol>
+      <li>Einen <strong>System-Prompt</strong> schreiben, der die Rolle der KI beschreibt
+          (oder ✨ tippen für automatische Generierung).</li>
+      <li><strong>Werkzeuge</strong> auswählen, die die KI nutzen soll (Websuche, E-Mail, Dokumente, …).</li>
+      <li>Bei <em>Website-Suche</em> oder <em>Dokumente</em>: auf
+          <strong>Indexierung starten</strong> tippen, um den lokalen Index zu erstellen.
+          Während der Indexierung erscheint ein roter <strong>Stopp</strong>-Button zum Abbrechen.</li>
+      <li>Optional eine <strong>Erste Nachricht</strong> eingeben — diese wird automatisch beim Start gesendet.</li>
+      <li>Auf <strong>Playground starten</strong> tippen. Schaltfläche ist während der Indexierung deaktiviert.</li>
+    </ol>
+    <h3>Während des Chats</h3>
+    <ul>
+      <li>Werkzeugaufrufe erscheinen als aufklappbare Karten — tippen zum Anzeigen von Ein-/Ausgaben.</li>
+      <li>Mit der Anhang-Schaltfläche lassen sich Bilder oder Dateien zur Nachricht hinzufügen.</li>
+      <li><strong>Chat zurücksetzen</strong> startet ein neues Gespräch mit derselben Konfiguration.</li>
+    </ul>
+  </section>
+
+  <!-- 4 -->
+  <section id="tasks">
+    <h2>4 &nbsp; Aufgaben</h2>
+    <p>
+      Aufgaben sind gespeicherte Automatisierungsabläufe. Jede Aufgabe enthält ein Sprachmodell,
+      eine Reihe von Werkzeugen, einen System-Prompt und eine Startnachricht –
+      mit einem einzigen Tipp ausführbar.
+    </p>
+    <h3>Aufgabe erstellen</h3>
+    <ol>
+      <li>Zu <strong>Aufgaben → + Neue Aufgabe</strong> gehen.</li>
+      <li>Name und Beschreibung vergeben.</li>
+      <li>LLM konfigurieren (kann vom globalen Standard abweichen).</li>
+      <li>Werkzeuge auswählen und konfigurieren (z.B. Website-URLs, Dokumentenordner).</li>
+      <li>System-Prompt und erste Nachricht schreiben.</li>
+      <li>Auf <strong>Speichern</strong> tippen.</li>
+    </ol>
+    <h3>Aufgabe ausführen</h3>
+    <ul>
+      <li><strong>▶ Starten</strong> — führt die Aufgabe mit einem Fortschrittsdialog aus.</li>
+      <li><strong>Interaktiv</strong> — öffnet einen Chat mit der Konfiguration dieser Aufgabe.</li>
+    </ul>
+    <h3>Ausgabedateien</h3>
+    <p>
+      Nach jedem Durchlauf speichert TealKit Ausgabedateien (Markdown, HTML, Ausführungsprotokoll)
+      in einem Unterordner <code>{aufgabenname}_{datum-uhrzeit}/</code>
+      im konfigurierten Ausgabeverzeichnis.
+      Zu finden unter <em>Ausgabedateien</em> im Aufgaben-Detailbildschirm.
+    </p>
+    <div class="tip"><strong>Tipp:</strong> Lade eine Beispielaufgabe über den <em>Beispiele</em>-Button
+      für einen schnellen Einstieg.</div>
+  </section>
+
+  <!-- 5 -->
+  <section id="datasources">
+    <h2>5 &nbsp; Datenquellen</h2>
+    <p>Datenquellen werden unter <em>Einstellungen → Datenquellen</em> konfiguriert.
+      Jede Quelle kann pro Aufgabe unabhängig ein-/ausgeschaltet werden.</p>
+    <h3>📧 E-Mail (Gmail / IMAP)</h3>
+    <p>Gmail per OAuth verbinden oder einen beliebigen IMAP-Server konfigurieren.
+      Die KI kann E-Mails suchen, lesen und optional versenden.</p>
+    <h3>🔍 Websuche</h3>
+    <p>Wähle zwischen DuckDuckGo (kostenlos, kein Schlüssel nötig), Serper.dev oder SerpAPI.
+       Für Premium-Anbieter den eigenen API-Schlüssel eingeben.</p>
+    <h3>📄 Dokumente</h3>
+    <p>Auf einen lokalen Ordner zeigen. TealKit indexiert alle Dokumente in eine lokale DuckDB-Datenbank
+      mit hybrider semantischer + Schlüsselwortsuche. Jederzeit neu indexieren.</p>
+    <h3>🌐 Website-Suche</h3>
+    <p>Bis zu 3 Start-URLs hinzufügen. TealKit crawlt und indexiert diese lokal. Vor dem Start des
+      Playgrounds oder der Aufgabe indexieren – das Crawling kann jederzeit gestoppt werden.</p>
+    <h3>📍 Standort</h3>
+    <p>Optional GPS-Koordinaten speichern. Diese werden in jede Aufgabe eingebettet, damit
+      Anfragen wie „Wetter an meinem Standort" automatisch aufgelöst werden.
+      Koordinaten verlassen das Gerät nie.</p>
+    <h3>☁ Google Drive</h3>
+    <p>Per OAuth verbinden, um Dateien aus Google Drive zu durchsuchen und zu lesen.</p>
+    <h3>🖥 SSH</h3>
+    <p>Einen entfernten SSH-Server verbinden. Die KI kann Shell-Befehle auf dem Remote-Host ausführen.</p>
+  </section>
+
+  <!-- 6 -->
+  <section id="output">
+    <h2>6 &nbsp; Ausgabedateien</h2>
+    <p>TealKit speichert drei Dateien pro Aufgabendurchlauf in einem Unterordner mit Zeitstempel:</p>
+    <ul>
+      <li><code>output_log.md</code> — das Hauptergebnis als Markdown</li>
+      <li><code>execution_log.md</code> — schrittweises Werkzeugaufruf-Protokoll</li>
+      <li><code>output.html</code> — gerenderte HTML-Version des Ergebnisses</li>
+    </ul>
+    <h3>Ausgabeverzeichnis konfigurieren</h3>
+    <p>Unter <em>Einstellungen → Allgemein</em> auf <em>Ausgabeverzeichnis</em> tippen,
+      um einen Ordner auszuwählen. Ohne Angabe wird interner App-Speicher verwendet.</p>
+    <h3>Automatische Bereinigung</h3>
+    <p>Die Einstellung <em>Dateien behalten (Tage)</em> (1–60 Tage, Standard 3) löscht alte
+      Durchläufe automatisch. Bereinigung erfolgt beim App-Start und stündlich.</p>
+  </section>
+
+  <!-- 7 -->
+  <section id="settings">
+    <h2>7 &nbsp; Einstellungen</h2>
+    <ul>
+      <li><strong>LLM-Einstellungen</strong> — KI-Anbieter, Modell, API-Schlüssel, Temperatur</li>
+      <li><strong>Datenquellen</strong> — E-Mail, Suche, Dokumente, Webseiten, Standort</li>
+      <li><strong>Externe MCP-Server</strong> — Smithery oder eigene MCP-Server verbinden</li>
+      <li><strong>Allgemein → Ausgabeverzeichnis</strong> — Speicherort für Ausgabedateien</li>
+      <li><strong>Allgemein → Dateien behalten (Tage)</strong> — Aufbewahrungsdauer</li>
+      <li><strong>Sprache</strong> — Englisch oder Deutsch</li>
+      <li><strong>Design</strong> — System / Hell / Dunkel</li>
+    </ul>
+  </section>
+
+  <!-- 8 -->
+  <section id="faq">
+    <h2>8 &nbsp; FAQ</h2>
+    <h3>Speichert TealKit meine API-Schlüssel auf einem Server?</h3>
+    <p>Nein. Alle API-Schlüssel werden ausschließlich im sicheren Schlüsselbund des Betriebssystems
+      (iOS Keychain / Android Keystore) gespeichert und verlassen das Gerät nie.</p>
+    <h3>Kann ich TealKit offline nutzen?</h3>
+    <p>Lokale Ollama-Modelle funktionieren vollständig offline. Cloud-KI-Anbieter (OpenAI, Anthropic usw.)
+      und Websuche benötigen eine Internetverbindung.</p>
+    <h3>Wie lösche ich alle meine Daten?</h3>
+    <p>TealKit deinstallieren. Alle lokalen Datenbanken, Schlüssel und Einstellungen
+      werden automatisch entfernt.</p>
+    <h3>Die Indexierung hängt / läuft langsam</h3>
+    <p>Große Dokumentenordner oder Webseiten mit vielen Seiten brauchen Zeit.
+      Den roten <strong>Stopp</strong>-Button tippen, um jederzeit abzubrechen.</p>
+    <h3>Wo liegt der Ausgabeordner unter Android?</h3>
+    <p>Standardmäßig im internen App-Speicher. Unter
+      <em>Einstellungen → Allgemein → Ausgabeverzeichnis</em> einen sichtbaren Ordner
+      (z.B. Downloads) auswählen.</p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    <p>
+      <a href="https://lschaffer.github.io/tealkit-privacy/guide/">🇬🇧 English Version</a>
+      &nbsp;·&nbsp;
+      <a href="https://lschaffer.github.io/tealkit-privacy/">Datenschutzerklärung</a>
+    </p>
+    <p style="margin-top:.5rem">&copy; 2026 TealKit</p>
+  </div>
+</footer>
+</body>
+</html>
