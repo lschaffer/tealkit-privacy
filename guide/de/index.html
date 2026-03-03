@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TealKit – Benutzerhandbuch</title>
+  <title>TealKit &#x2013; Benutzerhandbuch</title>
   <style>
     :root {
       --primary: #00B4D8;
@@ -33,6 +33,8 @@
     header .logo { font-size: 2.4rem; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
     header .logo span { color: var(--text); }
     header p { color: var(--muted); margin-top: .4rem; font-size: .95rem; }
+    .platform-badges { display: flex; gap: .5rem; justify-content: center; margin-top: .8rem; flex-wrap: wrap; }
+    .badge { font-size: .78rem; padding: 2px 10px; border-radius: 20px; border: 1px solid var(--border); color: var(--muted); }
     .lang-switch {
       position: absolute; top: 1.2rem; right: 1.4rem;
       display: flex; gap: .5rem;
@@ -43,7 +45,6 @@
     }
     .lang-switch a.active, .lang-switch a:hover { color: var(--primary); border-color: var(--primary); }
     .container { max-width: 780px; margin: 0 auto; position: relative; }
-
     nav {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -52,11 +53,10 @@
       margin: 2rem 0;
     }
     nav h2 { font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .8rem; }
-    nav ol { padding-left: 1.4rem; }
-    nav ol li { margin-bottom: .3rem; }
+    nav ol { padding-left: 1.4rem; columns: 2; column-gap: 2rem; }
+    nav ol li { margin-bottom: .3rem; break-inside: avoid; }
     nav a { color: var(--primary); text-decoration: none; font-size: .95rem; }
     nav a:hover { text-decoration: underline; }
-
     section {
       margin-top: 2.5rem;
       background: var(--surface);
@@ -76,7 +76,6 @@
     section p:last-child { margin-bottom: 0; }
     section ul, section ol { padding-left: 1.4rem; margin-bottom: .8rem; }
     section ul li, section ol li { margin-bottom: .35rem; }
-
     .tip {
       background: rgba(0,180,216,.08);
       border-left: 3px solid var(--primary);
@@ -87,11 +86,17 @@
       color: var(--text);
     }
     .tip strong { color: var(--primary); }
-
-    .step {
-      display: flex; gap: 1rem; align-items: flex-start;
-      margin-bottom: .8rem;
+    .note {
+      background: rgba(240,168,50,.07);
+      border-left: 3px solid var(--warn);
+      border-radius: 0 8px 8px 0;
+      padding: .7rem 1rem;
+      margin: .8rem 0;
+      font-size: .93rem;
+      color: var(--text);
     }
+    .note strong { color: var(--warn); }
+    .step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: .8rem; }
     .step-num {
       min-width: 28px; height: 28px; border-radius: 50%;
       background: var(--primary); color: #000;
@@ -99,12 +104,28 @@
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; margin-top: .1rem;
     }
-
+    .pro-tag {
+      display: inline-block; font-size: .72rem; font-weight: 700;
+      color: var(--accent); border: 1px solid var(--accent);
+      border-radius: 4px; padding: 0 5px; margin-left: 6px;
+      vertical-align: middle; letter-spacing: .04em;
+    }
     code {
       background: rgba(255,255,255,.07); border-radius: 4px;
       padding: 1px 5px; font-size: .88em; font-family: monospace;
     }
-
+    pre {
+      background: rgba(0,0,0,.35); border: 1px solid var(--border);
+      border-radius: 8px; padding: .9rem 1.1rem;
+      font-family: monospace; font-size: .85rem;
+      color: var(--ok); overflow-x: auto; margin: .8rem 0;
+      white-space: pre-wrap; word-break: break-word;
+    }
+    table { width: 100%; border-collapse: collapse; margin: .8rem 0; font-size: .9rem; }
+    th { background: rgba(0,0,0,.3); color: var(--muted); font-weight: 600;
+         text-align: left; padding: .5rem .8rem; border-bottom: 1px solid var(--border); }
+    td { padding: .5rem .8rem; border-bottom: 1px solid rgba(30,48,72,.8); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
     footer {
       text-align: center; color: var(--muted); font-size: .85rem;
       margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);
@@ -123,7 +144,12 @@
 <header>
   <div class="container">
     <div class="logo">Teal<span>Kit</span></div>
-    <p>Benutzerhandbuch &nbsp;·&nbsp; Version 1.0</p>
+    <p>Benutzerhandbuch &nbsp;&middot;&nbsp; Version 1.0</p>
+    <div class="platform-badges">
+      <span class="badge">&#x1F916; Android</span>
+      <span class="badge">&#x1F34E; iOS</span>
+      <span class="badge">&#x1FA9F; Windows</span>
+    </div>
   </div>
 </header>
 
@@ -133,10 +159,14 @@
     <h2>Inhalt</h2>
     <ol>
       <li><a href="#overview">Was ist TealKit?</a></li>
+      <li><a href="#platforms">Plattform-Hinweise</a></li>
       <li><a href="#setup">Ersteinrichtung</a></li>
       <li><a href="#playground">Playground</a></li>
       <li><a href="#tasks">Aufgaben</a></li>
       <li><a href="#datasources">Datenquellen</a></li>
+      <li><a href="#mcp">MCP-Server</a></li>
+      <li><a href="#docsearch">Dokumentensuche</a></li>
+      <li><a href="#ssh">SSH</a></li>
       <li><a href="#output">Ausgabedateien</a></li>
       <li><a href="#settings">Einstellungen</a></li>
       <li><a href="#faq">FAQ</a></li>
@@ -148,184 +178,359 @@
     <h2>1 &nbsp; Was ist TealKit?</h2>
     <p>
       TealKit ist ein mobiler KI-Agent auf Basis des <strong>Model Context Protocol (MCP)</strong>.
-      Du verbindest ihn mit einem beliebigen kompatiblen Sprachmodell (OpenAI, Anthropic Claude,
-      Google Gemini, Mistral, Ollama …) und deinen eigenen Datenquellen –
-      Dokumente, E-Mails, Webseiten, Dateien – und lässt die KI mehrstufige Aufgaben
+      Verbinde ihn mit einem beliebigen kompatiblen Sprachmodell (OpenAI, Anthropic Claude,
+      Google Gemini, Mistral, Ollama &hellip;) und deinen eigenen Datenquellen &mdash;
+      Dokumente, E-Mails, Webseiten, Dateien &mdash; und lass die KI mehrstufige Aufgaben
       vollautomatisch abarbeiten.
     </p>
-    <p>Alles läuft auf deinem Gerät. Es werden keine Daten an TealKit-Server gesendet.</p>
-    <h3>Schlüsselbegriffe</h3>
+    <p>Alles l&auml;uft auf deinem Ger&auml;t. Es werden keine Daten an TealKit-Server gesendet.</p>
+    <h3>Schl&uuml;sselbegriffe</h3>
     <ul>
-      <li><strong>Playground</strong> — interaktiver Chat mit Live-Werkzeugnutzung</li>
-      <li><strong>Aufgaben</strong> — gespeicherte, wiederverwendbare Automatisierungsabläufe</li>
-      <li><strong>MCP-Werkzeuge</strong> — Fähigkeiten, die die KI aufrufen kann (Websuche, E-Mail, Dokumentensuche, …)</li>
-      <li><strong>Datenquellen</strong> — deine persönlichen Daten, die dem Agenten zur Verfügung stehen</li>
+      <li><strong>Playground</strong> &mdash; interaktiver Chat mit Live-Werkzeugnutzung</li>
+      <li><strong>Aufgaben</strong> &mdash; gespeicherte, wiederverwendbare Automatisierungsabl&auml;ufe</li>
+      <li><strong>MCP-Werkzeuge</strong> &mdash; F&auml;higkeiten, die die KI aufrufen kann (Websuche, E-Mail, Dokumentensuche &hellip;)</li>
+      <li><strong>Datenquellen</strong> &mdash; deine pers&ouml;nlichen Daten, die dem Agenten zur Verf&uuml;gung stehen</li>
     </ul>
   </section>
 
   <!-- 2 -->
-  <section id="setup">
-    <h2>2 &nbsp; Ersteinrichtung</h2>
-    <div class="step"><div class="step-num">1</div><div>
-      <strong>Einstellungen öffnen</strong> (Zahnrad-Symbol auf dem Startbildschirm oder
-      auf <em>Erster Schritt</em> tippen, falls angezeigt). Zu <em>LLM-Einstellungen</em> navigieren.
-    </div></div>
-    <div class="step"><div class="step-num">2</div><div>
-      <strong>KI-Anbieter wählen</strong> — OpenAI, Anthropic, Google Gemini, Mistral,
-      Azure OpenAI oder eine lokale Ollama-Instanz.
-    </div></div>
-    <div class="step"><div class="step-num">3</div><div>
-      <strong>API-Schlüssel eingeben</strong>. Schlüssel werden im sicheren Schlüsselbund des Geräts
-      gespeichert und verlassen es nie.
-    </div></div>
-    <div class="step"><div class="step-num">4</div><div>
-      <strong>Modell auswählen</strong>, z.B. <code>gpt-4o</code>, <code>claude-3-5-sonnet</code>
-      oder <code>gemini-2.0-flash</code>.
-    </div></div>
-    <div class="step"><div class="step-num">5</div><div>
-      Auf <strong>LLM-Einstellungen speichern</strong> tippen. Die Startbildschirmschaltflächen
-      werden automatisch aktiv.
-    </div></div>
-    <div class="tip"><strong>Tipp:</strong> Ollama-Nutzer — <code>http://localhost:11434</code>
-      als Basis-URL eingeben und den API-Schlüssel leer lassen.</div>
+  <section id="platforms">
+    <h2>2 &nbsp; Plattform-Hinweise</h2>
+    <table>
+      <tr><th>Plattform</th><th>Hinweise</th></tr>
+      <tr>
+        <td><strong>Android</strong></td>
+        <td>Ausgabedateien landen standardm&auml;&szlig;ig im internen App-Speicher. Unter
+          <em>Einstellungen &rarr; Allgemein &rarr; Ausgabeverzeichnis</em> kann ein sichtbarer Ordner
+          (z.&nbsp;B. Downloads) gew&auml;hlt werden. Hintergrundaufgaben laufen &uuml;ber WorkManager.</td>
+      </tr>
+      <tr>
+        <td><strong>iOS</strong></td>
+        <td>API-Schl&uuml;ssel werden in der iOS-Keychain gespeichert. Dateizugriff erfordert einmalig
+          das Tippen auf <em>Verzeichnis w&auml;hlen</em> &mdash; die Genehmigung wird gespeichert.
+          Hintergrundaufgaben nutzen BGTaskScheduler.</td>
+      </tr>
+      <tr>
+        <td><strong>Windows</strong></td>
+        <td>Vollst&auml;ndige Desktop-Erfahrung mit direktem Zugriff auf lokale Dateipfade.
+          SSH-Skripte (<code>.ps1</code> / <code>.sh</code>) im konfigurierten Skriptverzeichnis
+          werden automatisch erkannt.</td>
+      </tr>
+    </table>
   </section>
 
   <!-- 3 -->
-  <section id="playground">
-    <h2>3 &nbsp; Playground</h2>
-    <p>
-      Der Playground ist ein interaktiver Chat, in dem du die KI und ihre Werkzeuge
-      in Echtzeit ausprobieren kannst.
-    </p>
-    <h3>Eine Sitzung einrichten</h3>
-    <ol>
-      <li>Einen <strong>System-Prompt</strong> schreiben, der die Rolle der KI beschreibt
-          (oder ✨ tippen für automatische Generierung).</li>
-      <li><strong>Werkzeuge</strong> auswählen, die die KI nutzen soll (Websuche, E-Mail, Dokumente, …).</li>
-      <li>Bei <em>Website-Suche</em> oder <em>Dokumente</em>: auf
-          <strong>Indexierung starten</strong> tippen, um den lokalen Index zu erstellen.
-          Während der Indexierung erscheint ein roter <strong>Stopp</strong>-Button zum Abbrechen.</li>
-      <li>Optional eine <strong>Erste Nachricht</strong> eingeben — diese wird automatisch beim Start gesendet.</li>
-      <li>Auf <strong>Playground starten</strong> tippen. Schaltfläche ist während der Indexierung deaktiviert.</li>
-    </ol>
-    <h3>Während des Chats</h3>
-    <ul>
-      <li>Werkzeugaufrufe erscheinen als aufklappbare Karten — tippen zum Anzeigen von Ein-/Ausgaben.</li>
-      <li>Mit der Anhang-Schaltfläche lassen sich Bilder oder Dateien zur Nachricht hinzufügen.</li>
-      <li><strong>Chat zurücksetzen</strong> startet ein neues Gespräch mit derselben Konfiguration.</li>
-    </ul>
+  <section id="setup">
+    <h2>3 &nbsp; Ersteinrichtung</h2>
+    <div class="step"><div class="step-num">1</div><div>
+      <strong>Einstellungen &ouml;ffnen</strong> (Zahnrad-Symbol auf dem Startbildschirm oder
+      auf <em>Erster Schritt</em> tippen, falls angezeigt). Zu <em>LLM-Einstellungen</em> navigieren.
+    </div></div>
+    <div class="step"><div class="step-num">2</div><div>
+      <strong>KI-Anbieter w&auml;hlen</strong> &mdash; OpenAI, Anthropic, Google Gemini, Mistral,
+      Azure OpenAI oder eine lokale Ollama-Instanz.
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div>
+      <strong>API-Schl&uuml;ssel eingeben</strong>. Schl&uuml;ssel werden im sicheren Schl&uuml;sselbund des Ger&auml;ts
+      gespeichert und verlassen es nie.
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div>
+      <strong>Modell ausw&auml;hlen</strong>, z.&nbsp;B. <code>gpt-4o</code>, <code>claude-3-5-sonnet</code>
+      oder <code>gemini-2.0-flash</code>.
+    </div></div>
+    <div class="step"><div class="step-num">5</div><div>
+      Auf <strong>LLM-Einstellungen speichern</strong> tippen. Die Startbildschirm-Schaltfl&auml;chen
+      werden automatisch aktiv.
+    </div></div>
+    <div class="tip"><strong>Tipp:</strong> Ollama-Nutzer &mdash; <code>http://localhost:11434</code>
+      als Basis-URL eingeben und den API-Schl&uuml;ssel leer lassen.</div>
   </section>
 
   <!-- 4 -->
-  <section id="tasks">
-    <h2>4 &nbsp; Aufgaben</h2>
-    <p>
-      Aufgaben sind gespeicherte Automatisierungsabläufe. Jede Aufgabe enthält ein Sprachmodell,
-      eine Reihe von Werkzeugen, einen System-Prompt und eine Startnachricht –
-      mit einem einzigen Tipp ausführbar.
-    </p>
-    <h3>Aufgabe erstellen</h3>
+  <section id="playground">
+    <h2>4 &nbsp; Playground</h2>
+    <p>Der Playground ist ein interaktiver Chat, in dem du die KI und ihre Werkzeuge in Echtzeit ausprobierst.</p>
+    <h3>Eine Sitzung einrichten</h3>
     <ol>
-      <li>Zu <strong>Aufgaben → + Neue Aufgabe</strong> gehen.</li>
-      <li>Name und Beschreibung vergeben.</li>
-      <li>LLM konfigurieren (kann vom globalen Standard abweichen).</li>
-      <li>Werkzeuge auswählen und konfigurieren (z.B. Website-URLs, Dokumentenordner).</li>
-      <li>System-Prompt und erste Nachricht schreiben.</li>
-      <li>Auf <strong>Speichern</strong> tippen.</li>
+      <li>Einen <strong>System-Prompt</strong> schreiben, der die Rolle der KI beschreibt
+          (oder &#x2728; tippen f&uuml;r automatische Generierung).</li>
+      <li><strong>Werkzeuge</strong> ausw&auml;hlen (Websuche, E-Mail, Dokumente &hellip;).</li>
+      <li>Bei <em>Website-Suche</em> oder <em>Dokumente</em>: auf
+          <strong>Indexierung starten</strong> tippen, um den lokalen Index zu erstellen.
+          W&auml;hrend der Indexierung erscheint ein roter <strong>Stopp</strong>-Button &mdash; tippen zum Abbrechen.</li>
+      <li>Optional eine <strong>Erste Nachricht</strong> eingeben &mdash; automatisch beim Start gesendet.</li>
+      <li>Auf <strong>Playground starten</strong> tippen (deaktiviert w&auml;hrend aktiver Indexierung).</li>
     </ol>
-    <h3>Aufgabe ausführen</h3>
+    <h3>W&auml;hrend des Chats</h3>
     <ul>
-      <li><strong>▶ Starten</strong> — führt die Aufgabe mit einem Fortschrittsdialog aus.</li>
-      <li><strong>Interaktiv</strong> — öffnet einen Chat mit der Konfiguration dieser Aufgabe.</li>
+      <li>Werkzeugaufrufe erscheinen als aufklappbare Karten &mdash; tippen zum Anzeigen von Ein-/Ausgaben.</li>
+      <li>Mit der Anhang-Schaltfl&auml;che lassen sich Bilder oder Dateien hinzuf&uuml;gen.</li>
+      <li><strong>Chat zur&uuml;cksetzen</strong> startet ein neues Gespr&auml;ch mit derselben Konfiguration.</li>
     </ul>
-    <h3>Ausgabedateien</h3>
-    <p>
-      Nach jedem Durchlauf speichert TealKit Ausgabedateien (Markdown, HTML, Ausführungsprotokoll)
-      in einem Unterordner <code>{aufgabenname}_{datum-uhrzeit}/</code>
-      im konfigurierten Ausgabeverzeichnis.
-      Zu finden unter <em>Ausgabedateien</em> im Aufgaben-Detailbildschirm.
-    </p>
-    <div class="tip"><strong>Tipp:</strong> Lade eine Beispielaufgabe über den <em>Beispiele</em>-Button
-      für einen schnellen Einstieg.</div>
   </section>
 
   <!-- 5 -->
-  <section id="datasources">
-    <h2>5 &nbsp; Datenquellen</h2>
-    <p>Datenquellen werden unter <em>Einstellungen → Datenquellen</em> konfiguriert.
-      Jede Quelle kann pro Aufgabe unabhängig ein-/ausgeschaltet werden.</p>
-    <h3>📧 E-Mail (Gmail / IMAP)</h3>
-    <p>Gmail per OAuth verbinden oder einen beliebigen IMAP-Server konfigurieren.
-      Die KI kann E-Mails suchen, lesen und optional versenden.</p>
-    <h3>🔍 Websuche</h3>
-    <p>Wähle zwischen DuckDuckGo (kostenlos, kein Schlüssel nötig), Serper.dev oder SerpAPI.
-       Für Premium-Anbieter den eigenen API-Schlüssel eingeben.</p>
-    <h3>📄 Dokumente</h3>
-    <p>Auf einen lokalen Ordner zeigen. TealKit indexiert alle Dokumente in eine lokale DuckDB-Datenbank
-      mit hybrider semantischer + Schlüsselwortsuche. Jederzeit neu indexieren.</p>
-    <h3>🌐 Website-Suche</h3>
-    <p>Bis zu 3 Start-URLs hinzufügen. TealKit crawlt und indexiert diese lokal. Vor dem Start des
-      Playgrounds oder der Aufgabe indexieren – das Crawling kann jederzeit gestoppt werden.</p>
-    <h3>📍 Standort</h3>
-    <p>Optional GPS-Koordinaten speichern. Diese werden in jede Aufgabe eingebettet, damit
-      Anfragen wie „Wetter an meinem Standort" automatisch aufgelöst werden.
-      Koordinaten verlassen das Gerät nie.</p>
-    <h3>☁ Google Drive</h3>
-    <p>Per OAuth verbinden, um Dateien aus Google Drive zu durchsuchen und zu lesen.</p>
-    <h3>🖥 SSH</h3>
-    <p>Einen entfernten SSH-Server verbinden. Die KI kann Shell-Befehle auf dem Remote-Host ausführen.</p>
+  <section id="tasks">
+    <h2>5 &nbsp; Aufgaben</h2>
+    <p>Aufgaben sind gespeicherte Automatisierungsabl&auml;ufe. Jede Aufgabe enth&auml;lt ein Sprachmodell,
+       Werkzeuge, einen System-Prompt und eine Startnachricht &mdash; mit einem Tipp ausf&uuml;hrbar.</p>
+
+    <h3>Aufgabe erstellen</h3>
+    <ol>
+      <li>Zu <strong>Aufgaben &rarr; + Neue Aufgabe</strong> gehen.</li>
+      <li>Name und Beschreibung vergeben.</li>
+      <li>LLM konfigurieren (kann vom globalen Standard abweichen).</li>
+      <li>Werkzeuge ausw&auml;hlen und konfigurieren (Website-URLs, Dokumentenordner usw.).</li>
+      <li>System-Prompt und erste Nachricht schreiben.</li>
+      <li>Auf <strong>Speichern</strong> tippen.</li>
+    </ol>
+
+    <h3>Ausf&uuml;hrungsmodi</h3>
+    <ul>
+      <li><strong>&#x25B6; Starten</strong> &mdash; f&uuml;hrt die Aufgabe sofort mit Fortschrittsdialog aus.</li>
+      <li><strong>Interaktiv / Ausprobieren</strong> &mdash; &ouml;ffnet die Aufgabenkonfiguration als Playground-Chat.
+          Ideal zum Testen oder Verfeinern einer Aufgabe vor dem Planen.</li>
+    </ul>
+
+    <h3>Cron-Planung <span class="pro-tag">PRO</span></h3>
+    <p>Aufgaben k&ouml;nnen automatisch nach einem Zeitplan ausgef&uuml;hrt werden:</p>
+    <ul>
+      <li><strong>St&uuml;ndlich</strong> &mdash; jede Stunde</li>
+      <li><strong>T&auml;glich</strong> &mdash; einmal pro Tag zur gew&auml;hlten Uhrzeit</li>
+      <li><strong>W&ouml;chentlich</strong> &mdash; am gew&auml;hlten Wochentag und Uhrzeit</li>
+      <li><strong>Benutzerdefinierter Cron-Ausdruck</strong> &mdash; vollst&auml;ndige Cron-Syntax
+          (z.&nbsp;B. <code>0 8 * * 1-5</code> f&uuml;r werkt&auml;gliche Morgen)</li>
+    </ul>
+    <div class="tip"><strong>Tipp:</strong> Geplante Aufgaben laufen auch im Hintergrund, wenn die App minimiert ist.
+      Stelle sicher, dass die Akku-Optimierung die App nicht beendet.</div>
+
+    <h3>Ausf&uuml;hrungsstatistiken</h3>
+    <p>Einen abgeschlossenen Eintrag antippen, um detaillierte Statistiken zu sehen:</p>
+    <table>
+      <tr><th>Kennzahl</th><th>Beschreibung</th></tr>
+      <tr><td>Dauer</td><td>Gesamtlaufzeit des Durchlaufs</td></tr>
+      <tr><td>Status</td><td>Erfolgreich / Fehlgeschlagen / Abgebrochen</td></tr>
+      <tr><td>Token verbraucht</td><td>Anzahl Prompt- und Completion-Token</td></tr>
+      <tr><td>Zeichen</td><td>Zeichenanzahl der Ausgabe</td></tr>
+      <tr><td>Werkzeugaufrufe</td><td>Anzahl der MCP-Werkzeugaufrufe</td></tr>
+      <tr><td>Nachrichten</td><td>Gesamtzahl der Gespr&auml;chsrunden</td></tr>
+    </table>
+
+    <h3>Ausgabeformat</h3>
+    <p>Das Ausgabeformat &uuml;ber den System-Prompt oder die Startnachricht steuern:</p>
+    <ul>
+      <li>Nach <strong>Markdown</strong> (<code>.md</code>), <strong>HTML</strong>, <strong>JSON</strong> oder Nur-Text fragen</li>
+      <li>TealKit speichert das Rohergebnis und eine gerenderte HTML-Vorschau automatisch</li>
+    </ul>
+
+    <h3>E-Mail-Ausgabe <span class="pro-tag">PRO</span></h3>
+    <p>Das Ergebnis nach Abschluss automatisch per E-Mail verschicken.
+       Im Bereich <em>Ausgabe</em> der Aufgabe konfigurieren:</p>
+    <ul>
+      <li><strong>Empf&auml;nger</strong> &mdash; eine oder mehrere E-Mail-Adressen</li>
+      <li><strong>Betreff</strong> &mdash; statischer Text oder dynamisch (Aufgabenname / Datum)</li>
+      <li><strong>Bedingung</strong> &mdash; immer, nur bei Erfolg, oder nur bei nicht-leerer Ausgabe</li>
+    </ul>
+
+    <h3>ZIP-Ausgabe <span class="pro-tag">PRO</span></h3>
+    <p>Den vollst&auml;ndigen Ausgabeordner (Ergebnis + Protokolle + Anh&auml;nge) als ZIP-Datei b&uuml;ndeln.
+       Kombiniert mit E-Mail-Ausgabe kommt das Archiv nach jedem Durchlauf per Mail.</p>
+
+    <h3>Aufgabenverkettung <span class="pro-tag">PRO</span></h3>
+    <p>Mehrere Aufgaben verketten, sodass die Ausgabe einer Aufgabe in die n&auml;chste einflie&szlig;t.
+       Jedes Glied kann eine <em>Bedingung</em> haben, die vom LLM ausgewertet wird &mdash;
+       z.&nbsp;B. <em>&#x201E;Nur fortsetzen, wenn der Bericht dringende Probleme erw&auml;hnt.&#x201C;</em>
+       Im Unteraufgaben-Modus wird die Ausgabe der &uuml;bergeordneten Aufgabe als Kontext &uuml;bergeben.</p>
+    <div class="note"><strong>Beispiel-Kette:</strong>
+       E-Mails abrufen &amp; zusammenfassen &rarr; Wenn Zusammenfassung &#x201E;Rechnung&#x201C; enth&auml;lt &rarr;
+       Buchhaltungsaufgabe ausf&uuml;hren &rarr; ZIP-Ergebnis per E-Mail senden.</div>
+
+    <div class="tip"><strong>Tipp:</strong> &Uuml;ber den <em>Beispiele</em>-Button eine Beispielaufgabe laden,
+      um schnell einzusteigen.</div>
   </section>
 
   <!-- 6 -->
-  <section id="output">
-    <h2>6 &nbsp; Ausgabedateien</h2>
-    <p>TealKit speichert drei Dateien pro Aufgabendurchlauf in einem Unterordner mit Zeitstempel:</p>
-    <ul>
-      <li><code>output_log.md</code> — das Hauptergebnis als Markdown</li>
-      <li><code>execution_log.md</code> — schrittweises Werkzeugaufruf-Protokoll</li>
-      <li><code>output.html</code> — gerenderte HTML-Version des Ergebnisses</li>
-    </ul>
-    <h3>Ausgabeverzeichnis konfigurieren</h3>
-    <p>Unter <em>Einstellungen → Allgemein</em> auf <em>Ausgabeverzeichnis</em> tippen,
-      um einen Ordner auszuwählen. Ohne Angabe wird interner App-Speicher verwendet.</p>
-    <h3>Automatische Bereinigung</h3>
-    <p>Die Einstellung <em>Dateien behalten (Tage)</em> (1–60 Tage, Standard 3) löscht alte
-      Durchläufe automatisch. Bereinigung erfolgt beim App-Start und stündlich.</p>
+  <section id="datasources">
+    <h2>6 &nbsp; Datenquellen</h2>
+    <p>Datenquellen werden unter <em>Einstellungen &rarr; Datenquellen</em> konfiguriert.
+       Jede Quelle kann pro Aufgabe unabh&auml;ngig ein-/ausgeschaltet werden.</p>
+    <h3>&#x1F4E7; E-Mail (Gmail / IMAP)</h3>
+    <p>Gmail per OAuth verbinden oder beliebigen IMAP-Server konfigurieren. Die KI kann E-Mails suchen, lesen und optional senden.</p>
+    <h3>&#x1F50D; Websuche</h3>
+    <p>DuckDuckGo (kostenlos, kein Schl&uuml;ssel n&ouml;tig), Serper.dev oder SerpAPI. F&uuml;r Premium-Anbieter API-Schl&uuml;ssel eingeben.</p>
+    <h3>&#x1F4C4; Dokumente</h3>
+    <p>Auf einen oder mehrere lokale Ordner zeigen. TealKit indexiert alle Dokumente in eine lokale DuckDB-Datenbank
+       mit hybrider semantischer + Schl&uuml;sselwortsuche. Siehe <a href="#docsearch">Dokumentensuche</a> f&uuml;r Details.</p>
+    <h3>&#x1F310; Website-Suche</h3>
+    <p>Bis zu 3 Start-URLs hinzuf&uuml;gen. TealKit crawlt und indexiert diese lokal.
+       Vor dem Start des Playgrounds oder der Aufgabe indexieren &mdash; das Crawling kann jederzeit gestoppt werden.</p>
+    <h3>&#x1F4CD; Standort</h3>
+    <p>Optional GPS-Koordinaten speichern. Diese werden in jede Aufgabe eingebettet, damit
+       Anfragen wie &bdquo;Wetter an meinem Standort&ldquo; automatisch aufgel&ouml;st werden.
+       Koordinaten verlassen das Ger&auml;t nie.</p>
+    <h3>&#x2601; Google Drive</h3>
+    <p>Per OAuth verbinden, um Dateien aus Google Drive zu durchsuchen und zu lesen.</p>
+    <h3>&#x1F5A5; SSH</h3>
+    <p>Einen entfernten SSH-Server verbinden. Siehe den <a href="#ssh">SSH-Abschnitt</a> f&uuml;r alle Details.</p>
   </section>
 
   <!-- 7 -->
-  <section id="settings">
-    <h2>7 &nbsp; Einstellungen</h2>
-    <ul>
-      <li><strong>LLM-Einstellungen</strong> — KI-Anbieter, Modell, API-Schlüssel, Temperatur</li>
-      <li><strong>Datenquellen</strong> — E-Mail, Suche, Dokumente, Webseiten, Standort</li>
-      <li><strong>Externe MCP-Server</strong> — Smithery oder eigene MCP-Server verbinden</li>
-      <li><strong>Allgemein → Ausgabeverzeichnis</strong> — Speicherort für Ausgabedateien</li>
-      <li><strong>Allgemein → Dateien behalten (Tage)</strong> — Aufbewahrungsdauer</li>
-      <li><strong>Sprache</strong> — Englisch oder Deutsch</li>
-      <li><strong>Design</strong> — System / Hell / Dunkel</li>
-    </ul>
+  <section id="mcp">
+    <h2>7 &nbsp; MCP-Server</h2>
+    <p>TealKit wird mit einem Satz eingebauter MCP-Server geliefert und unterst&uuml;tzt externe Server aus dem Ökosystem.</p>
+
+    <h3>Eingebaute Server</h3>
+    <table>
+      <tr><th>Server</th><th>Was er bereitstellt</th></tr>
+      <tr><td><code>documents</code></td><td>Semantische + Schl&uuml;sselwortsuche in lokalen Dokumentenordnern</td></tr>
+      <tr><td><code>website_search</code></td><td>Crawlen und Durchsuchen von indizierten Webseiten</td></tr>
+      <tr><td><code>web_search</code></td><td>Live-Websuche (DuckDuckGo / Serper / SerpAPI)</td></tr>
+      <tr><td><code>email</code></td><td>E-Mails lesen, suchen und senden via Gmail oder IMAP</td></tr>
+      <tr><td><code>google_drive</code></td><td>Dateien in Google Drive durchsuchen und lesen</td></tr>
+      <tr><td><code>location</code></td><td>Aktuelle GPS-Koordinaten an das LLM &uuml;bergeben</td></tr>
+      <tr><td><code>ssh</code></td><td>Shell-Befehle auf entfernten SSH-Hosts ausf&uuml;hren</td></tr>
+      <tr><td><code>weather</code></td><td>Aktuelles Wetter und Vorhersage (nutzt Standort, falls verf&uuml;gbar)</td></tr>
+      <tr><td><code>calculator</code></td><td>Pr&auml;zise arithmetische Auswertung</td></tr>
+      <tr><td><code>datetime</code></td><td>Aktuelles Datum, Uhrzeit und Zeitzoneinformation</td></tr>
+    </table>
+
+    <h3>Externe MCP-Server</h3>
+    <p>Verbinde dich mit jedem MCP-kompatiblen Server &mdash; z.&nbsp;B. &uuml;ber
+       <a href="https://smithery.ai" target="_blank" rel="noopener">Smithery.ai</a>.
+       Unter <em>Einstellungen &rarr; Externe MCP-Server</em> eine Server-URL oder einen Paketnamen eingeben.
+       Externe Server erweitern die KI um Kalender, Aufgabenmanager, Datenbanken und mehr.</p>
+
+    <h3>JS-Mini-MCP-Server <span class="pro-tag">DEMNÄCHST</span></h3>
+    <p>Eigene leichtgewichtige MCP-Server als kleines JavaScript-Snippet direkt in der App schreiben.
+       Das Snippet l&auml;uft in einer Sandbox und kann beliebige benutzerdefinierte Werkzeuge
+       f&uuml;r die KI bereitstellen &mdash; ideal f&uuml;r einmalige Integrationen oder private APIs.</p>
   </section>
 
   <!-- 8 -->
+  <section id="docsearch">
+    <h2>8 &nbsp; Dokumentensuche</h2>
+    <p>TealKits Dokumentensuche verwendet eine lokale DuckDB-Datenbank mit hybrider semantischer
+       Vektoreinbettung + BM25-Schl&uuml;sselwortsuche &mdash; keine Cloud-Abh&auml;ngigkeiten.</p>
+
+    <h3>Ordner hinzuf&uuml;gen</h3>
+    <ol>
+      <li>Auf <strong>+ Verzeichnis w&auml;hlen</strong> in den Dokument-Einstellungen tippen.</li>
+      <li>Schnellzugriff-Chips f&uuml;r h&auml;ufige Ordner (Downloads, Dokumente, Desktop) nutzen.</li>
+      <li>Mehrere Ordner hinzuf&uuml;gen &mdash; alle werden gemeinsam in einen einheitlichen Index aufgenommen.</li>
+    </ol>
+
+    <h3>Dateitypfilter</h3>
+    <p>Mit dem Chip-Selektor ausw&auml;hlen, welche Dateitypen eingeschlossen werden. Unterst&uuml;tzte Typen:</p>
+    <p>
+      <code>pdf</code> <code>docx</code> <code>doc</code> <code>txt</code> <code>md</code>
+      <code>html</code> <code>htm</code> <code>csv</code> <code>json</code> <code>xml</code>
+      <code>xlsx</code> <code>xls</code> <code>pptx</code> <code>ppt</code>
+      <code>rtf</code> <code>odt</code> <code>ods</code> <code>odp</code>
+      <code>epub</code> <code>mobi</code> <code>log</code>
+    </p>
+    <p><strong>Alle</strong> w&auml;hlt jeden Typ aus, <strong>Zur&uuml;cksetzen</strong> hebt alle Auswahlen auf.</p>
+
+    <h3>Indexierung</h3>
+    <ul>
+      <li>Auf <strong>Indexierung starten</strong> tippen, um den Index zu erstellen oder zu aktualisieren.</li>
+      <li>W&auml;hrend der Indexierung erscheint ein roter <strong>Stopp</strong>-Button &mdash; tippen zum Abbrechen.</li>
+      <li>Der Index wird lokal gespeichert; nur nach &Auml;nderungen an Dateien muss neu indexiert werden.</li>
+    </ul>
+    <div class="tip"><strong>Tipp:</strong> Bei sehr gro&szlig;en Ordnern &uuml;ber Nacht indexieren, w&auml;hrend das Ger&auml;t geladen wird.</div>
+  </section>
+
+  <!-- 9 -->
+  <section id="ssh">
+    <h2>9 &nbsp; SSH</h2>
+    <p>Der SSH-Server erm&ouml;glicht der KI, Shell-Befehle auf einem entfernten Host auszuf&uuml;hren.
+       Die Verbindung wird unter <em>Einstellungen &rarr; Datenquellen &rarr; SSH</em> konfiguriert:</p>
+    <ul>
+      <li>Host, Port, Benutzername, Passwort oder Pfad zum privaten Schl&uuml;ssel</li>
+      <li>Optional: Standard-Arbeitsverzeichnis</li>
+    </ul>
+
+    <h3>Was die KI &uuml;ber SSH tun kann</h3>
+    <ul>
+      <li>Beliebige Shell-Befehle ausf&uuml;hren und deren Ausgabe erfassen</li>
+      <li>Systemstatus, Plattennutzung, laufende Prozesse pr&uuml;fen</li>
+      <li>Log-Dateien lesen und Probleme diagnostizieren</li>
+      <li>Dienste starten oder stoppen</li>
+      <li>Benutzerdefinierte Skripte ausf&uuml;hren</li>
+    </ul>
+
+    <h3>LLM-generierte Skripte</h3>
+    <p>Die KI bittet, ein Skript zu schreiben und sofort auszuf&uuml;hren. Beispiel-Prompt:</p>
+    <pre>Verbinde dich mit dem Server, schreibe ein Bash-Skript, das die CPU-Auslastung
+jede 5 Sekunden f&uuml;r 1 Minute erfasst und in /tmp/cpu_bericht.txt speichert,
+und zeige mir dann die Zusammenfassung.</pre>
+    <p>Die KI schreibt das Skript, l&auml;dt es per SSH hoch, f&uuml;hrt es aus und gibt die vollst&auml;ndige Ausgabe zur&uuml;ck &mdash; alles in einem Aufgabendurchlauf.</p>
+
+    <h3>Gespeicherte lokale Skripte</h3>
+    <p>Eigene <code>.sh</code>- oder <code>.ps1</code>-Skripte in das konfigurierte
+       <em>Skriptverzeichnis</em> legen (<em>Einstellungen &rarr; Allgemein &rarr; Skriptverzeichnis</em>).
+       Die KI erkennt alle Skripte automatisch und du kannst sie per Namen in Prompts referenzieren:</p>
+    <pre>F&uuml;hre das Skript "backup_db.sh" auf dem Server aus und sage mir, ob es erfolgreich war.</pre>
+    <div class="tip"><strong>Tipp:</strong> Eine kleine Bibliothek an Wartungsskripten anlegen
+      und die KI per nat&uuml;rlichsprachlicher Anfrage das richtige ausw&auml;hlen lassen.</div>
+  </section>
+
+  <!-- 10 -->
+  <section id="output">
+    <h2>10 &nbsp; Ausgabedateien</h2>
+    <p>TealKit speichert drei Dateien pro Aufgabendurchlauf in einem Unterordner mit Zeitstempel:</p>
+    <ul>
+      <li><code>output_log.md</code> &mdash; das Hauptergebnis als Markdown</li>
+      <li><code>execution_log.md</code> &mdash; schrittweises Werkzeugaufruf-Protokoll</li>
+      <li><code>output.html</code> &mdash; gerenderte HTML-Version des Ergebnisses</li>
+    </ul>
+    <h3>Ausgabeverzeichnis konfigurieren</h3>
+    <p>Unter <em>Einstellungen &rarr; Allgemein</em> auf <em>Ausgabeverzeichnis</em> tippen,
+       um einen Ordner auszuw&auml;hlen. Ohne Angabe wird interner App-Speicher verwendet.</p>
+    <h3>Automatische Bereinigung</h3>
+    <p>Die Einstellung <em>Dateien behalten (Tage)</em> (1&ndash;60 Tage, Standard&nbsp;3) l&ouml;scht alte
+       Durchl&auml;ufe automatisch. Bereinigung erfolgt beim App-Start und st&uuml;ndlich.</p>
+  </section>
+
+  <!-- 11 -->
+  <section id="settings">
+    <h2>11 &nbsp; Einstellungen</h2>
+    <ul>
+      <li><strong>LLM-Einstellungen</strong> &mdash; KI-Anbieter, Modell, API-Schl&uuml;ssel, Temperatur</li>
+      <li><strong>Datenquellen</strong> &mdash; E-Mail, Suche, Dokumente, Webseiten, Standort, SSH</li>
+      <li><strong>Externe MCP-Server</strong> &mdash; Smithery oder eigene MCP-Server verbinden</li>
+      <li><strong>Allgemein &rarr; Ausgabeverzeichnis</strong> &mdash; Speicherort f&uuml;r Ausgabedateien</li>
+      <li><strong>Allgemein &rarr; Skriptverzeichnis</strong> &mdash; lokale Skriptbibliothek f&uuml;r SSH-Aufgaben</li>
+      <li><strong>Allgemein &rarr; Dateien behalten (Tage)</strong> &mdash; Aufbewahrungsdauer der Ausgaben</li>
+      <li><strong>Sprache</strong> &mdash; Englisch oder Deutsch</li>
+      <li><strong>Design</strong> &mdash; System / Hell / Dunkel</li>
+    </ul>
+  </section>
+
+  <!-- 12 -->
   <section id="faq">
-    <h2>8 &nbsp; FAQ</h2>
-    <h3>Speichert TealKit meine API-Schlüssel auf einem Server?</h3>
-    <p>Nein. Alle API-Schlüssel werden ausschließlich im sicheren Schlüsselbund des Betriebssystems
-      (iOS Keychain / Android Keystore) gespeichert und verlassen das Gerät nie.</p>
+    <h2>12 &nbsp; FAQ</h2>
+    <h3>Speichert TealKit meine API-Schl&uuml;ssel auf einem Server?</h3>
+    <p>Nein. Alle API-Schl&uuml;ssel werden ausschlie&szlig;lich im sicheren Schl&uuml;sselbund des Betriebssystems
+       (iOS Keychain / Android Keystore) gespeichert und verlassen das Ger&auml;t nie.</p>
     <h3>Kann ich TealKit offline nutzen?</h3>
-    <p>Lokale Ollama-Modelle funktionieren vollständig offline. Cloud-KI-Anbieter (OpenAI, Anthropic usw.)
-      und Websuche benötigen eine Internetverbindung.</p>
-    <h3>Wie lösche ich alle meine Daten?</h3>
-    <p>TealKit deinstallieren. Alle lokalen Datenbanken, Schlüssel und Einstellungen
-      werden automatisch entfernt.</p>
-    <h3>Die Indexierung hängt / läuft langsam</h3>
-    <p>Große Dokumentenordner oder Webseiten mit vielen Seiten brauchen Zeit.
-      Den roten <strong>Stopp</strong>-Button tippen, um jederzeit abzubrechen.</p>
+    <p>Lokale Ollama-Modelle funktionieren vollst&auml;ndig offline. Cloud-KI-Anbieter und Websuche ben&ouml;tigen eine Internetverbindung.</p>
+    <h3>Wie l&ouml;sche ich alle meine Daten?</h3>
+    <p>TealKit deinstallieren. Alle lokalen Datenbanken, Schl&uuml;ssel und Einstellungen werden automatisch entfernt.</p>
+    <h3>Die Indexierung h&auml;ngt oder ist langsam</h3>
+    <p>Gro&szlig;e Dokumentenordner oder Webseiten mit vielen Seiten brauchen Zeit.
+       Den roten <strong>Stopp</strong>-Button tippen, um jederzeit abzubrechen.</p>
     <h3>Wo liegt der Ausgabeordner unter Android?</h3>
-    <p>Standardmäßig im internen App-Speicher. Unter
-      <em>Einstellungen → Allgemein → Ausgabeverzeichnis</em> einen sichtbaren Ordner
-      (z.B. Downloads) auswählen.</p>
+    <p>Standardm&auml;&szlig;ig im internen App-Speicher. Unter
+       <em>Einstellungen &rarr; Allgemein &rarr; Ausgabeverzeichnis</em> einen sichtbaren Ordner
+       (z.&nbsp;B. Downloads) ausw&auml;hlen.</p>
+    <h3>Wie funktioniert Aufgabenverkettung genau?</h3>
+    <p>Jede verkettete Aufgabe startet, nachdem die vorherige abgeschlossen ist. Eine optionale,
+       LLM-ausgewertete Bedingungszeichenkette steuert, ob die Kette fortgesetzt oder gestoppt wird.
+       Die Ausgabe der vorherigen Aufgabe wird als Kontext an die n&auml;chste &uuml;bergeben.</p>
+    <h3>Was ist der Unterschied zwischen Starten und Interaktiv?</h3>
+    <p><strong>Starten</strong> f&uuml;hrt die Aufgabe autonom aus und speichert das Ergebnis.
+       <strong>Interaktiv</strong> &ouml;ffnet einen vollst&auml;ndigen Chat mit demselben LLM und denselben
+       Werkzeugen &mdash; ideal zum schrittweisen Steuern der KI oder zum Debuggen einer Aufgabe.</p>
   </section>
 
 </div>
@@ -333,9 +538,9 @@
 <footer>
   <div class="container">
     <p>
-      <a href="https://lschaffer.github.io/tealkit-privacy/guide/">🇬🇧 English Version</a>
-      &nbsp;·&nbsp;
-      <a href="https://lschaffer.github.io/tealkit-privacy/">Datenschutzerklärung</a>
+      <a href="https://lschaffer.github.io/tealkit-privacy/guide/">&#x1F1EC;&#x1F1E7; English Version</a>
+      &nbsp;&middot;&nbsp;
+      <a href="https://lschaffer.github.io/tealkit-privacy/">Datenschutzerkl&auml;rung</a>
     </p>
     <p style="margin-top:.5rem">&copy; 2026 TealKit</p>
   </div>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -33,6 +33,8 @@
     header .logo { font-size: 2.4rem; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
     header .logo span { color: var(--text); }
     header p { color: var(--muted); margin-top: .4rem; font-size: .95rem; }
+    .platform-badges { display: flex; gap: .5rem; justify-content: center; margin-top: .8rem; flex-wrap: wrap; }
+    .badge { font-size: .78rem; padding: 2px 10px; border-radius: 20px; border: 1px solid var(--border); color: var(--muted); }
     .lang-switch {
       position: absolute; top: 1.2rem; right: 1.4rem;
       display: flex; gap: .5rem;
@@ -43,7 +45,6 @@
     }
     .lang-switch a.active, .lang-switch a:hover { color: var(--primary); border-color: var(--primary); }
     .container { max-width: 780px; margin: 0 auto; position: relative; }
-
     nav {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -52,11 +53,10 @@
       margin: 2rem 0;
     }
     nav h2 { font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .8rem; }
-    nav ol { padding-left: 1.4rem; }
-    nav ol li { margin-bottom: .3rem; }
+    nav ol { padding-left: 1.4rem; columns: 2; column-gap: 2rem; }
+    nav ol li { margin-bottom: .3rem; break-inside: avoid; }
     nav a { color: var(--primary); text-decoration: none; font-size: .95rem; }
     nav a:hover { text-decoration: underline; }
-
     section {
       margin-top: 2.5rem;
       background: var(--surface);
@@ -76,7 +76,6 @@
     section p:last-child { margin-bottom: 0; }
     section ul, section ol { padding-left: 1.4rem; margin-bottom: .8rem; }
     section ul li, section ol li { margin-bottom: .35rem; }
-
     .tip {
       background: rgba(0,180,216,.08);
       border-left: 3px solid var(--primary);
@@ -87,11 +86,17 @@
       color: var(--text);
     }
     .tip strong { color: var(--primary); }
-
-    .step {
-      display: flex; gap: 1rem; align-items: flex-start;
-      margin-bottom: .8rem;
+    .note {
+      background: rgba(240,168,50,.07);
+      border-left: 3px solid var(--warn);
+      border-radius: 0 8px 8px 0;
+      padding: .7rem 1rem;
+      margin: .8rem 0;
+      font-size: .93rem;
+      color: var(--text);
     }
+    .note strong { color: var(--warn); }
+    .step { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: .8rem; }
     .step-num {
       min-width: 28px; height: 28px; border-radius: 50%;
       background: var(--primary); color: #000;
@@ -99,12 +104,28 @@
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; margin-top: .1rem;
     }
-
+    .pro-tag {
+      display: inline-block; font-size: .72rem; font-weight: 700;
+      color: var(--accent); border: 1px solid var(--accent);
+      border-radius: 4px; padding: 0 5px; margin-left: 6px;
+      vertical-align: middle; letter-spacing: .04em;
+    }
     code {
       background: rgba(255,255,255,.07); border-radius: 4px;
       padding: 1px 5px; font-size: .88em; font-family: monospace;
     }
-
+    pre {
+      background: rgba(0,0,0,.35); border: 1px solid var(--border);
+      border-radius: 8px; padding: .9rem 1.1rem;
+      font-family: monospace; font-size: .85rem;
+      color: var(--ok); overflow-x: auto; margin: .8rem 0;
+      white-space: pre-wrap; word-break: break-word;
+    }
+    table { width: 100%; border-collapse: collapse; margin: .8rem 0; font-size: .9rem; }
+    th { background: rgba(0,0,0,.3); color: var(--muted); font-weight: 600;
+         text-align: left; padding: .5rem .8rem; border-bottom: 1px solid var(--border); }
+    td { padding: .5rem .8rem; border-bottom: 1px solid rgba(30,48,72,.8); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
     footer {
       text-align: center; color: var(--muted); font-size: .85rem;
       margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);
@@ -123,7 +144,12 @@
 <header>
   <div class="container">
     <div class="logo">Teal<span>Kit</span></div>
-    <p>User Guide &nbsp;·&nbsp; Version 1.0</p>
+    <p>User Guide &nbsp;&middot;&nbsp; Version 1.0</p>
+    <div class="platform-badges">
+      <span class="badge">&#x1F916; Android</span>
+      <span class="badge">&#x1F34E; iOS</span>
+      <span class="badge">&#x1FA9F; Windows</span>
+    </div>
   </div>
 </header>
 
@@ -133,10 +159,14 @@
     <h2>Contents</h2>
     <ol>
       <li><a href="#overview">What is TealKit?</a></li>
+      <li><a href="#platforms">Platform Notes</a></li>
       <li><a href="#setup">First-Time Setup</a></li>
       <li><a href="#playground">Playground</a></li>
       <li><a href="#tasks">Tasks</a></li>
       <li><a href="#datasources">Data Sources</a></li>
+      <li><a href="#mcp">MCP Servers</a></li>
+      <li><a href="#docsearch">Document Search</a></li>
+      <li><a href="#ssh">SSH</a></li>
       <li><a href="#output">Output Files</a></li>
       <li><a href="#settings">Settings</a></li>
       <li><a href="#faq">FAQ</a></li>
@@ -148,29 +178,55 @@
     <h2>1 &nbsp; What is TealKit?</h2>
     <p>
       TealKit is a mobile AI agent powered by the <strong>Model Context Protocol (MCP)</strong>.
-      You connect it to any compatible LLM (OpenAI, Anthropic Claude, Google Gemini, Mistral, Ollama …)
-      and your own data sources — documents, emails, websites, files — and let the AI work through
-      multi-step tasks automatically.
+      Connect it to any compatible LLM (OpenAI, Anthropic Claude, Google Gemini, Mistral,
+      Ollama &hellip;) and your own data sources &mdash; documents, emails, websites, files &mdash;
+      then let the AI work through multi-step tasks automatically.
     </p>
     <p>Everything runs on your device. No data is sent to TealKit servers.</p>
     <h3>Key concepts</h3>
     <ul>
-      <li><strong>Playground</strong> — interactive chat with live tool use</li>
-      <li><strong>Tasks</strong> — saved, reusable automation workflows that run in the background</li>
-      <li><strong>MCP Tools</strong> — capabilities the AI can call (web search, email, document search, …)</li>
-      <li><strong>Data Sources</strong> — your personal data connected to the agent (email, files, websites)</li>
+      <li><strong>Playground</strong> &mdash; interactive chat with live tool use</li>
+      <li><strong>Tasks</strong> &mdash; saved, reusable automation workflows</li>
+      <li><strong>MCP Tools</strong> &mdash; capabilities the AI can call (web search, email, documents &hellip;)</li>
+      <li><strong>Data Sources</strong> &mdash; your personal data connected to the agent</li>
     </ul>
   </section>
 
   <!-- 2 -->
+  <section id="platforms">
+    <h2>2 &nbsp; Platform Notes</h2>
+    <table>
+      <tr><th>Platform</th><th>Notes</th></tr>
+      <tr>
+        <td><strong>Android</strong></td>
+        <td>Output files default to internal app storage. Set a custom path in
+          <em>Settings &rarr; General &rarr; Output Directory</em> to use a visible folder (e.g. Downloads).
+          Background task scheduling uses WorkManager.</td>
+      </tr>
+      <tr>
+        <td><strong>iOS</strong></td>
+        <td>API keys are stored in iOS Keychain. File access via the Files app requires
+          tapping <em>Choose Directory</em> &mdash; the system file picker remembers the grant.
+          Background tasks run via BGTaskScheduler.</td>
+      </tr>
+      <tr>
+        <td><strong>Windows</strong></td>
+        <td>Full desktop experience with direct access to local file paths. Output files are
+          written to any folder. SSH scripts (<code>.ps1</code> / <code>.sh</code>) placed in
+          the configured scripts directory are auto-discovered.</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- 3 -->
   <section id="setup">
-    <h2>2 &nbsp; First-Time Setup</h2>
+    <h2>3 &nbsp; First-Time Setup</h2>
     <div class="step"><div class="step-num">1</div><div>
       <strong>Open Settings</strong> (gear icon on the home screen or tap <em>First Step</em>
       if shown). Navigate to <em>LLM Settings</em>.
     </div></div>
     <div class="step"><div class="step-num">2</div><div>
-      <strong>Choose your AI provider</strong> — OpenAI, Anthropic, Google Gemini, Mistral,
+      <strong>Choose your AI provider</strong> &mdash; OpenAI, Anthropic, Google Gemini, Mistral,
       Azure OpenAI, or a local Ollama instance.
     </div></div>
     <div class="step"><div class="step-num">3</div><div>
@@ -184,143 +240,286 @@
     <div class="step"><div class="step-num">5</div><div>
       Tap <strong>Save LLM Settings</strong>. The home-screen buttons activate automatically.
     </div></div>
-    <div class="tip"><strong>Tip:</strong> Ollama users — enter <code>http://localhost:11434</code>
+    <div class="tip"><strong>Tip:</strong> Ollama users &mdash; enter <code>http://localhost:11434</code>
       as the base URL and leave the API key blank.</div>
   </section>
 
-  <!-- 3 -->
+  <!-- 4 -->
   <section id="playground">
-    <h2>3 &nbsp; Playground</h2>
-    <p>
-      The Playground is an interactive chat where you can experiment with the AI and its tools
-      in real time.
-    </p>
+    <h2>4 &nbsp; Playground</h2>
+    <p>The Playground is an interactive chat where you experiment with the AI and its tools in real time.</p>
     <h3>Setting up a session</h3>
     <ol>
-      <li>Write a <strong>system prompt</strong> that describes the AI's role (or tap ✨ to auto-generate one).</li>
-      <li>Select <strong>tools</strong> you want the AI to use (web search, email, documents, …).</li>
+      <li>Write a <strong>system prompt</strong> describing the AI's role (or tap &#x2728; to auto-generate).</li>
+      <li>Select <strong>tools</strong> (web search, email, documents &hellip;).</li>
       <li>If you selected <em>Website Search</em> or <em>Documents</em>, tap
-          <strong>Start Indexing</strong> to build the local index first.
-          A red <strong>Stop</strong> button appears during indexing so you can cancel anytime.</li>
-      <li>Optionally add an <strong>initial message</strong> — the first user message sent automatically when the session starts.</li>
-      <li>Tap <strong>Start Playground</strong>. The button is disabled while indexing is active.</li>
+          <strong>Start Indexing</strong> to build the local index.
+          A red <strong>Stop</strong> button appears during indexing &mdash; tap to cancel anytime.</li>
+      <li>Optionally set an <strong>initial message</strong> sent automatically on start.</li>
+      <li>Tap <strong>Start Playground</strong> (disabled while indexing is active).</li>
     </ol>
     <h3>During chat</h3>
     <ul>
-      <li>Tool calls appear as collapsible cards — tap to expand and see inputs/outputs.</li>
+      <li>Tool calls appear as collapsible cards &mdash; tap to expand inputs/outputs.</li>
       <li>Use the attachment button to add images or files to your message.</li>
-      <li>Tap <strong>Reset Chat</strong> to start a new conversation with the same setup.</li>
+      <li>Tap <strong>Reset Chat</strong> to start fresh with the same setup.</li>
     </ul>
-  </section>
-
-  <!-- 4 -->
-  <section id="tasks">
-    <h2>4 &nbsp; Tasks</h2>
-    <p>
-      Tasks are saved automation workflows. Each task packages an LLM, a set of tools,
-      a system prompt, and an initial message — ready to run with a single tap.
-    </p>
-    <h3>Creating a task</h3>
-    <ol>
-      <li>Go to <strong>Tasks → + New Task</strong>.</li>
-      <li>Give it a name and description.</li>
-      <li>Configure the LLM (can differ from your global default).</li>
-      <li>Select tools and configure each one (e.g. website URLs to index, document folder).</li>
-      <li>Write the system prompt and the initial user message.</li>
-      <li>Tap <strong>Save</strong>.</li>
-    </ol>
-    <h3>Running a task</h3>
-    <ul>
-      <li><strong>▶ Run</strong> — runs the task with a progress dialog showing each step.</li>
-      <li><strong>Interactive</strong> — opens a chat conversation wired to this task's config.</li>
-    </ul>
-    <h3>Output files</h3>
-    <p>
-      After each run TealKit saves output files (markdown, HTML, execution log) to a
-      <code>{task-name}_{date-time}/</code> subfolder in your configured output directory.
-      Find them under <em>Output Files</em> on the task detail screen.
-    </p>
-    <div class="tip"><strong>Tip:</strong> Load an example task from the <em>Examples</em>
-      button to get started quickly.</div>
   </section>
 
   <!-- 5 -->
-  <section id="datasources">
-    <h2>5 &nbsp; Data Sources</h2>
-    <p>Configure data sources in <em>Settings → Data Sources</em>. Each source can be toggled
-      on/off per task independently.</p>
-    <h3>📧 Email (Gmail / IMAP)</h3>
-    <p>Connect Gmail via OAuth or configure any IMAP server. The AI can search, read, and
-      optionally send emails on your behalf.</p>
-    <h3>🔍 Web Search</h3>
-    <p>Choose from DuckDuckGo (free, no key needed), Serper.dev, or SerpAPI.
-       Enter your API key for premium providers.</p>
-    <h3>📄 Documents</h3>
-    <p>Point to a local folder. TealKit indexes all documents into a local DuckDB database
-      using hybrid semantic + keyword search. Re-index anytime with the index button.</p>
-    <h3>🌐 Website Search</h3>
-    <p>Add up to 3 seed URLs. TealKit crawls and indexes them locally. Index before starting
-      the Playground or Task — you can stop crawling at any time.</p>
-    <h3>📍 Location</h3>
-    <p>Optionally save your GPS coordinates. They are injected into every task so
-      queries like "weather at my location" resolve automatically.
-      Coordinates never leave your device.</p>
-    <h3>☁ Google Drive</h3>
-    <p>Connect with OAuth to search and read files from your Drive.</p>
-    <h3>🖥 SSH</h3>
-    <p>Connect to a remote SSH server. The AI can run shell commands on the remote host.</p>
+  <section id="tasks">
+    <h2>5 &nbsp; Tasks</h2>
+    <p>Tasks are saved automation workflows. Each task packages an LLM, tools, a system prompt,
+       and an initial message &mdash; ready to run with one tap.</p>
+
+    <h3>Creating a task</h3>
+    <ol>
+      <li>Go to <strong>Tasks &rarr; + New Task</strong>.</li>
+      <li>Give it a name and description.</li>
+      <li>Configure the LLM (can differ from your global default).</li>
+      <li>Select tools and configure each one (website URLs, document folder, etc.).</li>
+      <li>Write the system prompt and initial user message.</li>
+      <li>Tap <strong>Save</strong>.</li>
+    </ol>
+
+    <h3>Execution modes</h3>
+    <ul>
+      <li><strong>&#x25B6; Run</strong> &mdash; executes the task immediately with a progress dialog.</li>
+      <li><strong>Interactive / Try-Out</strong> &mdash; opens the task's configuration as a live Playground
+          chat. Perfect for testing or refining a task interactively before scheduling it.</li>
+    </ul>
+
+    <h3>Cron scheduling <span class="pro-tag">PRO</span></h3>
+    <p>Automate any task to run on a schedule:</p>
+    <ul>
+      <li><strong>Hourly</strong> &mdash; every hour</li>
+      <li><strong>Daily</strong> &mdash; once per day at a chosen time</li>
+      <li><strong>Weekly</strong> &mdash; on a chosen day and time</li>
+      <li><strong>Custom cron expression</strong> &mdash; full cron syntax (e.g. <code>0 8 * * 1-5</code> for weekday mornings)</li>
+    </ul>
+    <div class="tip"><strong>Tip:</strong> Scheduled tasks run in the background even when the app
+      is minimised. Make sure battery optimisation settings do not kill the app.</div>
+
+    <h3>Run statistics</h3>
+    <p>Tap a completed run entry to view detailed stats:</p>
+    <table>
+      <tr><th>Metric</th><th>Description</th></tr>
+      <tr><td>Duration</td><td>Total wall-clock time for the run</td></tr>
+      <tr><td>Status</td><td>Success / Failed / Cancelled</td></tr>
+      <tr><td>Tokens used</td><td>Prompt + completion token count</td></tr>
+      <tr><td>Characters</td><td>Output character count</td></tr>
+      <tr><td>Tool calls</td><td>Number of MCP tool calls made</td></tr>
+      <tr><td>Messages</td><td>Total conversation turns</td></tr>
+    </table>
+
+    <h3>Output format</h3>
+    <p>Control the output format through your system prompt or initial message:</p>
+    <ul>
+      <li>Ask for <strong>Markdown</strong> (<code>.md</code>), <strong>HTML</strong>, <strong>JSON</strong>, or plain text</li>
+      <li>TealKit saves the raw result plus a rendered HTML preview automatically</li>
+    </ul>
+
+    <h3>Email output <span class="pro-tag">PRO</span></h3>
+    <p>Have the task result emailed automatically when done. Configure in the task's <em>Output</em> section:</p>
+    <ul>
+      <li><strong>Recipient</strong> &mdash; one or more email addresses</li>
+      <li><strong>Subject</strong> &mdash; static text or dynamic (can reference task name / date)</li>
+      <li><strong>Condition</strong> &mdash; always, only on success, or only if output is non-empty</li>
+    </ul>
+
+    <h3>ZIP output <span class="pro-tag">PRO</span></h3>
+    <p>Bundle the full output folder (result + logs + attachments) into a single ZIP file.
+       Combine with Email output to receive the archive by mail after every run.</p>
+
+    <h3>Task chaining <span class="pro-tag">PRO</span></h3>
+    <p>Chain multiple tasks so the output of one feeds into the next. Each link can have a
+       <em>condition</em> evaluated by the LLM &mdash; e.g. <em>"only continue if the report
+       mentions urgent issues"</em>. Subtask mode passes the parent run's output as additional
+       context to the child task.</p>
+    <div class="note"><strong>Example chain:</strong>
+       Fetch &amp; summarise emails &rarr; If summary contains "invoice" &rarr;
+       Run accounting task &rarr; Send result ZIP by email.</div>
+
+    <div class="tip"><strong>Tip:</strong> Load an example task via the <em>Examples</em> button to get started quickly.</div>
   </section>
 
   <!-- 6 -->
-  <section id="output">
-    <h2>6 &nbsp; Output Files</h2>
-    <p>
-      TealKit saves three files per task run to a timestamped subfolder:
-    </p>
-    <ul>
-      <li><code>output_log.md</code> — the main result in Markdown</li>
-      <li><code>execution_log.md</code> — step-by-step tool call log</li>
-      <li><code>output.html</code> — rendered HTML version of the result</li>
-    </ul>
-    <h3>Configuring the output directory</h3>
-    <p>Go to <em>Settings → General</em> and tap <em>Output Directory</em> to choose a folder.
-      Defaults to an internal app folder if left blank.</p>
-    <h3>Automatic cleanup</h3>
-    <p>Use the <em>Keep files for (days)</em> setting (1–60 days, default 3) to automatically
-      delete old runs. Cleanup runs on app start and every hour.</p>
+  <section id="datasources">
+    <h2>6 &nbsp; Data Sources</h2>
+    <p>Configure data sources in <em>Settings &rarr; Data Sources</em>. Each source can be toggled on/off per task independently.</p>
+    <h3>&#x1F4E7; Email (Gmail / IMAP)</h3>
+    <p>Connect Gmail via OAuth or configure any IMAP server. The AI can search, read, and optionally send emails.</p>
+    <h3>&#x1F50D; Web Search</h3>
+    <p>Choose DuckDuckGo (free, no key needed), Serper.dev, or SerpAPI. Enter your API key for premium providers.</p>
+    <h3>&#x1F4C4; Documents</h3>
+    <p>Point to one or more local folders. TealKit indexes all documents into a local DuckDB database
+       using hybrid semantic + keyword search. See <a href="#docsearch">Document Search</a> for details.</p>
+    <h3>&#x1F310; Website Search</h3>
+    <p>Add up to 3 seed URLs. TealKit crawls and indexes them locally. Index before starting
+       the Playground or Task &mdash; crawling can be stopped at any time.</p>
+    <h3>&#x1F4CD; Location</h3>
+    <p>Optionally save GPS coordinates. They are injected into every task so queries like
+       "weather at my location" resolve automatically. Coordinates never leave your device.</p>
+    <h3>&#x2601; Google Drive</h3>
+    <p>Connect via OAuth to search and read files from your Drive.</p>
+    <h3>&#x1F5A5; SSH</h3>
+    <p>Connect to a remote SSH server. See the <a href="#ssh">SSH section</a> for full details.</p>
   </section>
 
   <!-- 7 -->
-  <section id="settings">
-    <h2>7 &nbsp; Settings</h2>
-    <ul>
-      <li><strong>LLM Settings</strong> — AI provider, model, API key, temperature</li>
-      <li><strong>Data Sources</strong> — email, search, documents, websites, location</li>
-      <li><strong>External MCP Servers</strong> — connect to Smithery or custom MCP servers</li>
-      <li><strong>General → Output Directory</strong> — where task output files are saved</li>
-      <li><strong>General → Keep files for (days)</strong> — output retention period</li>
-      <li><strong>Language</strong> — English or German</li>
-      <li><strong>Theme</strong> — System / Light / Dark</li>
-    </ul>
+  <section id="mcp">
+    <h2>7 &nbsp; MCP Servers</h2>
+    <p>TealKit ships with a set of built-in MCP servers and supports external servers from the broader ecosystem.</p>
+
+    <h3>Built-in servers</h3>
+    <table>
+      <tr><th>Server</th><th>What it provides</th></tr>
+      <tr><td><code>documents</code></td><td>Semantic + keyword search over your local document folders</td></tr>
+      <tr><td><code>website_search</code></td><td>Crawl and search indexed websites</td></tr>
+      <tr><td><code>web_search</code></td><td>Live web search (DuckDuckGo / Serper / SerpAPI)</td></tr>
+      <tr><td><code>email</code></td><td>Read, search, and send emails via Gmail or IMAP</td></tr>
+      <tr><td><code>google_drive</code></td><td>Search and read files from Google Drive</td></tr>
+      <tr><td><code>location</code></td><td>Provides current GPS coordinates to the LLM</td></tr>
+      <tr><td><code>ssh</code></td><td>Run shell commands on remote SSH hosts</td></tr>
+      <tr><td><code>weather</code></td><td>Current weather and forecast (uses location if available)</td></tr>
+      <tr><td><code>calculator</code></td><td>Precise arithmetic evaluation</td></tr>
+      <tr><td><code>datetime</code></td><td>Current date, time, and timezone information</td></tr>
+    </table>
+
+    <h3>External MCP servers</h3>
+    <p>Connect to any MCP-compatible server from the ecosystem &mdash; e.g. via
+       <a href="https://smithery.ai" target="_blank" rel="noopener">Smithery.ai</a>.
+       Go to <em>Settings &rarr; External MCP Servers</em> and add a server URL or package name.
+       External servers extend the AI with calendar access, task managers, databases, and more.</p>
+
+    <h3>JS mini-MCP servers <span class="pro-tag">COMING SOON</span></h3>
+    <p>Write your own lightweight MCP server as a small JavaScript snippet directly in the app.
+       The snippet runs in a sandboxed environment and can expose any custom tools to the AI &mdash;
+       ideal for one-off integrations or private APIs.</p>
   </section>
 
   <!-- 8 -->
+  <section id="docsearch">
+    <h2>8 &nbsp; Document Search</h2>
+    <p>TealKit's document search uses a local DuckDB database with hybrid semantic embedding +
+       BM25 keyword search for high-quality results &mdash; no cloud dependencies.</p>
+
+    <h3>Adding folders</h3>
+    <ol>
+      <li>Tap <strong>+ Choose Directory</strong> in the Documents data source settings.</li>
+      <li>Use the quick-access chips (Downloads, Documents, Desktop) to add common folders in one tap.</li>
+      <li>Add multiple folders &mdash; all are indexed together into a single unified index.</li>
+    </ol>
+
+    <h3>File type filter</h3>
+    <p>Select which file types to include using the chip selector. Supported types:</p>
+    <p>
+      <code>pdf</code> <code>docx</code> <code>doc</code> <code>txt</code> <code>md</code>
+      <code>html</code> <code>htm</code> <code>csv</code> <code>json</code> <code>xml</code>
+      <code>xlsx</code> <code>xls</code> <code>pptx</code> <code>ppt</code>
+      <code>rtf</code> <code>odt</code> <code>ods</code> <code>odp</code>
+      <code>epub</code> <code>mobi</code> <code>log</code>
+    </p>
+    <p>Use <strong>All</strong> to select every type or <strong>Reset</strong> to deselect all.</p>
+
+    <h3>Indexing</h3>
+    <ul>
+      <li>Tap <strong>Start Indexing</strong> to build or refresh the index.</li>
+      <li>A red <strong>Stop</strong> button replaces the index button while indexing is active &mdash; tap to cancel.</li>
+      <li>The index is stored locally; re-index only when your files change.</li>
+    </ul>
+    <div class="tip"><strong>Tip:</strong> For very large folders, index overnight with the device plugged in.</div>
+  </section>
+
+  <!-- 9 -->
+  <section id="ssh">
+    <h2>9 &nbsp; SSH</h2>
+    <p>The SSH server gives the AI the ability to run shell commands on a remote host.
+       Configure the connection in <em>Settings &rarr; Data Sources &rarr; SSH</em>:</p>
+    <ul>
+      <li>Host, port, username, password or private key path</li>
+      <li>Optional default working directory</li>
+    </ul>
+
+    <h3>What the AI can do via SSH</h3>
+    <ul>
+      <li>Run arbitrary shell commands and capture their output</li>
+      <li>Check system status, disk usage, running processes</li>
+      <li>Read log files and diagnose issues</li>
+      <li>Start or stop services</li>
+      <li>Execute custom scripts stored on your device</li>
+    </ul>
+
+    <h3>LLM-generated scripts</h3>
+    <p>Ask the AI to write and immediately execute a script. Example prompt:</p>
+    <pre>Connect to the server, write a bash script that gathers CPU usage every 5 seconds
+for 1 minute and saves the results to /tmp/cpu_report.txt, then show me the summary.</pre>
+    <p>The AI writes the script, uploads it via SSH, executes it, and returns the full output &mdash; all in one task run.</p>
+
+    <h3>Stored local scripts</h3>
+    <p>Place your own <code>.sh</code> or <code>.ps1</code> scripts in the
+       <em>Scripts Directory</em> (set in <em>Settings &rarr; General &rarr; Scripts Directory</em>).
+       The AI auto-discovers all scripts and you can reference them by name in prompts:</p>
+    <pre>Run the "backup_db.sh" script on the server and tell me if it completed successfully.</pre>
+    <div class="tip"><strong>Tip:</strong> Keep a small library of maintenance scripts
+      and let the AI choose the right one based on your natural-language request.</div>
+  </section>
+
+  <!-- 10 -->
+  <section id="output">
+    <h2>10 &nbsp; Output Files</h2>
+    <p>TealKit saves three files per task run to a timestamped subfolder:</p>
+    <ul>
+      <li><code>output_log.md</code> &mdash; the main result in Markdown</li>
+      <li><code>execution_log.md</code> &mdash; step-by-step tool call log</li>
+      <li><code>output.html</code> &mdash; rendered HTML version of the result</li>
+    </ul>
+    <h3>Configuring the output directory</h3>
+    <p>Go to <em>Settings &rarr; General</em> and tap <em>Output Directory</em> to choose a folder.
+       Defaults to an internal app folder if left blank.</p>
+    <h3>Automatic cleanup</h3>
+    <p>Use the <em>Keep files for (days)</em> setting (1&ndash;60 days, default 3) to automatically
+       delete old runs. Cleanup runs on app start and every hour.</p>
+  </section>
+
+  <!-- 11 -->
+  <section id="settings">
+    <h2>11 &nbsp; Settings</h2>
+    <ul>
+      <li><strong>LLM Settings</strong> &mdash; AI provider, model, API key, temperature</li>
+      <li><strong>Data Sources</strong> &mdash; email, search, documents, websites, location, SSH</li>
+      <li><strong>External MCP Servers</strong> &mdash; connect to Smithery or custom MCP servers</li>
+      <li><strong>General &rarr; Output Directory</strong> &mdash; where task output files are saved</li>
+      <li><strong>General &rarr; Scripts Directory</strong> &mdash; local script library for SSH tasks</li>
+      <li><strong>General &rarr; Keep files for (days)</strong> &mdash; output retention period</li>
+      <li><strong>Language</strong> &mdash; English or German</li>
+      <li><strong>Theme</strong> &mdash; System / Light / Dark</li>
+    </ul>
+  </section>
+
+  <!-- 12 -->
   <section id="faq">
-    <h2>8 &nbsp; FAQ</h2>
+    <h2>12 &nbsp; FAQ</h2>
     <h3>Does TealKit store my API keys on a server?</h3>
-    <p>No. All API keys are stored exclusively in the device's OS secure keychain (iOS Keychain /
-      Android Keystore) and never leave your device.</p>
+    <p>No. All API keys are stored exclusively in the device's OS secure keychain
+       (iOS Keychain / Android Keystore) and never leave your device.</p>
     <h3>Can I use TealKit offline?</h3>
-    <p>Local Ollama models work fully offline. Cloud AI providers (OpenAI, Anthropic, etc.) and
-      web search require an internet connection.</p>
+    <p>Local Ollama models work fully offline. Cloud AI providers and web search require an internet connection.</p>
     <h3>How do I delete all my data?</h3>
     <p>Uninstall TealKit. All local databases, keys, and settings are removed automatically.</p>
-    <h3>The indexing button is stuck / slow</h3>
+    <h3>The indexing is slow or stuck</h3>
     <p>Large document folders or websites with many pages take time. Tap the red
-      <strong>Stop</strong> button to cancel at any point.</p>
+       <strong>Stop</strong> button to cancel at any point.</p>
     <h3>Where is the output folder on Android?</h3>
-    <p>By default, files go to the internal app storage. Set a custom path in
-      <em>Settings → General → Output Directory</em> to save to a visible folder (e.g. Downloads).</p>
+    <p>By default, files go to internal app storage. Set a custom path in
+       <em>Settings &rarr; General &rarr; Output Directory</em> to use a visible folder (e.g. Downloads).</p>
+    <h3>How does task chaining work?</h3>
+    <p>Each chained task starts after its predecessor finishes. An optional LLM-evaluated condition
+       controls whether to continue the chain. The previous task's output is passed as context to the next task.</p>
+    <h3>What is the difference between Run and Interactive mode?</h3>
+    <p><strong>Run</strong> executes the task autonomously and saves the result to disk.
+       <strong>Interactive</strong> opens a full chat with the same LLM and tools, so you can
+       guide the AI step by step &mdash; useful for exploration or debugging a task.</p>
   </section>
 
 </div>
@@ -328,8 +527,8 @@
 <footer>
   <div class="container">
     <p>
-      <a href="https://lschaffer.github.io/tealkit-privacy/guide/de/">🇩🇪 Deutsche Version</a>
-      &nbsp;·&nbsp;
+      <a href="https://lschaffer.github.io/tealkit-privacy/guide/de/">&#x1F1E9;&#x1F1EA; Deutsche Version</a>
+      &nbsp;&middot;&nbsp;
       <a href="https://lschaffer.github.io/tealkit-privacy/">Privacy Policy</a>
     </p>
     <p style="margin-top:.5rem">&copy; 2026 TealKit</p>
