@@ -33,9 +33,9 @@
 
 | Scenario | The Workflow |
 | :--- | :--- |
-| **The Daily Researcher** | Every morning at 8 AM, crawl 5 industry news sites, summarize key trends with Gemini, and save a PDF report to Google Drive. |
-| **The Server Guardian** | Every hour, SSH into your server and check disk usage. If it exceeds 90%, send a zipped log file to your WhatsApp. |
-| **The Document Oracle** | Index 1,000 pages of local technical manuals. Ask: *"What is the specific torque for the XJ-900 engine?"* and get an instant answer with citations. |
+| **The Daily Researcher** | Every morning at 8 AM, crawl 5 industry news sites, summarize key trends with Gemini, and email a PDF report for yourself. |
+| **The Server Guardian** | Every hour, SSH into your server and check disk usage. If it exceeds 90%, send an alert  to your WhatsApp. |
+| **The Document Oracle** | Index 1000 pages of local technical manuals. Ask: *"What is the specific torque for the XJ-900 engine?"* and get an instant answer with citations. |
 | **The Assistant** | Scan Gmail for flight confirmations, automatically create a Calendar entry, and generate a packing list based on the destination's weather. |
 
 ---
@@ -55,7 +55,7 @@
 ## 💻 Platforms
 * **Android:** Available on Play Store.
 * **iOS:** Coming soon.
-* **Desktop (Windows, Linux, Mac):** Downloadable from GitHub. 
+* **Desktop (Windows, Linux, Mac):** Soon : In Windows Store and downloadable from GitHub. 
     * *Pro Tip:* Unlocking Pro on Desktop also unlocks Pro features for one mobile version!
 
 ---
