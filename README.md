@@ -3,7 +3,7 @@
 
 **TealKit** turns your phone and computer into a versatile AI command center with autonomous agents and built-in tools. Provider-independent, fully customizable, and designed for privacy.
 
-[**English User Guide**](https://lschaffer.github.io/tealkit-privacy/docs/user-guide/index.html) | [**Deutsches Handbuch**](https://lschaffer.github.io/tealkit-privacy/docs/user-guide/index.de.html) | [**Privacy Policy**](https://github.com/lschaffer/tealkit-privacy)
+[**English User Guide**](https://lschaffer.github.io/tealkit-privacy/guide/) | [**Deutsches Handbuch**](https://lschaffer.github.io/tealkit-privacy/guide/de/) | [**Privacy Policy**](https://github.com/lschaffer/tealkit-privacy)
 
 ---
 
