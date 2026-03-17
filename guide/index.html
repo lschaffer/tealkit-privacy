@@ -169,6 +169,7 @@
       <li><a href="#mcp">MCP Servers</a></li>
       <li><a href="#docsearch">Document Search</a></li>
       <li><a href="#ssh">SSH</a></li>
+      <li><a href="#homeassistant">Home Assistant</a></li>
       <li><a href="#output">Output Files</a></li>
       <li><a href="#settings">Settings</a></li>
       <li><a href="#faq">FAQ</a></li>
@@ -295,6 +296,16 @@
       <li><strong>Token Warning Threshold:</strong> When the session token count reaches this number, TealKit suggests cleaning up the chat history to prevent context overflow. Default: <code>1,500,000</code>. Adjust based on your model's context window.</li>
     </ul>
 
+    <h3>LLM 2 &mdash; Secondary Model</h3>
+    <p>TealKit lets you configure a second, independent AI model dedicated to <strong>code generation</strong>. This is useful for keeping a powerful (but more expensive) primary model for reasoning and task execution, while using a faster or cheaper model for writing shell scripts and JavaScript tools.</p>
+    <p>Configure LLM 2 under <em>Settings &rarr; LLM Settings &rarr; LLM 2</em> tab. The same providers and parameters are available as for the primary model.</p>
+    <ul>
+      <li><strong>Shell Script Wizard</strong> &mdash; tap the model picker in the wizard to generate the script with LLM 2 instead of your primary model</li>
+      <li><strong>JavaScript Tool Wizard</strong> &mdash; same: pick LLM 2 in the wizard&rsquo;s model picker</li>
+      <li><strong>Tasks</strong> &mdash; select <em>LLM 2 (from settings)</em> as the task&rsquo;s LLM provider to run an entire task with the secondary model</li>
+    </ul>
+    <div class="tip"><strong>Tip:</strong> A fast, low-cost model like <code>gemini-2.5-flash</code> or <code>mistral-small-latest</code> works well as LLM 2 &mdash; saving your primary model budget for complex reasoning tasks.</div>
+
     <h3>Use Case Examples</h3>
     <p>Here are some examples of what you can accomplish in the Playground or build as automated Tasks:</p>
     <ul>
@@ -338,7 +349,7 @@
     <ol>
       <li>Go to <strong>Tasks &rarr; + New Task</strong>.</li>
       <li>Give it a name and description.</li>
-      <li>Configure the LLM (can differ from your global default).</li>
+      <li>Configure the LLM (can differ from your global default &mdash; or select <em>LLM 2 (from settings)</em> to run the task with your secondary model).</li>
       <li>Select tools and configure each one (website URLs, document folder, etc.).</li>
       <li>Write the system prompt and initial user message.</li>
       <li>Tap <strong>Save</strong>.</li>
@@ -525,6 +536,8 @@
     <p>Connect via OAuth to search and read files from your Drive.</p>
     <h3>&#x1F5A5; SSH</h3>
     <p>Connect to a remote SSH server. See the <a href="#ssh">SSH section</a> for full details.</p>
+    <h3>&#x1F3E0; Home Assistant</h3>
+    <p>Control your smart home via Home Assistant. Configure the Base URL and a Long-Lived Access Token once in <em>Settings &rarr; Data Sources &rarr; Home Assistant</em> and the AI can query and control any entity. See the <a href="#homeassistant">Home Assistant section</a> for full details.</p>
     <h3>&#x1F4AC; Slack</h3>
     <p>Configure Slack credentials for automatic task output delivery.
        Creating a Slack App is <strong>free</strong> &mdash;
@@ -564,6 +577,7 @@
       <tr><td><code>google_drive</code></td><td>Search and read files from Google Drive</td></tr>
       <tr><td><code>toolbox</code></td><td>Current time, timezone, device location, and city geocoding</td></tr>
       <tr><td><code>ssh</code></td><td>Run shell commands on remote SSH hosts</td></tr>
+      <tr><td><code>home_assistant</code></td><td>Control smart home devices via the Home Assistant REST API</td></tr>
       <tr><td><code>weather</code></td><td>Current weather and forecast (uses location if available)</td></tr>
       <tr><td><code>file</code></td><td>Create text, Markdown, or HTML output files</td></tr>
       <tr><td><code>excel</code></td><td>Convert CSV / JSON / text data to an Excel .xlsx file</td></tr>
@@ -603,7 +617,8 @@
       <li>Mention error handling: <em>&ldquo;exit with code 1 on failure, print error to stderr&rdquo;</em></li>
       <li>Example: <em>&ldquo;List files modified in the last 24 hours in a given directory and save the result to report.txt&rdquo;</em></li>
     </ul>
-    <div class="tip"><strong>Tip:</strong> After generating, tap <strong>Test Run</strong> to execute the script via SSH and verify the output before saving.</div>
+    <div class="tip"><strong>Tip:</strong> After generating, use the <strong>Test Run</strong> button in the editor to execute the script immediately via SSH (with optional parameters) and view stdout/stderr &mdash; all without leaving the editor.</div>
+    <div class="tip"><strong>Tip:</strong> Use the model picker at the top of the wizard dialog to switch to <strong>LLM 2</strong> for script generation &mdash; keep your main model for reasoning and use a cheaper model for code generation.</div>
 
     <h3>&#x1F9E9; JavaScript Tool Wizard</h3>
     <p>Write a custom MCP tool as a small JavaScript snippet. The snippet runs in a secure on-device sandbox and can call REST APIs with <code>fetch()</code>. Saved tools appear immediately in the tool selector for Playground and Tasks.</p>
@@ -615,6 +630,7 @@
       <li>Example: <em>&ldquo;Fetch the current Bitcoin price in EUR from the Coinbase public API and return price and timestamp&rdquo;</em></li>
     </ul>
     <div class="tip"><strong>Tip:</strong> Use the <em>Browse Example Prompts</em> button in the JS Tool editor to load working examples (calculator, currency converter, city geocoding) and see the expected tool structure.</div>
+    <div class="tip"><strong>Tip:</strong> Use the model picker in the JS Tool wizard to switch to <strong>LLM 2</strong> for code generation &mdash; a lightweight model is often sufficient for JavaScript tool scaffolding.</div>
   </section>
 
   <!-- 8 -->
@@ -685,8 +701,44 @@ for 1 minute and saves the results to /tmp/cpu_report.txt, then show me the summ
   </section>
 
   <!-- 10 -->
+  <section id="homeassistant">
+    <h2>10 &nbsp; Home Assistant</h2>
+    <p>The Home Assistant MCP server lets the AI query and control any entity in your smart home via the
+       <a href="https://developers.home-assistant.io/docs/api/rest/" target="_blank" rel="noopener">Home Assistant REST API</a>.</p>
+
+    <h3>Setup</h3>
+    <ol>
+      <li>Open <em>Settings &rarr; Data Sources &rarr; Home Assistant</em>.</li>
+      <li>Enter your <strong>Base URL</strong> &mdash; e.g. <code>http://homeassistant.local:8123</code> for local installs or your Nabu Casa cloud URL (<code>https://&lt;id&gt;.ui.nabu.casa</code>).</li>
+      <li>Create a <strong>Long-Lived Access Token</strong>:<br>
+          In Home Assistant open your <em>Profile</em> (bottom-left avatar) &rarr; scroll to <em>Long-Lived Access Tokens</em> &rarr; tap <em>Create Token</em>, give it a name (e.g. &ldquo;TealKit&rdquo;), and copy the token.</li>
+      <li>Paste the token into the <em>Long-Lived Access Token</em> field and tap <strong>Save</strong>.</li>
+    </ol>
+    <div class="tip"><strong>Tip:</strong> No per-task configuration is needed &mdash; once the global credentials are saved the <code>home_assistant</code> server is ready to use in any Playground session or Task.</div>
+
+    <h3>What the AI can do</h3>
+    <ul>
+      <li>Turn lights, switches, and plugs on or off</li>
+      <li>Read sensor values (temperature, humidity, motion, energy usage &hellip;)</li>
+      <li>Set thermostat target temperatures</li>
+      <li>Lock and unlock doors</li>
+      <li>Get the state of any entity (e.g. <em>&ldquo;Is the front door locked?&rdquo;</em>)</li>
+      <li>List all entities in a domain (e.g. all <code>light.*</code> entities)</li>
+      <li>Call any Home Assistant service action</li>
+    </ul>
+
+    <h3>Example prompts</h3>
+    <pre>Turn off all lights in the living room.</pre>
+    <pre>What is the current temperature in the bedroom?</pre>
+    <pre>Set the thermostat to 21 degrees and lock the front door.</pre>
+    <pre>Which lights are currently on?</pre>
+    <div class="tip"><strong>Tip:</strong> You can combine Home Assistant with other servers in one task &mdash;
+      e.g. <em>&ldquo;Check the temperature sensors, generate a chart of today&rsquo;s readings, and email it to me.&rdquo;</em></div>
+  </section>
+
+  <!-- 11 -->
   <section id="output">
-    <h2>10 &nbsp; Output Files</h2>
+    <h2>11 &nbsp; Output Files</h2>
     <p>TealKit saves core files per task run to a timestamped subfolder:</p>
     <ul>
       <li><code>output_log.md</code> &mdash; the main result in Markdown</li>
@@ -715,12 +767,12 @@ for 1 minute and saves the results to /tmp/cpu_report.txt, then show me the summ
        delete old runs. Cleanup runs on app start and every hour.</p>
   </section>
 
-  <!-- 11 -->
+  <!-- 12 -->
   <section id="settings">
-    <h2>11 &nbsp; Settings</h2>
+    <h2>12 &nbsp; Settings</h2>
     <ul>
       <li><strong>LLM Settings</strong> &mdash; AI provider, model, API key, temperature</li>
-      <li><strong>Data Sources</strong> &mdash; email, search, documents, websites, location, SSH, Slack, WhatsApp</li>
+      <li><strong>Data Sources</strong> &mdash; email, search, documents, websites, location, SSH, Home Assistant, Slack, WhatsApp</li>
       <li><strong>External MCP Servers</strong> &mdash; connect to Smithery or custom MCP servers</li>
       <li><strong>General &rarr; Output Directory</strong> &mdash; where task output files are saved</li>
       <li><strong>General &rarr; Scripts Directory</strong> &mdash; local script library for SSH tasks</li>
@@ -730,9 +782,9 @@ for 1 minute and saves the results to /tmp/cpu_report.txt, then show me the summ
     </ul>
   </section>
 
-  <!-- 12 -->
+  <!-- 13 -->
   <section id="faq">
-    <h2>12 &nbsp; FAQ</h2>
+    <h2>13 &nbsp; FAQ</h2>
     <h3>Does TealKit store my API keys on a server?</h3>
     <p>No. All API keys are stored exclusively in the device's OS secure keychain
        (iOS Keychain / Android Keystore) and never leave your device.</p>
@@ -755,9 +807,9 @@ for 1 minute and saves the results to /tmp/cpu_report.txt, then show me the summ
        guide the AI step by step &mdash; useful for exploration or debugging a task.</p>
   </section>
 
-  <!-- 13 -->
+  <!-- 14 -->
   <section id="jstool">
-    <h2>13 &nbsp; JavaScript Tool <span class="pro-tag">PRO</span></h2>
+    <h2>14 &nbsp; JavaScript Tool <span class="pro-tag">PRO</span></h2>
     <p>The JavaScript Tool Wizard lets you create lightweight custom MCP tools using pure JavaScript &mdash; no native code or external packages required. Tools run in a secure on-device sandbox (QuickJS&nbsp;/&nbsp;JavaScriptCore) and are available immediately in Playground and Tasks after saving.</p>
 
     <h3>Tool structure</h3>
@@ -826,9 +878,9 @@ for 1 minute and saves the results to /tmp/cpu_report.txt, then show me the summ
     </ul>
   </section>
 
-  <!-- 14 -->
+  <!-- 15 -->
   <section id="tokenstats">
-    <h2>14 &nbsp; Token &amp; Cost Statistics</h2>
+    <h2>15 &nbsp; Token &amp; Cost Statistics</h2>
     <p>TealKit tracks token consumption and estimates API cost per session and per task run. No data is sent to TealKit &mdash; all calculations use built-in pricing tables on your device.</p>
 
     <h3>Playground &mdash; live session stats</h3>
@@ -879,9 +931,9 @@ Last Request Cost : $0.0062
 Session Cost      : $0.0241</pre>
   </section>
 
-  <!-- 15 -->
+  <!-- 16 -->
   <section id="tips">
-    <h2>15 &nbsp; Useful Tips</h2>
+    <h2>16 &nbsp; Useful Tips</h2>
     <p>Quick practical suggestions to get the most out of TealKit.</p>
 
     <h3>&#x1F9E9; Generate a JavaScript function</h3>
@@ -935,9 +987,9 @@ Exit code 1 on error, error message to stderr.</pre>
     <div class="tip"><strong>Tip:</strong> The key is bound to the specific machine &mdash; it will not work on a different PC. Repeat the process for each Windows machine you use TealKit on.</div>
   </section>
 
-  <!-- 16 -->
+  <!-- 17 -->
   <section id="desktop">
-    <h2>16 &nbsp; Desktop Features <span class="pro-tag">PRO</span></h2>
+    <h2>17 &nbsp; Desktop Features <span class="pro-tag">PRO</span></h2>
     <p>The Windows desktop app is <strong>coming soon</strong> and will include all mobile features plus
        exclusive desktop-only capabilities listed below. Linux and macOS versions will follow in later
        releases. <strong>Buying any single TealKit mobile version unlocks the desktop app at no extra

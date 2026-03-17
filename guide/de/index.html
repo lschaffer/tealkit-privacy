@@ -169,6 +169,7 @@
       <li><a href="#mcp">MCP-Server</a></li>
       <li><a href="#docsearch">Dokumentensuche</a></li>
       <li><a href="#ssh">SSH</a></li>
+      <li><a href="#homeassistant">Home Assistant</a></li>
       <li><a href="#output">Ausgabedateien</a></li>
       <li><a href="#settings">Einstellungen</a></li>
       <li><a href="#faq">FAQ</a></li>
@@ -297,6 +298,16 @@
       <li><strong>Token-Warnschwellenwert:</strong> Wenn die Sitzungs-Tokenanzahl diesen Wert erreicht, schl&auml;gt TealKit vor, die Gespr&auml;chshistorie aufzur&auml;umen, um einen Kontext&uuml;berlauf zu vermeiden. Standard: <code>1.500.000</code>. An das Kontextfenster des verwendeten Modells anpassen.</li>
     </ul>
 
+    <h3>LLM 2 &mdash; Sekund&auml;res Modell</h3>
+    <p>TealKit erm&ouml;glicht die Konfiguration eines zweiten, unabh&auml;ngigen KI-Modells f&uuml;r <strong>Code-Generierung</strong>. So l&auml;sst sich ein leistungsstarkes (aber teureres) Prim&auml;rmodell f&uuml;r komplexe Aufgaben einsetzen, w&auml;hrend ein schnelleres oder g&uuml;nstigeres Modell Shell-Skripte und JavaScript-Werkzeuge schreibt.</p>
+    <p>LLM 2 konfigurieren unter <em>Einstellungen &rarr; LLM-Einstellungen &rarr; LLM 2</em>-Reiter. Dieselben Anbieter und Parameter wie f&uuml;r das Prim&auml;rmodell stehen zur Verf&uuml;gung.</p>
+    <ul>
+      <li><strong>Shell-Skript-Assistent</strong> &mdash; im Assistenten den Modell-Picker nutzen, um das Skript mit LLM 2 statt dem Prim&auml;rmodell zu generieren</li>
+      <li><strong>JavaScript-Werkzeug-Assistent</strong> &mdash; ebenso: LLM 2 im Modell-Picker des Assistenten w&auml;hlen</li>
+      <li><strong>Aufgaben</strong> &mdash; <em>LLM 2 (aus Einstellungen)</em> als Aufgaben-LLM-Anbieter w&auml;hlen, um eine gesamte Aufgabe mit dem Sekund&auml;rmodell auszuf&uuml;hren</li>
+    </ul>
+    <div class="tip"><strong>Tipp:</strong> Ein schnelles, g&uuml;nstiges Modell wie <code>gemini-2.5-flash</code> oder <code>mistral-small-latest</code> eignet sich gut als LLM 2 &mdash; so bleibt das Prim&auml;rmodell-Budget f&uuml;r komplexe Aufgaben erhalten.</div>
+
     <h3>Anwendungsbeispiele</h3>
     <p>Hier sind einige Beispiele, die Sie im Playground ausprobieren oder als automatisierte Aufgabe (Task) anlegen k&ouml;nnen:</p>
     <ul>
@@ -341,7 +352,7 @@
     <ol>
       <li>Zu <strong>Aufgaben &rarr; + Neue Aufgabe</strong> gehen.</li>
       <li>Name und Beschreibung vergeben.</li>
-      <li>LLM konfigurieren (kann vom globalen Standard abweichen).</li>
+      <li>LLM konfigurieren (kann vom globalen Standard abweichen &mdash; oder <em>LLM 2 (aus Einstellungen)</em> w&auml;hlen, um die Aufgabe mit dem Sekund&auml;rmodell auszuf&uuml;hren).</li>
       <li>Werkzeuge ausw&auml;hlen und konfigurieren (Website-URLs, Dokumentenordner usw.).</li>
       <li>System-Prompt und erste Nachricht schreiben.</li>
       <li>Auf <strong>Speichern</strong> tippen.</li>
@@ -522,6 +533,8 @@
     <p>Per OAuth verbinden, um Dateien aus Google Drive zu durchsuchen und zu lesen.</p>
     <h3>&#x1F5A5; SSH</h3>
     <p>Einen entfernten SSH-Server verbinden. Siehe den <a href="#ssh">SSH-Abschnitt</a> f&uuml;r alle Details.</p>
+    <h3>&#x1F3E0; Home Assistant</h3>
+    <p>Smart-Home-Ger&auml;te &uuml;ber Home Assistant steuern. Base-URL und Long-Lived Access Token einmalig unter <em>Einstellungen &rarr; Datenquellen &rarr; Home Assistant</em> konfigurieren. Siehe den <a href="#homeassistant">Home-Assistant-Abschnitt</a> f&uuml;r alle Details.</p>
     <h3>&#x1F4AC; Slack</h3>
     <p>Slack-Zugangsdaten f&uuml;r die automatische Ausgabezustellung konfigurieren.
        Eine Slack-App zu erstellen ist <strong>kostenlos</strong> &mdash;
@@ -568,6 +581,7 @@
       <tr><td><code>google_drive</code></td><td>Dateien in Google Drive durchsuchen und lesen</td></tr>
       <tr><td><code>toolbox</code></td><td>Aktuelle Uhrzeit, Zeitzone, Ger&auml;testandort und Stadt-Geocodierung</td></tr>
       <tr><td><code>ssh</code></td><td>Shell-Befehle auf entfernten SSH-Hosts ausf&uuml;hren</td></tr>
+      <tr><td><code>home_assistant</code></td><td>Smart-Home-Ger&auml;te &uuml;ber die Home Assistant REST API steuern</td></tr>
       <tr><td><code>weather</code></td><td>Aktuelles Wetter und Vorhersage (nutzt Standort, falls verf&uuml;gbar)</td></tr>
       <tr><td><code>file</code></td><td>Text-, Markdown- oder HTML-Ausgabedateien erstellen</td></tr>
       <tr><td><code>excel</code></td><td>CSV / JSON / Text-Daten in eine Excel .xlsx-Datei konvertieren</td></tr>
@@ -607,7 +621,8 @@
       <li>Fehlerbehandlung erw&auml;hnen: <em>&bdquo;Exit-Code 1 bei Fehler, Fehlermeldung nach stderr&ldquo;</em></li>
       <li>Beispiel: <em>&bdquo;Listet Dateien, die in den letzten 24 Stunden ge&auml;ndert wurden, und speichert das Ergebnis in report.txt&ldquo;</em></li>
     </ul>
-    <div class="tip"><strong>Tipp:</strong> Nach dem Generieren &uuml;ber <strong>Test-Ausf&uuml;hrung</strong> das Skript via SSH testen, bevor es gespeichert wird.</div>
+    <div class="tip"><strong>Tipp:</strong> Nach dem Generieren das Skript mit dem <strong>Test-Ausf&uuml;hrung</strong>-Button direkt via SSH testen (mit optionalen Parametern) und stdout/stderr ansehen &mdash; alles ohne den Editor zu verlassen.</div>
+    <div class="tip"><strong>Tipp:</strong> Den Modell-Picker oben im Assistenten-Dialog nutzen, um f&uuml;r die Skript-Generierung zu <strong>LLM 2</strong> zu wechseln &mdash; das Prim&auml;rmodell bleibt so f&uuml;r komplexe Aufgaben reserviert.</div>
 
     <h3>&#x1F9E9; JavaScript-Werkzeug-Assistent</h3>
     <p>Ein benutzerdefiniertes MCP-Werkzeug als kleines JavaScript-Snippet schreiben. Das Snippet l&auml;uft in einer sicheren On-Device-Sandbox und kann REST-APIs mit <code>fetch()</code> aufrufen. Gespeicherte Werkzeuge erscheinen sofort im Werkzeug-Selektor f&uuml;r Playground und Aufgaben.</p>
@@ -619,6 +634,7 @@
       <li>Beispiel: <em>&bdquo;Aktuellen Bitcoin-Preis in EUR von der &ouml;ffentlichen Coinbase-API abrufen und Preis und Zeitstempel zur&uuml;ckgeben&ldquo;</em></li>
     </ul>
     <div class="tip"><strong>Tipp:</strong> Unter <em>Beispiel-Prompts durchsuchen</em> im JS-Werkzeug-Editor funktionierende Beispiele laden (Rechner, W&auml;hrungsrechner, Geocodierung), um die Werkzeugstruktur zu sehen.</div>
+    <div class="tip"><strong>Tipp:</strong> Den Modell-Picker im JS-Werkzeug-Assistenten nutzen, um f&uuml;r die Code-Generierung zu <strong>LLM 2</strong> zu wechseln &mdash; ein einfaches Modell gen&uuml;gt h&auml;ufig f&uuml;r JavaScript-Werkzeug-Vorlagen.</div>
   </section>
 
   <!-- 8 -->
@@ -690,8 +706,44 @@ und zeige mir dann die Zusammenfassung.</pre>
   </section>
 
   <!-- 10 -->
+  <section id="homeassistant">
+    <h2>10 &nbsp; Home Assistant</h2>
+    <p>Der Home-Assistant-MCP-Server erm&ouml;glicht der KI, beliebige Entit&auml;ten im Smart Home &uuml;ber die
+       <a href="https://developers.home-assistant.io/docs/api/rest/" target="_blank" rel="noopener">Home Assistant REST API</a> abzufragen und zu steuern.</p>
+
+    <h3>Einrichtung</h3>
+    <ol>
+      <li><em>Einstellungen &rarr; Datenquellen &rarr; Home Assistant</em> &ouml;ffnen.</li>
+      <li><strong>Base-URL</strong> eingeben &mdash; z.&nbsp;B. <code>http://homeassistant.local:8123</code> f&uuml;r lokale Installationen oder die Nabu-Casa-Cloud-URL (<code>https://&lt;id&gt;.ui.nabu.casa</code>).</li>
+      <li>Einen <strong>Long-Lived Access Token</strong> erstellen:<br>
+          In Home Assistant das eigene <em>Profil</em> &ouml;ffnen (Avatar unten links) &rarr; zu <em>Long-Lived Access Tokens</em> scrollen &rarr; <em>Token erstellen</em> antippen, einen Namen vergeben (z.&nbsp;B. &bdquo;TealKit&ldquo;) und den Token kopieren.</li>
+      <li>Den Token in das Feld <em>Long-Lived Access Token</em> einf&uuml;gen und <strong>Speichern</strong> antippen.</li>
+    </ol>
+    <div class="tip"><strong>Tipp:</strong> Es ist keine aufgabenspezifische Konfiguration erforderlich &mdash; sobald die globalen Zugangsdaten gespeichert sind, steht der <code>home_assistant</code>-Server in jeder Playground-Sitzung und Aufgabe zur Verf&uuml;gung.</div>
+
+    <h3>Was die KI tun kann</h3>
+    <ul>
+      <li>Lichter, Schalter und Steckdosen an- und ausschalten</li>
+      <li>Sensorwerte auslesen (Temperatur, Luftfeuchte, Bewegung, Energieverbrauch &hellip;)</li>
+      <li>Thermostat-Solltemperaturen setzen</li>
+      <li>T&uuml;ren sperren und entsperren</li>
+      <li>Den Zustand beliebiger Entit&auml;ten abfragen (z.&nbsp;B. <em>&bdquo;Ist die Haust&uuml;r gesperrt?&ldquo;</em>)</li>
+      <li>Alle Entit&auml;ten einer Dom&auml;ne auflisten (z.&nbsp;B. alle <code>light.*</code>-Entit&auml;ten)</li>
+      <li>Beliebige Home-Assistant-Service-Aktionen aufrufen</li>
+    </ul>
+
+    <h3>Beispiel-Prompts</h3>
+    <pre>Schalte alle Lichter im Wohnzimmer aus.</pre>
+    <pre>Wie hoch ist die aktuelle Temperatur im Schlafzimmer?</pre>
+    <pre>Setze den Thermostat auf 21 Grad und sperre die Haust&uuml;r.</pre>
+    <pre>Welche Lichter sind gerade eingeschaltet?</pre>
+    <div class="tip"><strong>Tipp:</strong> Home Assistant l&auml;sst sich mit anderen Servern in einer Aufgabe kombinieren &mdash;
+      z.&nbsp;B. <em>&bdquo;Temperatursensoren auslesen, ein Diagramm der heutigen Messwerte erstellen und per E-Mail senden.&ldquo;</em></div>
+  </section>
+
+  <!-- 11 -->
   <section id="output">
-    <h2>10 &nbsp; Ausgabedateien</h2>
+    <h2>11 &nbsp; Ausgabedateien</h2>
     <p>TealKit speichert Kerndateien pro Aufgabendurchlauf in einem Unterordner mit Zeitstempel:</p>
     <ul>
       <li><code>output_log.md</code> &mdash; das Hauptergebnis als Markdown</li>
@@ -720,12 +772,12 @@ und zeige mir dann die Zusammenfassung.</pre>
        Durchl&auml;ufe automatisch. Bereinigung erfolgt beim App-Start und st&uuml;ndlich.</p>
   </section>
 
-  <!-- 11 -->
+  <!-- 12 -->
   <section id="settings">
-    <h2>11 &nbsp; Einstellungen</h2>
+    <h2>12 &nbsp; Einstellungen</h2>
     <ul>
       <li><strong>LLM-Einstellungen</strong> &mdash; KI-Anbieter, Modell, API-Schl&uuml;ssel, Temperatur</li>
-      <li><strong>Datenquellen</strong> &mdash; E-Mail, Suche, Dokumente, Webseiten, Standort, SSH, Slack, WhatsApp</li>
+      <li><strong>Datenquellen</strong> &mdash; E-Mail, Suche, Dokumente, Webseiten, Standort, SSH, Home Assistant, Slack, WhatsApp</li>
       <li><strong>Externe MCP-Server</strong> &mdash; Smithery oder eigene MCP-Server verbinden</li>
       <li><strong>Allgemein &rarr; Ausgabeverzeichnis</strong> &mdash; Speicherort f&uuml;r Ausgabedateien</li>
       <li><strong>Allgemein &rarr; Skriptverzeichnis</strong> &mdash; lokale Skriptbibliothek f&uuml;r SSH-Aufgaben</li>
@@ -735,9 +787,9 @@ und zeige mir dann die Zusammenfassung.</pre>
     </ul>
   </section>
 
-  <!-- 12 -->
+  <!-- 13 -->
   <section id="faq">
-    <h2>12 &nbsp; FAQ</h2>
+    <h2>13 &nbsp; FAQ</h2>
     <h3>Speichert TealKit meine API-Schl&uuml;ssel auf einem Server?</h3>
     <p>Nein. Alle API-Schl&uuml;ssel werden ausschlie&szlig;lich im sicheren Schl&uuml;sselbund des Betriebssystems
        (iOS Keychain / Android Keystore) gespeichert und verlassen das Ger&auml;t nie.</p>
@@ -762,9 +814,9 @@ und zeige mir dann die Zusammenfassung.</pre>
        Werkzeugen &mdash; ideal zum schrittweisen Steuern der KI oder zum Debuggen einer Aufgabe.</p>
   </section>
 
-  <!-- 13 -->
+  <!-- 14 -->
   <section id="jstool">
-    <h2>13 &nbsp; JavaScript-Werkzeug <span class="pro-tag">PRO</span></h2>
+    <h2>14 &nbsp; JavaScript-Werkzeug <span class="pro-tag">PRO</span></h2>
     <p>Der JavaScript-Werkzeug-Assistent erm&ouml;glicht es, leichtgewichtige eigene MCP-Werkzeuge in reinem JavaScript zu erstellen &mdash; ohne nativen Code oder externe Pakete. Werkzeuge laufen in einer sicheren On-Device-Sandbox (QuickJS&nbsp;/&nbsp;JavaScriptCore) und stehen nach dem Speichern sofort im Playground und in Aufgaben zur Verf&uuml;gung.</p>
 
     <h3>Werkzeugstruktur</h3>
@@ -833,9 +885,9 @@ und zeige mir dann die Zusammenfassung.</pre>
     </ul>
   </section>
 
-  <!-- 14 -->
+  <!-- 15 -->
   <section id="tokenstats">
-    <h2>14 &nbsp; Token- &amp; Kostenstatistik</h2>
+    <h2>15 &nbsp; Token- &amp; Kostenstatistik</h2>
     <p>TealKit erfasst den Token-Verbrauch und sch&auml;tzt die API-Kosten pro Sitzung und Aufgabendurchlauf. Keine Daten werden an TealKit &uuml;bertragen &mdash; s&auml;mtliche Berechnungen erfolgen anhand integrierter Preistabellen auf dem Ger&auml;t.</p>
 
     <h3>Playground &mdash; Live-Sitzungsstatistik</h3>
@@ -886,9 +938,9 @@ Letzte Anfrage     : 0,0062 $
 Sitzungskosten     : 0,0241 $</pre>
   </section>
 
-  <!-- 15 -->
+  <!-- 16 -->
   <section id="tips">
-    <h2>15 &nbsp; N&uuml;tzliche Tipps</h2>
+    <h2>16 &nbsp; N&uuml;tzliche Tipps</h2>
     <p>Schnelle praktische Hinweise, um das Beste aus TealKit herauszuholen.</p>
 
     <h3>&#x1F9E9; JavaScript-Funktion generieren</h3>
@@ -942,9 +994,9 @@ nach stdout aus. Exit-Code 1 bei Fehler, Fehlermeldung nach stderr.</pre>
     <div class="tip"><strong>Tipp:</strong> Der Schl&uuml;ssel ist an die jeweilige Maschine gebunden und funktioniert nicht auf einem anderen PC. Den Vorgang f&uuml;r jeden Windows-Rechner wiederholen, auf dem TealKit genutzt wird.</div>
   </section>
 
-  <!-- 16 -->
+  <!-- 17 -->
   <section id="desktop">
-    <h2>16 &nbsp; Desktop-Funktionen <span class="pro-tag">PRO</span></h2>
+    <h2>17 &nbsp; Desktop-Funktionen <span class="pro-tag">PRO</span></h2>
     <p>Die Windows-Desktop-App erscheint <strong>bald</strong> und enth&auml;lt alle mobilen Funktionen
        sowie exklusive Desktop-Funktionen (s.&nbsp;u.). Linux- und macOS-Versionen folgen sp&auml;ter.
        <strong>Der Kauf einer beliebigen mobilen TealKit-Version schaltet die Desktop-App kostenlos
