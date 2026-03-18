@@ -20,7 +20,7 @@
 * **Digital Office:** Deep integration with **Gmail, Google Drive, and Calendar** + universal IMAP/SMTP support.
 * **Content & Visualization:** Generate files (TXT, PDF, Excel) and create **Mermaid** diagrams/flowcharts from any data.
 * **Web Search & Indexing:** Perform live searches via **SerpApi** or **DuckDuckGo**, and crawl websites for local indexing.
-* **Remote Management:** Manage servers via **SSH**, generate and execute **Bash/PowerShell** scripts (Desktop).
+* **Remote Management:** Manage servers via **SSH** on all platforms. On Desktop, generate and execute **Bash scripts** locally (Linux/macOS) or **PowerShell scripts** (Windows).
 
 ### ⚙️ Agentic Workflows & Automation
 * **Autonomous Execution:** Schedule **cron-based** tasks that run in the background, even when the app is closed.
