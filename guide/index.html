@@ -698,6 +698,15 @@ for 1 minute and saves the results to /tmp/cpu_report.txt, then show me the summ
     <pre>Run the "backup_db.sh" script on the server and tell me if it completed successfully.</pre>
     <div class="tip"><strong>Tip:</strong> Keep a small library of maintenance scripts
       and let the AI choose the right one based on your natural-language request.</div>
+
+    <h3>Script Library &amp; built-in samples</h3>
+    <p>The <strong>Shell Script Library</strong> (accessible from the SSH configuration panel) lets you save, manage, and reuse scripts. Tap the <strong>&#x1F52C; Load Samples</strong> button in the toolbar to instantly add three ready-to-use examples:</p>
+    <ul>
+      <li><strong>Disk Usage</strong> &mdash; all mounted filesystems sorted by usage percentage</li>
+      <li><strong>Biggest Files in /usr/lib</strong> &mdash; top 20 largest files</li>
+      <li><strong>Top 10 Processes</strong> &mdash; highest CPU-consuming processes</li>
+    </ul>
+    <div class="tip"><strong>Tip:</strong> Loading samples is safe to tap multiple times &mdash; scripts with the same name are never duplicated.</div>
   </section>
 
   <!-- 10 -->
@@ -859,7 +868,7 @@ for 1 minute and saves the results to /tmp/cpu_report.txt, then show me the summ
     <div class="step"><div class="step-num">4</div><div>
       Tap <strong>Save</strong> &mdash; the tool is now available in the tool selector for any Playground session or Task.
     </div></div>
-    <div class="tip"><strong>Tip:</strong> Use the <em>Browse Example Prompts</em> button in the editor to load working examples (calculator, currency converter, geocoding) and see the expected tool structure.</div>
+    <div class="tip"><strong>Tip:</strong> Tap the <strong>&#x1F52C; Load Samples</strong> button in the JS Tool Library toolbar to instantly add three working examples: <em>Timestamp Converter</em>, <em>Currency Converter</em> (live exchange rates, no API key needed), and <em>City Geolocation</em> (Open-Meteo, no API key needed). Already-saved tools are never duplicated.</div>
 
     <h3>Calling saved tools via MCP</h3>
     <p>When the <code>js_bridge</code> server is selected, the AI can discover and call your tools automatically:</p>
@@ -1008,6 +1017,15 @@ Exit code 1 on error, error message to stderr.</pre>
     </ul>
     <div class="tip"><strong>Tip:</strong> Keep a local library of maintenance scripts and ask the AI to pick and run the right one based on your natural-language request.</div>
 
+    <h3>&#x1F9EA; Shell Script Library &mdash; built-in samples <span class="pro-tag">PRO</span></h3>
+    <p>The Shell Script Library retains all your generated and saved scripts. Tap <strong>&#x1F52C; Load Samples</strong> to add three ready-to-use examples:</p>
+    <ul>
+      <li><strong>Disk Usage</strong> &mdash; all mounted filesystems sorted by usage percentage</li>
+      <li><strong>Biggest Files in /usr/lib</strong> &mdash; top 20 largest files</li>
+      <li><strong>Top 10 Processes</strong> &mdash; highest CPU-consuming processes</li>
+    </ul>
+    <div class="tip"><strong>Tip:</strong> Samples are safe to load multiple times &mdash; existing scripts are never duplicated.</div>
+
     <h3>&#x1F40D; Python MCP Tool Generator <span class="pro-tag">PRO</span></h3>
     <p>Create custom MCP server tools written in <strong>Python</strong> directly from within TealKit. Describe what you need in plain language and the AI generates a complete, runnable Python MCP tool including input schema and execute function.</p>
     <ul>
@@ -1019,6 +1037,24 @@ Exit code 1 on error, error message to stderr.</pre>
     </ul>
     <div class="note"><strong>Note:</strong> Node.js tool support is coming in the next release.</div>
     <div class="tip"><strong>Tip:</strong> Python tools are ideal for data-processing tasks that exceed the size or time limits of JavaScript tools &mdash; e.g. parsing large CSV files, multi-step numerical calculations, or calling data-processing libraries.</div>
+
+    <h3>&#x1F9EA; Python Tool Library &mdash; built-in samples <span class="pro-tag">PRO</span></h3>
+    <p>The Python Tool Library keeps all your generated Python MCP tools. Tap <strong>&#x1F52C; Load Samples</strong> to add three starter examples:</p>
+    <ul>
+      <li><strong>System Info</strong> &mdash; CPU, memory, and disk usage via <code>psutil</code></li>
+      <li><strong>Fetch Web Page</strong> &mdash; download any URL and return its text content</li>
+      <li><strong>List Directory</strong> &mdash; list files and folders in a given path</li>
+    </ul>
+    <div class="tip"><strong>Tip:</strong> Samples are safe to load multiple times &mdash; existing tools are never duplicated.</div>
+
+    <h3>&#x1FA9F; PowerShell Tool Library <span class="pro-tag">PRO</span> <span style="font-size:.8em; color:var(--muted)">(Windows only)</span></h3>
+    <p>On Windows, a dedicated <strong>PowerShell Tool Library</strong> lets you create, manage, and reuse <code>.ps1</code> scripts executed locally by the AI via the <code>ps_bridge</code> MCP server. Tap <strong>&#x1F52C; Load Samples</strong> to add three ready-to-use examples:</p>
+    <ul>
+      <li><strong>Windows System Info</strong> &mdash; OS version, hostname, CPU, memory, and uptime</li>
+      <li><strong>Last Windows Updates</strong> &mdash; 10 most recently installed Windows Updates</li>
+      <li><strong>Fetch Website Status</strong> &mdash; HTTP status code and response time for any URL</li>
+    </ul>
+    <div class="tip"><strong>Tip:</strong> The <code>ps_bridge</code> server is available in any Playground session or Task configured on Windows.</div>
 
     <h3>&#x1F4E6; Import MCP Servers from Registry <span class="pro-tag">PRO</span></h3>
     <p>Browse and install MCP servers directly from the official

@@ -703,6 +703,15 @@ und zeige mir dann die Zusammenfassung.</pre>
     <pre>F&uuml;hre das Skript "backup_db.sh" auf dem Server aus und sage mir, ob es erfolgreich war.</pre>
     <div class="tip"><strong>Tipp:</strong> Eine kleine Bibliothek an Wartungsskripten anlegen
       und die KI per nat&uuml;rlichsprachlicher Anfrage das richtige ausw&auml;hlen lassen.</div>
+
+    <h3>Skriptbibliothek &amp; integrierte Beispiele</h3>
+    <p>Die <strong>Shell-Skriptbibliothek</strong> (im SSH-Konfigurationspanel) erm&ouml;glicht das Speichern, Verwalten und Wiederverwenden von Skripten. Die Schaltfl&auml;che <strong>&#x1F52C; Beispiele laden</strong> in der Toolbar f&uuml;gt sofort drei einsatzbereite Beispiele hinzu:</p>
+    <ul>
+      <li><strong>Disk Usage</strong> &mdash; alle eingebundenen Dateisysteme, sortiert nach Nutzungsprozentsatz</li>
+      <li><strong>Biggest Files in /usr/lib</strong> &mdash; die 20 gr&ouml;&szlig;ten Dateien</li>
+      <li><strong>Top 10 Processes</strong> &mdash; Prozesse mit h&ouml;chstem CPU-Verbrauch</li>
+    </ul>
+    <div class="tip"><strong>Tipp:</strong> Beispiele k&ouml;nnen beliebig oft geladen werden &mdash; Skripte mit gleichem Namen werden nie dupliziert.</div>
   </section>
 
   <!-- 10 -->
@@ -866,7 +875,7 @@ und zeige mir dann die Zusammenfassung.</pre>
     <div class="step"><div class="step-num">4</div><div>
       <strong>Speichern</strong> tippen &mdash; das Werkzeug ist sofort im Werkzeug-Selektor f&uuml;r jede Playground-Sitzung oder Aufgabe verf&uuml;gbar.
     </div></div>
-    <div class="tip"><strong>Tipp:</strong> &Uuml;ber <em>Beispiel-Prompts durchsuchen</em> im Editor funktionierende Beispiele laden (Rechner, W&auml;hrungsrechner, Geocodierung), um die Werkzeugstruktur zu verstehen.</div>
+    <div class="tip"><strong>Tipp:</strong> Auf die Schaltfl&auml;che <strong>&#x1F52C; Beispiele laden</strong> in der JS-Werkzeugbibliothek tippen, um sofort drei funktionierende Beispiele hinzuzuf&uuml;gen: <em>Zeitstempel-Konverter</em>, <em>W&auml;hrungsrechner</em> (Live-Kurse, kein API-Schl&uuml;ssel) und <em>Stadtgeolokalisierung</em> (Open-Meteo, kein API-Schl&uuml;ssel). Bereits vorhandene Werkzeuge werden nie dupliziert.</div>
 
     <h3>Gespeicherte Werkzeuge per MCP aufrufen</h3>
     <p>Wenn der <code>js_bridge</code>-Server ausgew&auml;hlt ist, kann die KI deine Werkzeuge automatisch entdecken und aufrufen:</p>
@@ -1015,6 +1024,15 @@ nach stdout aus. Exit-Code 1 bei Fehler, Fehlermeldung nach stderr.</pre>
     </ul>
     <div class="tip"><strong>Tipp:</strong> Eine lokale Bibliothek an Wartungsskripten anlegen und die KI per nat&uuml;rlichsprachlicher Anfrage das passende Skript ausw&auml;hlen und ausf&uuml;hren lassen.</div>
 
+    <h3>&#x1F9EA; Shell-Skriptbibliothek &mdash; integrierte Beispiele <span class="pro-tag">PRO</span></h3>
+    <p>Die Shell-Skriptbibliothek speichert alle erzeugten und gespeicherten Skripte. Auf <strong>&#x1F52C; Beispiele laden</strong> tippen, um drei einsatzbereite Beispiele hinzuzuf&uuml;gen:</p>
+    <ul>
+      <li><strong>Disk Usage</strong> &mdash; alle eingebundenen Dateisysteme, sortiert nach Nutzungsprozentsatz</li>
+      <li><strong>Biggest Files in /usr/lib</strong> &mdash; die 20 gr&ouml;&szlig;ten Dateien</li>
+      <li><strong>Top 10 Processes</strong> &mdash; Prozesse mit h&ouml;chstem CPU-Verbrauch</li>
+    </ul>
+    <div class="tip"><strong>Tipp:</strong> Beispiele k&ouml;nnen beliebig oft geladen werden &mdash; vorhandene Skripte werden nie dupliziert.</div>
+
     <h3>&#x1F40D; Python-MCP-Werkzeug-Generator <span class="pro-tag">PRO</span></h3>
     <p>Eigene MCP-Server-Werkzeuge in <strong>Python</strong> direkt in TealKit erstellen. Die KI generiert aus einer einfachen Beschreibung ein vollst&auml;ndiges, ausf&uuml;hrbares Python-MCP-Werkzeug inklusive Input-Schema und Execute-Funktion.</p>
     <ul>
@@ -1025,6 +1043,24 @@ nach stdout aus. Exit-Code 1 bei Fehler, Fehlermeldung nach stderr.</pre>
     </ul>
     <div class="note"><strong>Hinweis:</strong> Node.js-Unterst&uuml;tzung folgt im n&auml;chsten Release.</div>
     <div class="tip"><strong>Tipp:</strong> Python-Werkzeuge eignen sich besonders f&uuml;r datenintensive Aufgaben, die die Gr&ouml;&szlig;en- oder Zeit-Limits von JavaScript-Werkzeugen &uuml;berschreiten &mdash; z.&nbsp;B. gro&szlig;e CSV-Dateien verarbeiten oder mehrstufige numerische Berechnungen.</div>
+
+    <h3>&#x1F9EA; Python-Werkzeugbibliothek &mdash; integrierte Beispiele <span class="pro-tag">PRO</span></h3>
+    <p>Die Python-Werkzeugbibliothek speichert alle erzeugten MCP-Werkzeuge. Auf <strong>&#x1F52C; Beispiele laden</strong> tippen, um drei Starter-Beispiele hinzuzuf&uuml;gen:</p>
+    <ul>
+      <li><strong>System Info</strong> &mdash; CPU, Arbeitsspeicher und Datentr&auml;gernutzung via <code>psutil</code></li>
+      <li><strong>Fetch Web Page</strong> &mdash; beliebige URL herunterladen und Textinhalt zur&uuml;ckgeben</li>
+      <li><strong>List Directory</strong> &mdash; Dateien und Ordner in einem angegebenen Pfad auflisten</li>
+    </ul>
+    <div class="tip"><strong>Tipp:</strong> Beispiele k&ouml;nnen beliebig oft geladen werden &mdash; vorhandene Werkzeuge werden nie dupliziert.</div>
+
+    <h3>&#x1FA9F; PowerShell-Werkzeugbibliothek <span class="pro-tag">PRO</span> <span style="font-size:.8em; color:var(--muted)">(nur Windows)</span></h3>
+    <p>Auf Windows steht eine eigene <strong>PowerShell-Werkzeugbibliothek</strong> zur Verf&uuml;gung, mit der <code>.ps1</code>-Skripte erstellt, verwaltet und wiederverwendet werden k&ouml;nnen &mdash; die KI f&uuml;hrt sie lokal &uuml;ber den <code>ps_bridge</code>-MCP-Server aus. Auf <strong>&#x1F52C; Beispiele laden</strong> tippen, um drei einsatzbereite Beispiele hinzuzuf&uuml;gen:</p>
+    <ul>
+      <li><strong>Windows System Info</strong> &mdash; OS-Version, Hostname, CPU, Arbeitsspeicher und Betriebszeit</li>
+      <li><strong>Last Windows Updates</strong> &mdash; die 10 zuletzt installierten Windows-Updates</li>
+      <li><strong>Fetch Website Status</strong> &mdash; HTTP-Statuscode und Antwortzeit f&uuml;r eine beliebige URL</li>
+    </ul>
+    <div class="tip"><strong>Tipp:</strong> Der <code>ps_bridge</code>-Server steht in jeder Playground-Sitzung und Aufgabe auf Windows zur Verf&uuml;gung.</div>
 
     <h3>&#x1F4E6; MCP-Server aus Registry importieren <span class="pro-tag">PRO</span></h3>
     <p>MCP-Server direkt aus der offiziellen
