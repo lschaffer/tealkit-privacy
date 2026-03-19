@@ -311,10 +311,11 @@
     <h3>Anwendungsbeispiele</h3>
     <p>Hier sind einige Beispiele, die Sie im Playground ausprobieren oder als automatisierte Aufgabe (Task) anlegen k&ouml;nnen:</p>
     <ul>
-      <li><strong>Semantische Dokumentensuche:</strong> <em>"Suche semantisch nach 'setup new sensors in wsca' in allen Dokumentendateien."</em></li>
-      <li><strong>E-Mails:</strong> <em>"Durchsuche E-Mails der letzten 24 Stunden nach dem Text 'TaskAI' und fasse diese zusammen."</em></li>
-      <li><strong>Kalender:</strong> <em>"Hole alle anstehenden Kalendereintr&auml;ge f&uuml;r die n&auml;chste 1 Woche und speichere sie in ein PDF-Dokument."</em></li>
-      <li><strong>Shell-Skripte:</strong> <em>"Erstelle ein Shell-Skript, das ein Verzeichnis als Eingabe nimmt und die 20 gr&ouml;&szlig;ten Dateien auflistet."</em></li>
+      <li><strong>Semantische Dokumentensuche:</strong> <em>&bdquo;Suche semantisch nach &lsquo;setup new sensors in wsca&rsquo; in allen Dokumentendateien.&ldquo;</em></li>
+      <li><strong>E-Mails:</strong> <em>&bdquo;Durchsuche E-Mails der letzten 24 Stunden nach dem Text &lsquo;TaskAI&rsquo; und fasse diese zusammen.&ldquo;</em></li>
+      <li><strong>Kalender:</strong> <em>&bdquo;Hole alle anstehenden Kalendereintr&auml;ge f&uuml;r die n&auml;chste 1 Woche und speichere sie in ein PDF-Dokument.&ldquo;</em></li>
+      <li><strong>Shell-Skripte:</strong> <em>&bdquo;Erstelle ein Shell-Skript, das ein Verzeichnis als Eingabe nimmt und die 20 gr&ouml;&szlig;ten Dateien auflistet.&ldquo;</em></li>
+      <li><strong>Wetter + Diagramm:</strong> <em>&bdquo;Hole die Wettervorhersage f&uuml;r meinen Standort f&uuml;r die n&auml;chsten 24 Stunden und erstelle ein Statistik-&Uuml;bersichtsdiagramm aus den Temperaturdaten.&ldquo;</em></li>
       <li><strong>Aufgaben-Verkettung (Task Chaining):</strong> F&uuml;hre die Festplattennutzung aus, speichere nur den Prozentsatz von <code>/dev/sda1</code> in das Aufgabenergebnis. Setze die Bedingung: <em>Task-Ergebnis &gt; 65%</em> &rarr; Aktion: Rufe Unteraufgabe <code>diskusage_alert</code> auf.</li>
     </ul>
   </section>
@@ -585,7 +586,7 @@
       <tr><td><code>weather</code></td><td>Aktuelles Wetter und Vorhersage (nutzt Standort, falls verf&uuml;gbar)</td></tr>
       <tr><td><code>file</code></td><td>Text-, Markdown- oder HTML-Ausgabedateien erstellen</td></tr>
       <tr><td><code>excel</code></td><td>CSV / JSON / Text-Daten in eine Excel .xlsx-Datei konvertieren</td></tr>
-      <tr><td><code>chart</code></td><td>Linie-, Balken- und weitere Diagramme als PNG-Bilder aus numerischen Datenreihen erzeugen</td></tr>
+      <tr><td><code>chart</code></td><td>PNG-Diagramme aus numerischen Datenreihen erzeugen &mdash; Diagrammtypen: <strong>Linie, Balken, Fl&auml;che, Kreis, Streudiagramm, Histogramm</strong> und <strong>statistics_summary</strong> (4-Panel-Dashboard). Optionale Parameter: Titel, Achsenbeschriftungen, Achsenrotation und individuelle Linienfarben.</td></tr>
       <tr><td><code>mermaid</code></td><td>Mermaid-Diagrammsyntax (Flussdiagramme, Sequenzdiagramme &hellip;) in PNG-Bilder rendern</td></tr>
       <tr><td><code>pdf</code></td><td>PDF-Dokumente aus KI-generierten Inhalten erstellen</td></tr>
     </table>

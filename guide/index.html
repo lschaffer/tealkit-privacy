@@ -309,10 +309,11 @@
     <h3>Use Case Examples</h3>
     <p>Here are some examples of what you can accomplish in the Playground or build as automated Tasks:</p>
     <ul>
-      <li><strong>Semantic Document Search:</strong> <em>"Search semantically for 'setup new sensors in wsca' in any document files."</em></li>
-      <li><strong>Emails:</strong> <em>"Search my emails containing the text 'TaskAI' from the last 24 hours, and summarize them."</em></li>
-      <li><strong>Calendar:</strong> <em>"Fetch each next calendar events for the next 1 week and save them into the PDF document."</em></li>
-      <li><strong>Shell Script:</strong> <em>"Generate a shell script that inputs a directory and lists the 20 biggest files."</em></li>
+      <li><strong>Semantic Document Search:</strong> <em>&ldquo;Search semantically for &lsquo;setup new sensors in wsca&rsquo; in any document files.&rdquo;</em></li>
+      <li><strong>Emails:</strong> <em>&ldquo;Search my emails containing the text &lsquo;TaskAI&rsquo; from the last 24 hours, and summarize them.&rdquo;</em></li>
+      <li><strong>Calendar:</strong> <em>&ldquo;Fetch each next calendar events for the next 1 week and save them into the PDF document.&rdquo;</em></li>
+      <li><strong>Shell Script:</strong> <em>&ldquo;Generate a shell script that inputs a directory and lists the 20 biggest files.&rdquo;</em></li>
+      <li><strong>Weather + Chart:</strong> <em>&ldquo;Get the weather forecast for my location for the next 24 hours, then create a statistics summary chart from the temperature data.&rdquo;</em></li>
       <li><strong>Task Chaining / Automation:</strong> Call disk usage tools, put only the <code>/dev/sda1</code> percentage in the task result... Add a condition: if <code>task result &gt; 65%</code> ... Action: call subtask <code>diskusage_alert</code>.</li>
     </ul>
   </section>
@@ -581,7 +582,7 @@
       <tr><td><code>weather</code></td><td>Current weather and forecast (uses location if available)</td></tr>
       <tr><td><code>file</code></td><td>Create text, Markdown, or HTML output files</td></tr>
       <tr><td><code>excel</code></td><td>Convert CSV / JSON / text data to an Excel .xlsx file</td></tr>
-      <tr><td><code>chart</code></td><td>Generate line / bar / pie charts as PNG images from numeric data series</td></tr>
+      <tr><td><code>chart</code></td><td>Generate PNG charts from numeric data series &mdash; chart types: <strong>line, bar, area, pie, scatter, histogram</strong>, and <strong>statistics_summary</strong> (4-panel dashboard). Optional parameters: title, axis labels, axis rotation, and custom line colors.</td></tr>
       <tr><td><code>mermaid</code></td><td>Render Mermaid diagram syntax (flowcharts, sequence diagrams &hellip;) to PNG images</td></tr>
       <tr><td><code>pdf</code></td><td>Generate PDF documents from AI-produced content</td></tr>
     </table>
