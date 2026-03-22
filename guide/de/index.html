@@ -378,6 +378,18 @@
     <div class="tip"><strong>Tipp:</strong> Geplante Aufgaben laufen auch im Hintergrund, wenn die App minimiert ist.
       Stelle sicher, dass die Akku-Optimierung die App nicht beendet.</div>
 
+    <div class="note"><strong>&#x23F1; Hintergrund-Timing &ndash; wichtiger Hinweis:</strong>
+      Wenn die App geschlossen ist, verwendet TealKit einen periodischen Hintergrund-Weckruf
+      (Heartbeat), um f&auml;llige Aufgaben zu pr&uuml;fen. Das Weckintervall ist in
+      <em>Einstellungen &rarr; Allgemein &rarr; Hintergrund-Pr&uuml;fintervall</em> einstellbar
+      (5 / 10 / 15 Min., Standard&nbsp;10 Min.).
+      Der genaue Aufwachzeitpunkt wird vom Betriebssystem gesteuert &mdash; Android Doze-Modus,
+      iOS App-Refresh-Limits und herstellerspezifische Akku-Optimierungen k&ouml;nnen dazu f&uuml;hren,
+      dass Aufgaben einige Minuten fr&uuml;her oder sp&auml;ter als geplant starten.
+      Ein k&uuml;rzeres Intervall erh&ouml;ht die Reaktionsgeschwindigkeit, verbraucht aber etwas mehr Akku.
+      <strong>Bei Minuten-genauer Ausf&uuml;hrung die App im Vordergrund lassen &mdash; der
+      Vordergrund-Scheduler f&uuml;hrt zur exakten Cron-Zeit aus.</strong></div>
+
     <h3>Ausf&uuml;hrungsstatistiken</h3>
     <p>Einen abgeschlossenen Eintrag antippen, um detaillierte Statistiken zu sehen:</p>
     <table>
@@ -792,6 +804,9 @@ und zeige mir dann die Zusammenfassung.</pre>
       <li><strong>Allgemein &rarr; Ausgabeverzeichnis</strong> &mdash; Speicherort f&uuml;r Ausgabedateien</li>
       <li><strong>Allgemein &rarr; Skriptverzeichnis</strong> &mdash; lokale Skriptbibliothek f&uuml;r SSH-Aufgaben</li>
       <li><strong>Allgemein &rarr; Dateien behalten (Tage)</strong> &mdash; Aufbewahrungsdauer der Ausgaben</li>
+      <li><strong>Allgemein &rarr; Hintergrund-Pr&uuml;fintervall</strong> &mdash; Wie oft die App im Hintergrund
+          aufwacht, um f&auml;llige Aufgaben zu pr&uuml;fen (5 / 10 / 15&nbsp;Min.; Standard&nbsp;10&nbsp;Min.).
+          Ein k&uuml;rzeres Intervall ist reaktionsschneller; ein l&auml;ngeres schont den Akku.</li>
       <li><strong>Sprache</strong> &mdash; Englisch oder Deutsch</li>
       <li><strong>Design</strong> &mdash; System / Hell / Dunkel</li>
     </ul>

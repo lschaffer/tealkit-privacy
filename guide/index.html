@@ -374,6 +374,17 @@
     <div class="tip"><strong>Tip:</strong> Scheduled tasks run in the background even when the app
       is minimised. Make sure battery optimisation settings do not kill the app.</div>
 
+    <div class="note"><strong>&#x23F1; Background timing &ndash; important:</strong>
+      When the app is closed, TealKit uses a periodic background wakeup (heartbeat) to check for
+      due tasks. The wakeup interval is configurable in <em>Settings &rarr; General &rarr;
+      Background check interval</em> (5 / 10 / 15 min, default&nbsp;10 min).
+      Due to Android Doze mode, iOS app-refresh limits, and OEM battery optimisations,
+      the exact wakeup time is controlled by the operating system &mdash; tasks may start
+      a few minutes earlier or later than their scheduled time.
+      A shorter interval increases responsiveness but uses slightly more battery.
+      <strong>If sub-minute precision is required, keep the app in the foreground &mdash; the
+      foreground scheduler fires at the exact cron time.</strong></div>
+
     <h3>Run statistics</h3>
     <p>Tap a completed run entry to view detailed stats:</p>
     <table>
@@ -787,6 +798,9 @@ for 1 minute and saves the results to /tmp/cpu_report.txt, then show me the summ
       <li><strong>General &rarr; Output Directory</strong> &mdash; where task output files are saved</li>
       <li><strong>General &rarr; Scripts Directory</strong> &mdash; local script library for SSH tasks</li>
       <li><strong>General &rarr; Keep files for (days)</strong> &mdash; output retention period</li>
+      <li><strong>General &rarr; Background check interval</strong> &mdash; how often the app wakes up
+          in the background to check for due tasks (5 / 10 / 15&nbsp;min; default&nbsp;10&nbsp;min).
+          A shorter interval is more responsive; a longer one saves battery.</li>
       <li><strong>Language</strong> &mdash; English or German</li>
       <li><strong>Theme</strong> &mdash; System / Light / Dark</li>
     </ul>
