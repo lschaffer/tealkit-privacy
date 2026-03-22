@@ -34,7 +34,7 @@
 | Scenario | The Workflow |
 | :--- | :--- |
 | **The Daily Researcher** | Every morning at 8 AM, crawl 5 industry news sites, summarize key trends with Gemini, and email a PDF report for yourself. |
-| **The Server Guardian** | Every hour, SSH into your server and check disk usage. If it exceeds 90%, send an alert  to your WhatsApp. |
+| **The Server Guardian** | Every hour, SSH into your server and check disk usage. If it exceeds 90%, send an alert to your WhatsApp. |
 | **The Document Oracle** | Index 1000 pages of local technical manuals. Ask: *"What is the specific torque for the XJ-900 engine?"* and get an instant answer with citations. |
 | **The Assistant** | Scan Gmail for flight confirmations, automatically create a Calendar entry, and generate a packing list based on the destination's weather. |
 
@@ -68,10 +68,15 @@ TealKit is an **open agentic platform**: every capability not built-in can be ad
 ---
 
 ## 💻 Platforms
-* **Android:** Available on Play Store.
-* **iOS:** Coming soon.
-* **Desktop (Windows, Linux, Mac):** Soon : In Windows Store and downloadable from GitHub. 
-    * *Pro Tip:* Unlocking Pro on Desktop also unlocks Pro features for one mobile version!
+
+| Platform | |
+| :--- | :--- |
+| **Android** | [<img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="40" alt="Get it on Google Play"/>](https://play.google.com/store/apps/details?id=at.ls.gr.tealkit) |
+| **Windows** | [<img src="https://get.microsoft.com/images/en-us%20dark.svg" height="40" alt="Get it from Microsoft"/>](https://apps.microsoft.com/detail/9nb8trlrgwr2) |
+| **iOS** | Coming soon |
+| **Linux / Mac** | Coming soon |
+
+> *Pro Tip:* Unlocking Pro on Desktop also unlocks Pro features for one linked mobile version!
 
 ---
 **Developed by [L. Schaffer](https://github.com/lschaffer)**
