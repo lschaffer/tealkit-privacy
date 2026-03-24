@@ -37,6 +37,8 @@
 | **The Server Guardian** | Every hour, SSH into your server and check disk usage. If it exceeds 90%, send an alert to your WhatsApp. |
 | **The Document Oracle** | Index 1000 pages of local technical manuals. Ask: *"What is the specific torque for the XJ-900 engine?"* and get an instant answer with citations. |
 | **The Assistant** | Scan Gmail for flight confirmations, automatically create a Calendar entry, and generate a packing list based on the destination's weather. |
+| **The Cost Analyst** | Search Gmail for all invoices from your mobile provider this year, summarize the actual monthly costs, generate a pie chart from the data, and email you the chart and summary. |
+| **The GitHub Reporter** *(Desktop)* | Node.js GitHub MCP server installed in TealKit with your access token. Every day at 8 AM, scan a GitHub repository for changes since yesterday, write a summary to a text file, and upload it to an FTP server automatically. |
 
 ---
 

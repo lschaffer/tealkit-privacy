@@ -1050,7 +1050,6 @@ Exit code 1 on error, error message to stderr.</pre>
       <li>Generated tools are saved and auto-discovered by TealKit</li>
       <li>Available immediately in any Playground session or Task on Windows</li>
     </ul>
-    <div class="note"><strong>Note:</strong> Node.js tool support is coming in the next release.</div>
     <div class="tip"><strong>Tip:</strong> Python tools are ideal for data-processing tasks that exceed the size or time limits of JavaScript tools &mdash; e.g. parsing large CSV files, multi-step numerical calculations, or calling data-processing libraries.</div>
 
     <h3>&#x1F9EA; Python Tool Library &mdash; built-in samples <span class="pro-tag">PRO</span></h3>
@@ -1071,18 +1070,39 @@ Exit code 1 on error, error message to stderr.</pre>
     </ul>
     <div class="tip"><strong>Tip:</strong> The <code>ps_bridge</code> server is available in any Playground session or Task configured on Windows.</div>
 
-    <h3>&#x1F4E6; Import MCP Servers from Registry <span class="pro-tag">PRO</span></h3>
-    <p>Browse and install MCP servers directly from the official
-       <a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noopener">MCP Servers GitHub registry</a>.
-       TealKit will scan the repository index and present available servers by category &mdash;
-       no manual URL configuration required.</p>
+    <h3>&#x1F4E6; Node.js MCP Servers <span class="pro-tag">PRO</span> <span style="font-size:.8em; color:var(--muted)">(Windows desktop)</span></h3>
+    <p>TealKit can install and run MCP servers written in <strong>Node.js</strong> directly on your Windows desktop &mdash; no manual npm setup required beyond having Node.js 18+ installed.</p>
     <ul>
-      <li>Search by name, category, or capability</li>
-      <li>One-tap install: TealKit clones the repository, installs dependencies, and registers the server</li>
-      <li>Installed servers appear immediately in the External MCP Server list and tool selector</li>
-      <li>Compatible with both the official <code>modelcontextprotocol/servers</code> index and community registries</li>
+      <li><strong>npm</strong> servers &mdash; installed globally via <code>npm install -g</code> and launched with <code>npx</code></li>
+      <li><strong>npx</strong> servers &mdash; downloaded and run on-demand with <code>npx -y &lt;package&gt;</code> (no persistent install needed)</li>
+      <li>Servers appear immediately in the External MCP Server list and tool selector after install</li>
+      <li>Uninstall removes the global npm package and cleans up the library entry</li>
     </ul>
-    <div class="tip"><strong>Tip:</strong> You can also add any MCP server manually via <em>Settings &rarr; External MCP Servers &rarr; + Add Server</em>. Find additional server URLs in the <a href="https://smithery.ai" target="_blank" rel="noopener">Smithery.ai</a> catalogue.</div>
+    <div class="tip"><strong>Tip:</strong> Install <a href="https://nodejs.org" target="_blank" rel="noopener">Node.js 18 LTS</a> from nodejs.org. TealKit shows a banner in the MCP Server Registry screen if Node.js is not detected.</div>
+
+    <h3>&#x1F4E6; MCP Server Registry <span class="pro-tag">PRO</span></h3>
+    <p>Discover and install MCP servers from three curated sources &mdash; all from within TealKit&rsquo;s built-in registry screen:</p>
+    <table>
+      <tr><th>Tab</th><th>Source</th><th>Server types</th></tr>
+      <tr><td><strong>TealKit</strong></td><td>Hand-picked catalog maintained by TealKit</td><td>Python (uvx / pip) &amp; Node.js (npm / npx)</td></tr>
+      <tr><td><strong>Glama</strong></td><td><a href="https://glama.ai/mcp/servers" target="_blank" rel="noopener">glama.ai/mcp/servers</a> &mdash; community registry</td><td>Remote (HTTP/SSE)</td></tr>
+      <tr><td><strong>PulseMCP</strong></td><td><a href="https://registry.modelcontextprotocol.io" target="_blank" rel="noopener">registry.modelcontextprotocol.io</a></td><td>Remote (HTTP/SSE)</td></tr>
+    </table>
+    <p>The Glama and PulseMCP tabs also show the full TealKit installable catalog at the top so you can install local servers from any tab.</p>
+    <h3>Installing a Node.js server (example: Filesystem)</h3>
+    <div class="step"><div class="step-num">1</div><div>
+      Open <em>Settings &rarr; MCP Server Registry</em> (desktop only). Make sure Node.js 18+ is installed &mdash; a banner appears if it is missing.
+    </div></div>
+    <div class="step"><div class="step-num">2</div><div>
+      Find <strong>Filesystem</strong> in the TealKit tab. Tap the <strong>allowed_dirs</strong> field and enter the directory you want to expose, e.g. <code>C:/Users/Me/Documents</code> (use forward slashes or the path picker).
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div>
+      Tap <strong>Install</strong>. TealKit runs <code>npm install -g @modelcontextprotocol/server-filesystem</code> in the background.
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div>
+      Enable the server with the toggle. The AI can now call <code>list_directory</code>, <code>read_file</code>, <code>write_file</code>, and <code>search_files</code> inside the configured directory.
+    </div></div>
+    <div class="note"><strong>Note:</strong> The <code>allowed_dirs</code> field is required. If left blank the server will start with no accessible directories. Use forward slashes (e.g. <code>C:/temp</code>) to avoid Windows path-quoting issues.</div>
   </section>
 
 </div>
