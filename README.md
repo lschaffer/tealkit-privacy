@@ -17,7 +17,7 @@
 
 ### 🛠 Built-in Mini MCP Tools
 * **Document Intelligence:** Local RAG using **DuckDB**. Index PDFs, Word, and Excel files for instant semantic search across your device.
-* **Digital Office:** Deep integration with **Gmail, Google Drive, and Calendar** + universal IMAP/SMTP support.
+* **Digital Office:** Deep integration with **Gmail** and **Google Calendar** (free) + **Google Drive** (Pro) + universal IMAP/SMTP support.
 * **Content & Visualization:** Generate files (TXT, PDF, Excel) and create **Mermaid** diagrams/flowcharts from any data.
 * **Web Search & Indexing:** Perform live searches via **SerpApi** or **DuckDuckGo**, and crawl websites for local indexing.
 * **Remote Management:** Manage servers via **SSH** on all platforms. On Desktop, generate and execute **Bash scripts** locally (Linux/macOS) or **PowerShell scripts** (Windows).
@@ -31,14 +31,30 @@
 
 ## 💡 Real-World Examples
 
-| Scenario | The Workflow |
-| :--- | :--- |
-| **The Daily Researcher** | Every morning at 8 AM, crawl 5 industry news sites, summarize key trends with Gemini, and email a PDF report for yourself. |
-| **The Server Guardian** | Every hour, SSH into your server and check disk usage. If it exceeds 90%, send an alert to your WhatsApp. |
-| **The Document Oracle** | Index 1000 pages of local technical manuals. Ask: *"What is the specific torque for the XJ-900 engine?"* and get an instant answer with citations. |
-| **The Assistant** | Scan Gmail for flight confirmations, automatically create a Calendar entry, and generate a packing list based on the destination's weather. |
-| **The Cost Analyst** | Search Gmail for all invoices from your mobile provider this year, summarize the actual monthly costs, generate a pie chart from the data, and email you the chart and summary. |
-| **The GitHub Reporter** *(Desktop)* | Node.js GitHub MCP server installed in TealKit with your access token. Every day at 8 AM, scan a GitHub repository for changes since yesterday, write a summary to a text file, and upload it to an FTP server automatically. |
+### 📱 All Platforms (Mobile + Desktop)
+
+| Scenario | Tools | The Workflow |
+| :--- | :---: | :--- |
+| **The Daily Researcher** | Web + Email | Every morning at 8 AM, crawl 5 industry news sites, summarize key trends with Gemini, and email a PDF report for yourself. |
+| **The Server Guardian** | SSH + WhatsApp | Every hour, SSH into your server and check disk usage. If it exceeds 90%, send an alert to your WhatsApp. |
+| **The Document Oracle** | RAG / Documents | Index 1000 pages of local technical manuals. Ask: *"What is the specific torque for the XJ-900 engine?"* and get an instant answer with citations. |
+| **The Assistant** | Gmail + Calendar | Scan Gmail for flight confirmations, automatically create a Calendar entry, and generate a packing list based on the destination's weather. |
+| **The Cost Analyst** | Gmail + Charts | Search Gmail for all invoices from your mobile provider this year, summarize the actual monthly costs, generate a pie chart from the data, and email you the chart and summary. |
+| **The Disk Watcher** | SSH + Email | In the **Shell Script Library**, generate a script named `disku` with prompt *"list disk usage of all mount points in MB, one per line"*. Create a task using the **SSH** tool: *"Call script disku, format the result as a modern styled HTML table with a color-coded status bar"*, output channel **Email**, scheduled **daily at 16:00**. |
+
+### 🖥 Desktop Only
+
+#### 🐙 GitHub Integration
+
+| Scenario | Tools | The Workflow |
+| :--- | :---: | :--- |
+| **The GitHub Reporter** | GitHub MCP + FTP | Install the Node.js GitHub MCP server from GitHub in TealKit with your access token. Create a task: *"Scan this repository for changes since yesterday, write a formatted summary to a text file, and upload it to an FTP server"*, scheduled **daily at 08:00**. |
+
+#### 🪟 Windows Administration
+
+| Scenario | Tools | The Workflow |
+| :--- | :---: | :--- |
+| **The Downloads Janitor** | PowerShell + Email | **Step 1 — Script:** In the **PowerShell Script Library**, generate a script named `old_files` with prompt *"Accept a parameter DaysOld. Scan the current user's Downloads folder for files older than DaysOld days. Output each file as: path \| modified date \| size in KB. Sort ascending by modified date."* **Step 2 — Subtask:** Create a subtask named `old_files_alert` with prompt *"You receive a list of old files. Send an email with subject 'Old files in Downloads' and the list formatted as an HTML table."* **Step 3 — Main task:** Create a task using the **PowerShell** tool, prompt *"Call old_files 30. Format the output as a Markdown list."*, enable **Task Chaining**, condition *"list count > 10"*, chained subtask `old_files_alert`, scheduled **daily at 07:00**. |
 
 ---
 
@@ -64,7 +80,39 @@ TealKit is an **open agentic platform**: every capability not built-in can be ad
 
 ---
 
-## 🔒 Privacy First
+## 🆓 Free vs Pro
+
+| Feature | Free | Pro |
+| :--- | :---: | :---: |
+| AI Playground (chat) | ✅ | ✅ |
+| Global LLM 1 & 2 config | ✅ | ✅ |
+| SSH server config & 1 script | ✅ | ✅ Unlimited |
+| 1 JavaScript MCP tool | ✅ | ✅ Unlimited |
+| 1 remote MCP server (Smithery / Glama / PulseMCP) | ✅ | ✅ Unlimited |
+| Web search (SerpDev / SerpAPI / DuckDuckGo) | ✅ | ✅ |
+| Gmail & Google Calendar | ✅ | ✅ |
+| IMAP email | ✅ | ✅ |
+| Interactive charts | ✅ | ✅ |
+| File output, Calculator, Weather, Geolocation | ✅ | ✅ |
+| 1 website to index (no auto-schedule) | ✅ | ✅ Up to 10 + auto-schedule |
+| 1 document folder + 3 files to index (no schedule) | ✅ | ✅ Unlimited + schedule |
+| 3 tasks | ✅ | ✅ Unlimited |
+| **Desktop:** 1 Python MCP tool | ✅ | ✅ Unlimited |
+| **Desktop:** 1 PowerShell script | ✅ | ✅ Unlimited |
+| **Desktop:** Install 1 Python or Node.js MCP server | ✅ | ✅ Unlimited |
+| PDF writer & generation | — | ✅ |
+| Mermaid diagram PNG generator | — | ✅ |
+| Excel export tool | — | ✅ |
+| SFTP explorer | — | ✅ |
+| Home Assistant integration | — | ✅ |
+| Google Drive | — | ✅ |
+| Backup & restore vault | — | ✅ |
+| Task chaining / conditional logic | — | ✅ |
+| Save playground chat as task | — | ✅ |
+
+---
+
+
 **No TealKit Cloud.** Your private data, files, settings, and credentials remain in your device's secure storage. You choose the third-party providers you trust.
 
 ---
