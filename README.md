@@ -41,6 +41,7 @@
 | **The Assistant** | Gmail + Calendar | Scan Gmail for flight confirmations, automatically create a Calendar entry, and generate a packing list based on the destination's weather. |
 | **The Cost Analyst** | Gmail + Charts | Search Gmail for all invoices from your mobile provider this year, summarize the actual monthly costs, generate a pie chart from the data, and email you the chart and summary. |
 | **The Disk Watcher** | SSH + Email | In the **Shell Script Library**, generate a script named `disku` with prompt *"list disk usage of all mount points in MB, one per line"*. Create a task using the **SSH** tool: *"Call script disku, format the result as a modern styled HTML table with a color-coded status bar"*, output channel **Email**, scheduled **daily at 16:00**. |
+| **The Smart Home Assistant** | Weather + Home Assistant MCP | Enable the built-in **Home Assistant** skill and connect it to your local HA instance. Create a task: *"Get the next 12-hour weather forecast for my location. If the avg temperature is above 15 degree, adjust target temperature of climate.ecobee between 19 and 22 otherwise between 20 and 23."* Schedule it **hourly** to keep your thermostat in sync with the outdoor forecast automatically. |
 
 ### 🖥 Desktop Only
 
@@ -76,7 +77,10 @@ TealKit is an **open agentic platform**: every capability not built-in can be ad
 | Method | Platform | How It Works |
 | :--- | :--- | :--- |
 | **Import from GitHub** | Desktop | One-click install of any Node.js or Python MCP server straight from a GitHub repository URL. |
-| **Cloud MCP Servers** | All | Attach hosted servers from Smithery, Glama, or any custom URL in seconds. |
+| **Glama** | All | Browse the Glama registry inside TealKit and connect any listed server with a single tap. |
+| **Smithery** | All | Search the Smithery catalog directly from the app and register cloud-hosted MCP servers instantly. |
+| **PulseMCP** | All | Discover servers from the PulseMCP directory and add them to your agent's toolset in one step. |
+| **Custom URL** | All | Paste any MCP server URL (SSE or HTTP) to connect private or self-hosted servers. |
 
 ---
 
