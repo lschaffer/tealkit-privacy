@@ -219,11 +219,12 @@
       </tr>
       <tr>
         <td><strong>Windows</strong></td>
-        <td>Die Windows-Desktop-App erscheint <strong>bald</strong>. Linux- und macOS-Versionen folgen
-          in sp&auml;teren Versionen.
+        <td>Die Windows-Desktop-App ist jetzt <strong>im Microsoft Store verf&uuml;gbar</strong>
+          (<a href="https://apps.microsoft.com/detail/9nb8trlrgwr2" target="_blank" rel="noopener">Microsoft Store</a>).
+          Die Linux-Version ist <strong>bei GitHub zum Download verf&uuml;gbar</strong> (siehe
+          <a href="#desktop">Desktop-Funktionen &sect;17</a>). macOS-Unterst&uuml;tzung folgt in einer sp&auml;teren Version.
           <strong>Der Kauf einer beliebigen mobilen TealKit-Version</strong> (Android oder iOS)
-          schaltet die vollst&auml;ndige Desktop-Version kostenlos frei &mdash; eine Zahlung f&uuml;r alle Plattformen.
-          Vorschau der enthaltenen Funktionen: <a href="#desktop">Desktop-Funktionen</a>.</td>
+          schaltet die vollst&auml;ndige Desktop-Version kostenlos frei &mdash; eine Zahlung f&uuml;r alle Plattformen.</td>
       </tr>
     </table>
   </section>
@@ -1027,8 +1028,8 @@ nach stdout aus. Exit-Code 1 bei Fehler, Fehlermeldung nach stderr.</pre>
     <p>Die KI startet mit leerer Gespr&auml;chshistorie &mdash; hilfreich beim Themenwechsel oder wenn der Kontext zu gro&szlig; wurde.</p>
     <div class="tip"><strong>Tipp:</strong> Wenn die KI durch eine lange Sitzung den Faden verliert, Chat zur&uuml;cksetzen und eine kurze Zusammenfassung des bisherigen Stands als erste Nachricht eingeben.</div>
 
-    <h3>&#x1F5A5; Pro schaltet die Windows-Desktop-App frei</h3>
-    <p>Wer TealKit Pro auf <strong>Android oder iOS</strong> kauft, erh&auml;lt die <strong>Windows-Desktop-Version</strong> kostenlos dazu &mdash; eine einzige Zahlung f&uuml;r alle Plattformen. Linux- und macOS-Unterst&uuml;tzung folgt in einer k&uuml;nftigen Version.</p>
+    <h3>&#x1F5A5; Pro schaltet die Windows- &amp; Linux-Desktop-Apps frei</h3>
+    <p>Wer TealKit Pro auf <strong>Android oder iOS</strong> kauft, erh&auml;lt die <strong>Windows- und Linux-Desktop-Version</strong> kostenlos dazu &mdash; eine einzige Zahlung f&uuml;r alle Plattformen. Die Windows-App ist im <a href="https://apps.microsoft.com/detail/9nb8trlrgwr2" target="_blank" rel="noopener">Microsoft Store</a> erh&auml;ltlich; der Linux-Build steht bei <a href="https://github.com/lschaffer/tealkit/releases" target="_blank" rel="noopener">GitHub Releases</a> zum Download bereit. macOS-Unterst&uuml;tzung folgt in einer k&uuml;nftigen Version.</p>
     <div class="step"><div class="step-num">1</div><div>Pro auf dem Smartphone kaufen: <em>Einstellungen &rarr; Pro &rarr; Upgraden</em>.</div></div>
     <div class="step"><div class="step-num">2</div><div>Auf dem Smartphone: <em>Einstellungen &rarr; Pro-Karte &rarr; <strong>Desktop-Schl&uuml;ssel</strong></em> &rarr; die <strong>Maschinen-ID</strong> aus der Windows-App einf&uuml;gen &rarr; <strong>Generieren</strong> tippen.</div></div>
     <div class="step"><div class="step-num">3</div><div>Auf Windows: <em>Einstellungen &rarr; Pro &rarr; Schl&uuml;ssel eingeben</em> &rarr; den generierten <code>TKIT-&hellip;</code>-Schl&uuml;ssel einf&uuml;gen &rarr; <strong>Aktivieren</strong> tippen.</div></div>
@@ -1038,10 +1039,18 @@ nach stdout aus. Exit-Code 1 bei Fehler, Fehlermeldung nach stderr.</pre>
   <!-- 17 -->
   <section id="desktop">
     <h2>17 &nbsp; Desktop-Funktionen <span class="pro-tag">PRO</span></h2>
-    <p>Die Windows-Desktop-App erscheint <strong>bald</strong> und enth&auml;lt alle mobilen Funktionen
-       sowie exklusive Desktop-Funktionen (s.&nbsp;u.). Linux- und macOS-Versionen folgen sp&auml;ter.
-       <strong>Der Kauf einer beliebigen mobilen TealKit-Version schaltet die Desktop-App kostenlos
-       frei.</strong></p>
+    <p>Die <strong>Windows</strong>-Desktop-App ist im
+       <a href="https://apps.microsoft.com/detail/9nb8trlrgwr2" target="_blank" rel="noopener">Microsoft Store</a> verf&uuml;gbar.
+       Die <strong>Linux</strong>-Version steht bei
+       <a href="https://github.com/lschaffer/tealkit/releases" target="_blank" rel="noopener">GitHub Releases</a>
+       zum Download bereit. macOS-Unterst&uuml;tzung folgt sp&auml;ter.
+       <strong>Der Kauf einer beliebigen mobilen TealKit-Version schaltet die Desktop-App kostenlos frei.</strong></p>
+    <div class="tip"><strong>Linux &mdash; Keyring-Hinweis:</strong> Auf einem Standard-Desktop (GNOME, KDE
+       usw.) startet der System-Keyring beim Anmelden automatisch &mdash; kein zus&auml;tzlicher
+       Konfigurationsaufwand. In nicht standardm&auml;&szlig;igen Umgebungen (VNC-Sitzung, Server ohne
+       Grafikausgabe, SSH ohne Display) l&auml;uft der Keyring-Daemon m&ouml;glicherweise nicht.
+       Manueller Start: <code>eval $(gnome-keyring-daemon --start --components=secrets)</code>.
+       Falls <code>gnome-keyring</code> nicht installiert ist, bitte &uuml;ber den Paketmanager nachinstallieren.</div>
 
     <h3>&#x1F4DC; Skript-Generierung &mdash; Shell &amp; PowerShell <span class="pro-tag">PRO</span></h3>
     <p>Fertige Skripte direkt auf dem lokalen Rechner generieren. Die Aufgabe in nat&uuml;rlicher Sprache
