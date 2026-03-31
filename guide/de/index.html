@@ -1207,6 +1207,48 @@ Aus der zur&uuml;ckgegebenen CSV-Liste eine Excel-Datei erstellen.</pre>
       einen Unit-Test: Eingaben, erwartetes Ausgabeformat, Fehlerverhalten und Zielumgebung
       (z.&nbsp;B. &bdquo;Bash auf Ubuntu 22.04&ldquo;).</div>
 
+    <h4>&#x1F5A5; Skript-Umgebungen auf dem Desktop</h4>
+    <p>Auf dem Desktop stehen drei Skript-Umgebungen zur Verf&uuml;gung &mdash; jede mit eigenem Assistenten und eigener Bibliothek:</p>
+    <table>
+      <tr><th>Plattform</th><th>Skript-Typ</th><th>Assistent / Bibliothek</th><th>Einsatzbereich</th></tr>
+      <tr>
+        <td><strong>Windows</strong></td>
+        <td><code>.ps1</code> PowerShell</td>
+        <td><em>PowerShell-Tool-Bibliothek</em><br><span style="font-size:.85em;color:var(--muted)">Einstellungen &rarr; Desktop &rarr; PowerShell-Tools</span></td>
+        <td>Lokale Systemverwaltung, Windows-API, Registry-Abfragen, Active Directory, WMI/CIM</td>
+      </tr>
+      <tr>
+        <td><strong>Linux / macOS</strong></td>
+        <td><code>.sh</code> Bash / zsh</td>
+        <td><em>Shell-Skript-Assistent</em><br><span style="font-size:.85em;color:var(--muted)">Playground-Tools-Reiter oder Aufgaben-Editor</span></td>
+        <td>Dateisystem-Operationen, Log-Analyse, Cron-Helfer, SSH-Befehle, Paketverwaltung</td>
+      </tr>
+      <tr>
+        <td><strong>Alle Plattformen</strong></td>
+        <td><code>.py</code> Python</td>
+        <td><em>Python-Tool-Bibliothek</em><br><span style="font-size:.85em;color:var(--muted)">Einstellungen &rarr; Desktop &rarr; Python-Tools</span></td>
+        <td>Datenverarbeitung, REST-APIs, CSV/Excel, plattform&uuml;bergreifende Hilfsprogramme &mdash; portabelste Option</td>
+      </tr>
+    </table>
+
+    <h4>&#x1FA9F; PowerShell-Tipps (Windows)</h4>
+    <ul>
+      <li>Prompts mit <em>&bdquo;PowerShell 5.1 auf Windows&ldquo;</em> oder <em>&bdquo;PowerShell 7 auf Windows Server&ldquo;</em> beginnen, um die richtige Version anzusprechen.</li>
+      <li><code>param()</code>-Bl&ouml;cke anfordern, damit die KI das Skript mit benannten Argumenten aufrufen kann.</li>
+      <li>Ausgabe als Klartext oder CSV auf <strong>stdout</strong> anfordern, damit TealKit sie als Tool-Ergebnis erfassen kann.</li>
+      <li>Beispiel-Prompt: <em>&bdquo;PowerShell auf Windows. Param: Ordnerpfad. Dateien auflisten, die in den letzten N Stunden ge&auml;ndert wurden, mit Name, Gr&ouml;&szlig;e (KB) und &Auml;nderungsdatum. CSV-Ausgabe auf stdout mit Kopfzeile.&ldquo;</em></li>
+    </ul>
+    <div class="tip"><strong>Tipp:</strong> Den Button <strong>Beispiele laden</strong> in der PowerShell-Tool-Bibliothek nutzen, um drei sofort einsatzbereite Beispiele (Systeminfo, Letzte Updates, Website-Status) zu laden und die erwartete Skriptstruktur kennenzulernen.</div>
+
+    <h4>&#x1F40D; Python-Tipps (alle Plattformen)</h4>
+    <ul>
+      <li>TealKit f&uuml;hrt Python-Tools in einer <strong>verwalteten virtuellen Umgebung</strong> aus. Ben&ouml;tigte Pakete im Prompt angeben: <em>&bdquo;verwende <code>pandas</code> und <code>openpyxl</code>&ldquo;</em> &mdash; TealKit installiert sie beim ersten Aufruf automatisch.</li>
+      <li>Python ist die beste Wahl f&uuml;r Datenverarbeitung (CSV/Excel/JSON), REST-API-Aufrufe mit <code>requests</code> oder alles, was eine Drittanbieter-Bibliothek ben&ouml;tigt.</li>
+      <li>Beispiel-Prompt: <em>&bdquo;Python 3. Param: csv_path. CSV mit pandas einlesen, Min/Max/Mittelwert f&uuml;r jede numerische Spalte berechnen, Ergebnis als JSON-String zur&uuml;ckgeben. Erfordert: pandas.&ldquo;</em></li>
+      <li>Auf macOS in Shell-Prompts <em>&bdquo;macOS Bash&ldquo;</em> oder <em>&bdquo;Python 3 auf macOS&ldquo;</em> angeben &mdash; einige Pfade und Befehle unterscheiden sich von Linux (z.&nbsp;B. <code>gdate</code> statt <code>date -d</code>).</li>
+    </ul>
+    <div class="tip"><strong>Tipp:</strong> Den Button <strong>Beispiele laden</strong> in der Python-Tool-Bibliothek nutzen (Systeminfo, Webseite abrufen, Verzeichnis auflisten), um die erwartete Tool-Struktur vor dem ersten eigenen Tool kennenzulernen.</div>
+
     <h3>&#x1F9E0; 3 &nbsp; Modell zur Aufgabenkomplexit&auml;t passend w&auml;hlen</h3>
     <p>
       Nicht jede Aufgabe ben&ouml;tigt dasselbe Modell. Als grobe Richtlinie:

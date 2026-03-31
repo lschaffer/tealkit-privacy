@@ -1198,6 +1198,48 @@ Create an Excel file from the returned CSV list.</pre>
       a unit test: inputs, expected output format, error behaviour, and the target shell environment
       (e.g. &ldquo;Bash on Ubuntu 22.04&rdquo;).</div>
 
+    <h4>&#x1F5A5; Desktop scripting environments</h4>
+    <p>On desktop, three scripting environments are available &mdash; each with its own wizard and library:</p>
+    <table>
+      <tr><th>Platform</th><th>Script type</th><th>Wizard / Library</th><th>When to use</th></tr>
+      <tr>
+        <td><strong>Windows</strong></td>
+        <td><code>.ps1</code> PowerShell</td>
+        <td><em>PowerShell Tool Library</em><br><span style="font-size:.85em;color:var(--muted)">Settings &rarr; Desktop &rarr; PowerShell Tools</span></td>
+        <td>Local system administration, Windows API, registry queries, Active Directory, WMI/CIM</td>
+      </tr>
+      <tr>
+        <td><strong>Linux / macOS</strong></td>
+        <td><code>.sh</code> Bash / zsh</td>
+        <td><em>Shell Script Wizard</em><br><span style="font-size:.85em;color:var(--muted)">Playground Tools tab or Task editor</span></td>
+        <td>File system operations, log parsing, cron helpers, remote SSH commands, package management</td>
+      </tr>
+      <tr>
+        <td><strong>All platforms</strong></td>
+        <td><code>.py</code> Python</td>
+        <td><em>Python Tool Library</em><br><span style="font-size:.85em;color:var(--muted)">Settings &rarr; Desktop &rarr; Python Tools</span></td>
+        <td>Data processing, REST APIs, CSV/Excel manipulation, cross-platform utilities &mdash; most portable</td>
+      </tr>
+    </table>
+
+    <h4>&#x1FA9F; PowerShell tips (Windows)</h4>
+    <ul>
+      <li>Start prompts with <em>&ldquo;PowerShell 5.1 on Windows&rdquo;</em> or <em>&ldquo;PowerShell 7 on Windows Server&rdquo;</em> to target the right version.</li>
+      <li>Ask for <code>param()</code> blocks so the AI can call the script with named arguments.</li>
+      <li>Request output to <strong>stdout</strong> as plain text or CSV so TealKit can capture it as a tool result.</li>
+      <li>Example prompt: <em>&ldquo;PowerShell on Windows. Param: folder path. List files modified in the last N hours with name, size (KB), and last-modified date. Output CSV to stdout with header row.&rdquo;</em></li>
+    </ul>
+    <div class="tip"><strong>Tip:</strong> Use the built-in <strong>Load Samples</strong> button in the PowerShell Tool Library to load three ready-to-run examples (System Info, Last Updates, Website Status) and study the expected script structure.</div>
+
+    <h4>&#x1F40D; Python tips (all platforms)</h4>
+    <ul>
+      <li>TealKit runs Python tools inside a <strong>managed virtual environment</strong>. Specify required packages in your prompt: <em>&ldquo;use <code>pandas</code> and <code>openpyxl</code>&rdquo;</em> &mdash; TealKit installs them automatically on first run.</li>
+      <li>Python is the best choice for data manipulation (CSV/Excel/JSON), calling REST APIs with <code>requests</code>, or anything that needs a third-party library.</li>
+      <li>Example prompt: <em>&ldquo;Python 3. Param: csv_path. Read the CSV with pandas, compute min/max/mean for every numeric column, return the result as a JSON string. Requires: pandas.&rdquo;</em></li>
+      <li>On macOS, specify <em>&ldquo;macOS Bash&rdquo;</em> or <em>&ldquo;Python 3 on macOS&rdquo;</em> in shell prompts &mdash; some paths and commands differ from Linux (e.g. <code>gdate</code> vs <code>date -d</code>).</li>
+    </ul>
+    <div class="tip"><strong>Tip:</strong> Use the <strong>Load Samples</strong> button in the Python Tool Library (System Info, Fetch Web Page, List Directory) to see the expected tool structure before writing your first tool.</div>
+
     <h3>&#x1F9E0; 3 &nbsp; Match model to task complexity</h3>
     <p>
       Not every task needs the same model. As a rough guide:
