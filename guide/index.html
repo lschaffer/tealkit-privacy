@@ -177,6 +177,7 @@
       <li><a href="#tokenstats">Token &amp; Cost Stats</a></li>
       <li><a href="#tips">Useful Tips</a></li>
       <li><a href="#desktop">Desktop Features</a></li>
+      <li><a href="#best-practices">Best Practices</a></li>
     </ol>
   </nav>
 
@@ -331,6 +332,10 @@
           <strong>Start Indexing</strong> to build the local index.
           A red <strong>Stop</strong> button appears during indexing &mdash; tap to cancel anytime.</li>
       <li>Optionally set an <strong>initial message</strong> sent automatically on start.</li>
+      <li>If you have configured a second LLM (<em>Settings &rarr; LLM Settings &rarr; LLM 2</em>), a
+          <strong>LLM 1 / LLM 2</strong> selector appears above the Start button. Use it to switch
+          models without leaving the Playground &mdash; ideal for comparing a powerful cloud model
+          against a local SLM on the same prompt.</li>
       <li>Tap <strong>Start Playground</strong> (disabled while indexing is active).</li>
     </ol>
     <h3>During chat</h3>
@@ -339,6 +344,7 @@
       <li>Use the attachment button to add images or files to your message.</li>
       <li>Tap <strong>Reset Chat</strong> to start fresh with the same setup.</li>
     </ul>
+    <div class="tip"><strong>Tip:</strong> Use the LLM selector to find the best model for each task before saving it as an automated Task. See <a href="#best-practices">Best Practices</a> for more guidance.</div>
   </section>
 
   <!-- 5 -->
@@ -1131,6 +1137,76 @@ Exit code 1 on error, error message to stderr.</pre>
       Enable the server with the toggle. The AI can now call <code>list_directory</code>, <code>read_file</code>, <code>write_file</code>, and <code>search_files</code> inside the configured directory.
     </div></div>
     <div class="note"><strong>Note:</strong> The <code>allowed_dirs</code> field is required. If left blank the server will start with no accessible directories. Use forward slashes (e.g. <code>C:/temp</code>) to avoid Windows path-quoting issues.</div>
+  </section>
+
+  <!-- 18 -->
+  <section id="best-practices">
+    <h2>18 &nbsp; Best Practices</h2>
+
+    <h3>&#x1F4B8; 1 &nbsp; Reduce tokens, network calls, and cost</h3>
+    <p>
+      The most expensive part of any automated task is the back-and-forth between the LLM and the
+      outside world. Every tool call round-trip uses tokens and time. A simple optimisation:
+      <strong>delegate the heavy lifting to a script or MCP tool</strong> and let the LLM only
+      interpret the final result.
+    </p>
+    <p><strong>Example &mdash; listing recent uploads via SSH:</strong></p>
+    <p>Instead of asking the LLM to run multiple SSH commands to filter files by date, format
+       sizes, and build a table, create a single shell script in the
+       <em>Script Library</em> (e.g. <code>check_uploads</code>) that does all of that and
+       returns a clean CSV with column headers. Your task prompt then becomes simply:</p>
+    <pre>Call script check_uploads /uploads 48
+Create an Excel file from the returned CSV list.</pre>
+    <p>The LLM makes <strong>two tool calls</strong> (run script, create file) instead of ten.
+       Fewer tokens, faster execution, lower API cost, and a more reliable result.</p>
+    <div class="tip"><strong>Principle:</strong> Push data transformation into scripts/tools.
+      The LLM should decide <em>what</em> to do &mdash; the script should do the <em>how</em>.</div>
+
+    <h3>&#x1F9EA; 2 &nbsp; Use the Script/JS wizards &mdash; but always test first</h3>
+    <p>
+      The <strong>Shell Script Wizard</strong> and <strong>JavaScript Tool Wizard</strong> can
+      generate working code from a plain-language description. A clear prompt that specifies
+      inputs, outputs, and edge cases gives the best results. However:
+    </p>
+    <ul>
+      <li>Always tap <strong>Test Run</strong> after generation. The first attempt may not work if the
+          prompt was ambiguous or the model is less capable &mdash; refine and regenerate.</li>
+      <li>For code generation, <strong>small models</strong> (Ollama / LM Studio running locally, or
+          Ollama on your own server) are often sufficient and cost nothing. Configure them as
+          <strong>LLM 2</strong> and use the Playground LLM selector to run code-generation prompts
+          through LLM 2 while keeping your main tasks on LLM 1.</li>
+      <li>In a future release, embedded models will be downloadable directly inside TealKit and
+          executed without any external server.</li>
+    </ul>
+    <div class="tip"><strong>Tip:</strong> Write the script description as precisely as you would
+      a unit test: inputs, expected output format, error behaviour, and the target shell environment
+      (e.g. &ldquo;Bash on Ubuntu 22.04&rdquo;).</div>
+
+    <h3>&#x1F9E0; 3 &nbsp; Match model to task complexity</h3>
+    <p>
+      Not every task needs the same model. As a rough guide:
+    </p>
+    <ul>
+      <li><strong>Complex reasoning, multi-step planning, long documents</strong> &rarr; use a
+          full LLM (GPT-4o, Gemini 2.5 Pro, Claude Sonnet, Mistral Medium &hellip;)</li>
+      <li><strong>Short, deterministic actions</strong> (run a script, format a CSV, send a
+          notification) &rarr; an SLM may handle these reliably and at a fraction of the cost.
+          Enable the <strong>SLM mode</strong> checkbox in <em>LLM Settings</em> to activate a
+          compact system prompt that makes small models call tools immediately rather than
+          explaining their plan.</li>
+      <li>Keep in mind that SLMs may not complete complex tasks reliably on every run, or may
+          take several minutes. Test thoroughly in the Playground before scheduling.</li>
+    </ul>
+    <p>
+      Use the <strong>LLM 1 / LLM 2 selector</strong> in the Playground to run the same prompt
+      through different models side-by-side. Also experiment with the <strong>Temperature</strong>
+      setting &mdash; lower values (e.g. 0.1&ndash;0.2) produce more deterministic,
+      reproducible tool calls; higher values add creativity but reduce reliability for
+      automation tasks.
+    </p>
+    <div class="tip"><strong>Workflow:</strong> Design task in Playground with LLM 1 &rarr;
+      try the same prompt with LLM 2 (SLM) &rarr; if it works reliably, switch the saved
+      task to LLM 2 to save cost and latency.</div>
   </section>
 
 </div>

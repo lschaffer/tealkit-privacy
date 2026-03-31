@@ -177,6 +177,7 @@
       <li><a href="#tokenstats">Token- &amp; Kostenstatistik</a></li>
       <li><a href="#tips">N&uuml;tzliche Tipps</a></li>
       <li><a href="#desktop">Desktop-Funktionen</a></li>
+      <li><a href="#best-practices">Best Practices</a></li>
     </ol>
   </nav>
 
@@ -333,6 +334,10 @@
           <strong>Indexierung starten</strong> tippen, um den lokalen Index zu erstellen.
           W&auml;hrend der Indexierung erscheint ein roter <strong>Stopp</strong>-Button &mdash; tippen zum Abbrechen.</li>
       <li>Optional eine <strong>Erste Nachricht</strong> eingeben &mdash; automatisch beim Start gesendet.</li>
+      <li>Falls ein zweites LLM konfiguriert ist (<em>Einstellungen &rarr; LLM-Einstellungen &rarr; LLM 2</em>),
+          erscheint oberhalb des Start-Buttons ein <strong>LLM 1 / LLM 2</strong>-Selektor.
+          Damit l&auml;sst sich das Modell direkt im Playground wechseln &mdash; ideal, um ein
+          leistungsstarkes Cloud-Modell mit einem lokalen SLM f&uuml;r denselben Prompt zu vergleichen.</li>
       <li>Auf <strong>Playground starten</strong> tippen (deaktiviert w&auml;hrend aktiver Indexierung).</li>
     </ol>
     <h3>W&auml;hrend des Chats</h3>
@@ -341,6 +346,7 @@
       <li>Mit der Anhang-Schaltfl&auml;che lassen sich Bilder oder Dateien hinzuf&uuml;gen.</li>
       <li><strong>Chat zur&uuml;cksetzen</strong> startet ein neues Gespr&auml;ch mit derselben Konfiguration.</li>
     </ul>
+    <div class="tip"><strong>Tipp:</strong> Mit dem LLM-Selektor das beste Modell f&uuml;r jede Aufgabe finden, bevor sie als automatisierte Task gespeichert wird. Weitere Hinweise in den <a href="#best-practices">Best Practices</a>.</div>
   </section>
 
   <!-- 5 -->
@@ -1138,6 +1144,78 @@ nach stdout aus. Exit-Code 1 bei Fehler, Fehlermeldung nach stderr.</pre>
       Server mit dem Schalter aktivieren. Die KI kann nun <code>list_directory</code>, <code>read_file</code>, <code>write_file</code> und <code>search_files</code> im konfigurierten Verzeichnis aufrufen.
     </div></div>
     <div class="note"><strong>Hinweis:</strong> Das Feld <code>allowed_dirs</code> ist Pflichtfeld. Bleibt es leer, startet der Server ohne zug&auml;ngliche Verzeichnisse. Vorw&auml;rtsschr&auml;gstriche verwenden (z.&nbsp;B. <code>C:/temp</code>), um Windows-Pfad-Probleme zu vermeiden.</div>
+  </section>
+
+  <!-- 18 -->
+  <section id="best-practices">
+    <h2>18 &nbsp; Best Practices</h2>
+
+    <h3>&#x1F4B8; 1 &nbsp; Tokens, Netzwerkaufrufe und Kosten reduzieren</h3>
+    <p>
+      Der teuerste Teil jeder automatisierten Aufgabe ist das Hin-und-Her zwischen dem LLM und
+      der Au&szlig;enwelt. Jeder Werkzeugaufruf kostet Tokens und Zeit. Eine einfache Optimierung:
+      <strong>die eigentliche Arbeit an ein Skript oder MCP-Werkzeug delegieren</strong> und das
+      LLM nur das Ergebnis interpretieren lassen.
+    </p>
+    <p><strong>Beispiel &mdash; aktuelle Uploads per SSH auflisten:</strong></p>
+    <p>Statt das LLM mehrere SSH-Befehle ausf&uuml;hren zu lassen, um Dateien nach Datum zu filtern,
+       Gr&ouml;&szlig;en zu formatieren und eine Tabelle zu erstellen: ein einziges Shell-Skript in der
+       <em>Skript-Bibliothek</em> anlegen (z.&nbsp;B. <code>check_uploads</code>), das all das erledigt
+       und eine saubere CSV-Liste mit Spalten&uuml;berschriften zur&uuml;ckgibt. Der Aufgaben-Prompt lautet dann einfach:</p>
+    <pre>Skript check_uploads /uploads 48 aufrufen
+Aus der zur&uuml;ckgegebenen CSV-Liste eine Excel-Datei erstellen.</pre>
+    <p>Das LLM macht <strong>zwei Werkzeugaufrufe</strong> (Skript ausf&uuml;hren, Datei erstellen)
+       statt zehn &mdash; weniger Tokens, schnellere Ausf&uuml;hrung, geringere API-Kosten,
+       zuverl&auml;ssigeres Ergebnis.</p>
+    <div class="tip"><strong>Grundsatz:</strong> Datentransformation in Skripte/Werkzeuge
+      auslagern. Das LLM entscheidet <em>was</em> zu tun ist &mdash; das Skript erledigt das <em>Wie</em>.</div>
+
+    <h3>&#x1F9EA; 2 &nbsp; Skript-/JS-Assistenten nutzen &mdash; aber immer testen</h3>
+    <p>
+      Der <strong>Shell-Skript-Assistent</strong> und der <strong>JavaScript-Werkzeug-Assistent</strong>
+      k&ouml;nnen aus einer einfachen Beschreibung funktionierenden Code generieren. Ein klarer Prompt
+      mit Eingaben, Ausgaben und Randf&auml;llen liefert die besten Ergebnisse. Jedoch:
+    </p>
+    <ul>
+      <li>Nach der Generierung immer auf <strong>Test ausf&uuml;hren</strong> tippen. Der erste Versuch
+          kann fehlschlagen, wenn der Prompt zu unscharf war oder das Modell weniger leistungsf&auml;hig
+          ist &mdash; verfeinern und neu generieren.</li>
+      <li>F&uuml;r die Code-Generierung reichen <strong>kleine Modelle</strong> (Ollama / LM Studio lokal
+          oder Ollama auf eigenem Server) oft aus und kosten nichts. Als <strong>LLM 2</strong>
+          konfigurieren und den Playground-LLM-Selektor nutzen, um Code-Generierungs-Prompts
+          &uuml;ber LLM 2 auszuf&uuml;hren, w&auml;hrend Haupt-Aufgaben auf LLM 1 bleiben.</li>
+      <li>In einer zuk&uuml;nftigen Version werden eingebettete Modelle direkt in TealKit
+          herunterladbar und ohne externen Server ausf&uuml;hrbar sein.</li>
+    </ul>
+    <div class="tip"><strong>Tipp:</strong> Die Skript-Beschreibung so pr&auml;zise schreiben wie
+      einen Unit-Test: Eingaben, erwartetes Ausgabeformat, Fehlerverhalten und Zielumgebung
+      (z.&nbsp;B. &bdquo;Bash auf Ubuntu 22.04&ldquo;).</div>
+
+    <h3>&#x1F9E0; 3 &nbsp; Modell zur Aufgabenkomplexit&auml;t passend w&auml;hlen</h3>
+    <p>
+      Nicht jede Aufgabe ben&ouml;tigt dasselbe Modell. Als grobe Richtlinie:
+    </p>
+    <ul>
+      <li><strong>Komplexe Schlussfolgerungen, mehrstufige Planung, lange Dokumente</strong> &rarr;
+          ein vollst&auml;ndiges LLM verwenden (GPT-4o, Gemini 2.5 Pro, Claude Sonnet, Mistral Medium &hellip;)</li>
+      <li><strong>Kurze, deterministische Aktionen</strong> (Skript ausf&uuml;hren, CSV formatieren,
+          Benachrichtigung senden) &rarr; ein SLM kann das zuverl&auml;ssig und wesentlich g&uuml;nstiger
+          erledigen. Checkbox <strong>SLM-Modus</strong> in den <em>LLM-Einstellungen</em> aktivieren,
+          um einen kompakten System-Prompt zu erhalten, der kleine Modelle sofort Werkzeuge aufrufen
+          l&auml;sst, statt ihre Planung zu beschreiben.</li>
+      <li>SLMs k&ouml;nnen komplexe Aufgaben m&ouml;glicherweise nicht immer zuverl&auml;ssig abschlie&szlig;en
+          oder ben&ouml;tigen mehrere Minuten. Vor dem Einplanen gr&uuml;ndlich im Playground testen.</li>
+    </ul>
+    <p>
+      Den <strong>LLM 1 / LLM 2-Selektor</strong> im Playground nutzen, um denselben Prompt
+      mit verschiedenen Modellen zu vergleichen. Auch mit der <strong>Temperatur</strong>
+      experimentieren &mdash; niedrige Werte (z.&nbsp;B. 0,1&ndash;0,2) liefern deterministischere,
+      reproduzierbarere Werkzeugaufrufe; h&ouml;here Werte erh&ouml;hen die Kreativit&auml;t, reduzieren
+      aber die Zuverl&auml;ssigkeit bei Automatisierungsaufgaben.
+    </p>
+    <div class="tip"><strong>Workflow:</strong> Aufgabe im Playground mit LLM 1 entwerfen &rarr;
+      denselben Prompt mit LLM 2 (SLM) ausprobieren &rarr; wenn es zuverl&auml;ssig funktioniert,
+      die gespeicherte Aufgabe auf LLM 2 umstellen, um Kosten und Latenz zu sparen.</div>
   </section>
 
 </div>

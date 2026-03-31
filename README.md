@@ -14,7 +14,8 @@
 ### 🤖 AI Playground & Flexibility
 * **Provider Independent:** Use leading providers like **Google Gemini, OpenAI GPT-5, Anthropic, and Mistral**.
 * **🇪🇺 European Privacy & GDPR:** Data sovereignty matters. TealKit works fully with **Mistral AI** — a European provider headquartered in France that processes all data within the EU. Ideal for users and organisations where GDPR compliance is non-negotiable. Just enter your Mistral API key and your prompts never leave European infrastructure.
-* **Small Language Models (SLM):** Not every task needs a powerful cloud model. Run lightweight SLMs on your own hardware with **Ollama**, **LM Studio**, or any OpenAI-compatible local endpoint — zero cloud costs, zero data sharing. Every model behaves differently; use the **Playground** to test and compare prompts across models to find the best fit for each task before automating it.
+* **Small Language Models (SLM):** Not every task needs a powerful cloud model. Run lightweight SLMs on your own hardware with **Ollama**, **LM Studio**, or any OpenAI-compatible local endpoint — zero cloud costs, zero data sharing. Mark a model as **SLM** in LLM Settings to get a compact, action-focused system prompt that forces the model to call tools immediately instead of explaining its plan.
+* **Dual-LLM Setup:** Configure a secondary LLM (LLM 2) — for example a fast SLM for code tasks — and switch between them directly in the **Playground** with the LLM 1 / LLM 2 selector. Every model behaves differently; use the Playground to compare prompts across models and find the best fit for each task before automating it.
 * **Local Intelligence:** Support for **Ollama** models for 100% offline processing.
 * **Full Customization:** Tweak model parameters per task and keep token costs predictable.
 * **Chat-to-Task:** Test ideas in the chat interface before promoting them to automated tasks.
@@ -143,8 +144,13 @@ TealKit is an **open agentic platform**: every capability not built-in can be ad
 
 ## 🔜 Coming Next
 
-* **Smart System Prompts per Model:** TealKit will automatically detect whether you are using a large language model (LLM) or a small language model (SLM) and generate the system prompt accordingly — so even compact models receive instructions they can reliably act on.
 * **Fully Offline with Embedded Models:** The next release will let you run TealKit without any internet connection by loading an embedded model directly from **Hugging Face**. The best-fitting model is recommended based on your device's available hardware — making powerful on-device AI accessible to everyone, no API key required.
+
+---
+
+## 📖 Best Practices
+
+See the [**Best Practices**](https://lschaffer.github.io/tealkit-privacy/guide/#best-practices) section in the User Guide for tips on reducing token costs, using the script wizards effectively, and choosing the right model for each task.
 
 ---
 **Developed by [L. Schaffer](https://github.com/lschaffer)**
